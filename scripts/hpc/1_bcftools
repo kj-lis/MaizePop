@@ -1,0 +1,20 @@
+#!/bin/sh
+#SBATCH --job-name=maize_bcf
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=5G
+#SBATCH --time=48:00:00
+#SBATCH --account=g102-2488
+#SBATCH --partition=okeanos
+#SBATCH --output=/home/jl430796/MaizePop/logs/maize_pop.%A_%a.out
+#SBATCH --error=/home/jl430796/MaizePop/logs/maize_pop.%A_%a.err
+#SBATCH --array=1-10
+
+chr=${SLURM_ARRAY_TASK_ID}
+
+bcftools view -S /home/jl430796/MaizePop/zea_metadane_uniq.txt /home/marcing/DATA/VCF/chr_${chr}_filtered_raw.vcf.gz \
+-O z -o /home/jl430796/MaizePop/data/processed/chr_${chr}_zea.vcf.gz
+
+bcftools view /home/jl430796/MaizePop/data/processed/chr_${chr}_zea.vcf.gz -i 'F_MISSING<0.2 && MAF>=0.05' \
+-O z -o /home/jl430796/MaizePop/data/processed/chr_${chr}_zea_MAF_F.vcf.gz
