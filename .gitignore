@@ -2,9 +2,9 @@
 # DATA
 # ===============================
 # Ignore all raw and processed data (too large for Git).
-data/raw/*
+data/raw/**
 !data/raw/.gitkeep
-data/processed/*
+data/processed/**
 !data/processed/.gitkeep
 
 
@@ -12,7 +12,7 @@ data/processed/*
 # RESULTS
 # ===============================
 # Ignore heavy results and temporary runs.
-results/full/*
+results/full/**
 results/full/
 !results/full/.gitkeep
 
