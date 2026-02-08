@@ -13,7 +13,7 @@
 
 chr=${SLURM_ARRAY_TASK_ID}
 
-bcftools view -S /home/jl430796/MaizePop/zea_metadane_uniq.txt /home/marcing/DATA/VCF/chr_${chr}_filtered_raw.vcf.gz \
+bcftools view -S /home/jl430796/MaizePop/zea_metadane.txt /home/marcing/DATA/VCF/chr_${chr}_filtered_raw.vcf.gz \
 -O z -o /home/jl430796/MaizePop/data/processed/chr_${chr}_zea.vcf.gz
 
 bcftools view /home/jl430796/MaizePop/data/processed/chr_${chr}_zea.vcf.gz -i 'F_MISSING<0.2 && MAF>=0.05' \
