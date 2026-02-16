@@ -1,5 +1,5 @@
 #!/bin/sh
-#SBATCH --job-name=zall_admix
+#SBATCH --job-name=zmays_admix
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=1
@@ -10,4 +10,4 @@
 #SBATCH --output=/home/jl430796/MaizePop/logs/maize_pop.%A_%a.out
 #SBATCH --error=/home/jl430796/MaizePop/logs/maize_pop.%A_%a.err
 
-admixture /home/jl430796/MaizePop/data/processed/zea_all/chr_zea_all_plink_3.bed 5
+admixture /home/jl430796/MaizePop/data/processed/zea_mays/chr_zea_mays_all_plink_3.bed 5
