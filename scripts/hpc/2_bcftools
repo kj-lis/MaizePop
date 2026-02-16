@@ -21,4 +21,3 @@ bcftools concat /home/jl430796/MaizePop/data/processed/zea_all/chr_1_zea_MAF_F.v
 /home/jl430796/MaizePop/data/processed/zea_all/chr_9_zea_MAF_F.vcf.gz \
 /home/jl430796/MaizePop/data/processed/zea_all/chr_10_zea_MAF_F.vcf.gz \
 -O z -o /home/jl430796/MaizePop/data/processed/zea_all/chr_zea_all.vcf.gz
-

@@ -1,4 +1,4 @@
-#!/bin/sh
+!/bin/sh
 #SBATCH --job-name=zmmp_bcf_5
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
