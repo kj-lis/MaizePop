@@ -10,14 +10,14 @@
 #SBATCH --output=/home/jl430796/MaizePop/logs/zmmp_bcf_6.%A_%a.out
 #SBATCH --error=/home/jl430796/MaizePop/logs/zmmp_bcf_6.%A_%a.err
 
-bcftools concat /home/jl430796/MaizePop/data/processed/zea_all/chr_1_zea_MAF_F.vcf.gz \
-/home/jl430796/MaizePop/data/processed/zea_all/chr_2_zea_MAF_F.vcf.gz \
-/home/jl430796/MaizePop/data/processed/zea_all/chr_3_zea_MAF_F.vcf.gz \
-/home/jl430796/MaizePop/data/processed/zea_all/chr_4_zea_MAF_F.vcf.gz \
-/home/jl430796/MaizePop/data/processed/zea_all/chr_5_zea_MAF_F.vcf.gz \
-/home/jl430796/MaizePop/data/processed/zea_all/chr_6_zea_MAF_F.vcf.gz \
-/home/jl430796/MaizePop/data/processed/zea_all/chr_7_zea_MAF_F.vcf.gz \
-/home/jl430796/MaizePop/data/processed/zea_all/chr_8_zea_MAF_F.vcf.gz \
-/home/jl430796/MaizePop/data/processed/zea_all/chr_9_zea_MAF_F.vcf.gz \
-/home/jl430796/MaizePop/data/processed/zea_all/chr_10_zea_MAF_F.vcf.gz \
--O z -o /home/jl430796/MaizePop/data/processed/zea_all/chr_zea_mmp_all.vcf.gz
+bcftools concat /home/jl430796/MaizePop/data/processed/zea_mmp/chr_1_zea_mmp_MAF_F.vcf.gz \
+/home/jl430796/MaizePop/data/processed/zea_mmp/chr_2_zea_mmp_MAF_F.vcf.gz \
+/home/jl430796/MaizePop/data/processed/zea_mmp/chr_3_zea_mmp_MAF_F.vcf.gz \
+/home/jl430796/MaizePop/data/processed/zea_mmp/chr_4_zea_mmp_MAF_F.vcf.gz \
+/home/jl430796/MaizePop/data/processed/zea_mmp/chr_5_zea_mmp_MAF_F.vcf.gz \
+/home/jl430796/MaizePop/data/processed/zea_mmp/chr_6_zea_mmp_MAF_F.vcf.gz \
+/home/jl430796/MaizePop/data/processed/zea_mmp/chr_7_zea_mmp_MAF_F.vcf.gz \
+/home/jl430796/MaizePop/data/processed/zea_mmp/chr_8_zea_mmp_MAF_F.vcf.gz \
+/home/jl430796/MaizePop/data/processed/zea_mmp/chr_9_zea_mmp_MAF_F.vcf.gz \
+/home/jl430796/MaizePop/data/processed/zea_mmp/chr_10_zea_mmp_MAF_F.vcf.gz \
+-O z -o /home/jl430796/MaizePop/data/processed/zea_mmp/chr_zea_mmp_all.vcf.gz
