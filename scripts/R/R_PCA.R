@@ -10,18 +10,34 @@ metadane <- read.csv("/home/kuba/Desktop/zmays_metadane_PCA.csv", stringsAsFacto
 
 pca_meta <- left_join(pca, metadane, by = "VCFname")
 
+
+pca_meta$Poland_flag <- factor(ifelse(pca_meta$orygin == "Poland",
+                                      "Poland",
+                                      "Other"),
+                               levels = c("Other", "Poland"))
+
+
 ggplot(pca_meta, aes(x = PC1, y = PC2)) +
-  geom_point(data = subset(pca_meta, orygin != "Poland"),
-             aes(color = Q),
-             size = 3,
-             alpha = 0.1,
-             shape = 16) +
   
-  geom_point(data = subset(pca_meta, orygin == "Poland"),
-             aes(color = Q),
+  geom_point(data = subset(pca_meta, Poland_flag == "Other"),
+             aes(color = Q, shape = Poland_flag),
              size = 3,
-             shape = 17) +
+             alpha = 0.1) +
+  
+  geom_point(data = subset(pca_meta, Poland_flag == "Poland"),
+             aes(color = Q, shape = Poland_flag),
+             size = 3) +
+  
+  scale_shape_manual(
+    values = c("Other" = 16, "Poland" = 17),
+    name = "Origin"
+  ) +
   
   labs(color = "Group") +
+  
+  guides(
+    color = guide_legend(override.aes = list(alpha = 1), order = 1),
+    shape = guide_legend(order = 2)
+  ) +
+  
   theme_minimal()
-
