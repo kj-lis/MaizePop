@@ -119,3 +119,6 @@ ggplot(pca_meta2, aes(x = PC1, y = PC2, color = Q)) +
   
   labs(color = "Group") +
   theme_minimal()
+
+
+test 
