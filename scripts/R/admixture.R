@@ -28,3 +28,5 @@ for(i in 1:K){
     writeLines(cluster_ids, paste0("/home/kuba/Desktop/", i, "_IDs.txt"))
 }
 
+bla bla bla
+
