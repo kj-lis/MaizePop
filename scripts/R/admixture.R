@@ -27,6 +27,3 @@ for(i in 1:K){
   cluster_ids <- merged$ID[merged$Assigned_cluster == i]
     writeLines(cluster_ids, paste0("/home/kuba/Desktop/", i, "_IDs.txt"))
 }
-
-bla bla bla
-
