@@ -18,3 +18,15 @@ bcftools view -S /home/jl430796/MaizePop/metadane/zea_mays_metadane.txt /home/ma
 
 bcftools view /home/jl430796/MaizePop/data/processed/zea_mays/chr_${chr}_zea_mays.vcf.gz -i 'F_MISSING<0.2 && MAF>=0.05' -m2 -M2 -v snps \
 -O z -o /home/jl430796/MaizePop/data/processed/zea_mays/chr_${chr}_zea_mays_MAF_F.vcf.gz
+
+bcftools concat /home/jl430796/MaizePop/data/processed/zea_mays/chr_1_zea_mays_MAF_F.vcf.gz \
+/home/jl430796/MaizePop/data/processed/zea_mays/chr_2_zea_mays_MAF_F.vcf.gz \
+/home/jl430796/MaizePop/data/processed/zea_mays/chr_3_zea_mays_MAF_F.vcf.gz \
+/home/jl430796/MaizePop/data/processed/zea_mays/chr_4_zea_mays_MAF_F.vcf.gz \
+/home/jl430796/MaizePop/data/processed/zea_mays/chr_5_zea_mays_MAF_F.vcf.gz \
+/home/jl430796/MaizePop/data/processed/zea_mays/chr_6_zea_mays_MAF_F.vcf.gz \
+/home/jl430796/MaizePop/data/processed/zea_mays/chr_7_zea_mays_MAF_F.vcf.gz \
+/home/jl430796/MaizePop/data/processed/zea_mays/chr_8_zea_mays_MAF_F.vcf.gz \
+/home/jl430796/MaizePop/data/processed/zea_mays/chr_9_zea_mays_MAF_F.vcf.gz \
+/home/jl430796/MaizePop/data/processed/zea_mays/chr_10_zea_mays_MAF_F.vcf.gz \
+-O z -o /home/jl430796/MaizePop/data/processed/zea_mays/chr_zea_mays_all.vcf.gz
