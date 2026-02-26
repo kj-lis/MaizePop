@@ -1,5 +1,5 @@
 #!/bin/sh
-#SBATCH --job-name=zmays_bcf_8_1
+#SBATCH --job-name=zmays_bcf_5_1
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=1
@@ -7,8 +7,8 @@
 #SBATCH --time=48:00:00
 #SBATCH --account=g102-2488
 #SBATCH --partition=okeanos
-#SBATCH --output=/home/jl430796/MaizePop/logs/zmays_bcf_8.%A_%a.out
-#SBATCH --error=/home/jl430796/MaizePop/logs/zmays_bcf_8.%A_%a.err
+#SBATCH --output=/home/jl430796/MaizePop/logs/zmays_bcf_5.%A_%a.out
+#SBATCH --error=/home/jl430796/MaizePop/logs/zmays_bcf_5.%A_%a.err
 
 chr=${SLURM_ARRAY_TASK_ID}
 
@@ -28,4 +28,4 @@ bcftools concat /home/jl430796/MaizePop/data/processed/zea_LD/chr_1_zea_filtr_LD
 /home/jl430796/MaizePop/data/processed/zea_LD/chr_8_zea_filtr_LD_1.vcf.gz \
 /home/jl430796/MaizePop/data/processed/zea_LD/chr_9_zea_filtr_LD_1.vcf.gz \
 /home/jl430796/MaizePop/data/processed/zea_LD/chr_10_zea_filtr_LD_1.vcf.gz \
--O z -o /home/jl430796/MaizePop/data/processed/zea_LD/chr_zea_LD_all.vcf.gz
+-O z -o /home/jl430796/MaizePop/data/processed/zea_LD/chr_zea_filtr_LD_1_all.vcf.gz
