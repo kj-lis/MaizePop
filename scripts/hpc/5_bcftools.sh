@@ -13,7 +13,7 @@
 chr=${SLURM_ARRAY_TASK_ID}
 
 bcftools view -S /home/jl430796/MaizePop/metadane/1_IDs.txt /home/marcing/DATA/VCF/chr_${chr}_filtered_raw.vcf.gz \
--O z -o /home/jl430796/MaizePop/data/processed/zea_LD/chr_${chr}_zea_LD_1.vcf.gz
+-O z -o /home/jl430796/MaizePop/data/processed/zea_LD/chr_${chr}_zea_LD1.vcf.gz
 
-bcftools view /home/jl430796/MaizePop/data/processed/zea_LD/chr_${chr}_zea_LD_1.vcf.gz -i 'F_MISSING<0.2 && MAF>=0.05' -m2 -M2 -v snps \
--O z -o /home/jl430796/MaizePop/data/processed/zea_LD/chr_${chr}_zea_filtr_LD_1.vcf.gz
+bcftools view /home/jl430796/MaizePop/data/processed/zea_LD/chr_${chr}_zea_LD1.vcf.gz -i 'F_MISSING<0.2 && MAF>=0.05' -m2 -M2 -v snps \
+-O z -o /home/jl430796/MaizePop/data/processed/zea_LD/chr_${chr}_zea_filtr_LD1.vcf.gz
