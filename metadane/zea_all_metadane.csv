@@ -279,9 +279,6 @@ MBPM_chilling,MBPM,chilling,MBPM,MBPM,NSS,II,NSS,US,NSS_II_US
 MBPM_control,MBPM,control,MBPM,MBPM,NSS,II,NSS,US,NSS_II_US
 MGBCL18_cold,6C6,cold,MGBCL18,MGBCL18,Zea mays subsp. mexicana,none,Mexicana,Mexicana,Zea mays subsp. mexicana
 MGBCL18_control,6C6,control,MGBCL18,MGBCL18,Zea mays subsp. mexicana,none,Mexicana,Mexicana,Zea mays subsp. mexicana
-MGBCL1_chilling,6B1,chilling,MGBCL1,MGBCL1,Zea mays subsp. mexicana,none,Mexicana,Mexicana,Zea mays subsp. mexicana
-MGBCL1_cold,6B1,cold,MGBCL1,MGBCL1,Zea mays subsp. mexicana,none,Mexicana,Mexicana,Zea mays subsp. mexicana
-MGBCL1_control,6B1,control,MGBCL1,MGBCL1,Zea mays subsp. mexicana,none,Mexicana,Mexicana,Zea mays subsp. mexicana
 MGB_CI10_chilling,6B10,chilling,MGB_CI10,MGBCI10,Zea mays subsp. mexicana,none,Mexicana,Mexicana,Zea mays subsp. mexicana
 MGB_CI10_cold,6B10,cold,MGB_CI10,MGBCI10,Zea mays subsp. mexicana,none,Mexicana,Mexicana,Zea mays subsp. mexicana
 MGB_CI10_control,6B10,control,MGB_CI10,MGBCI10,Zea mays subsp. mexicana,none,Mexicana,Mexicana,Zea mays subsp. mexicana
