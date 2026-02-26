@@ -9,7 +9,6 @@
 #SBATCH --partition=okeanos
 #SBATCH --output=/home/jl430796/MaizePop/logs/zmays_bcf_2.%A_%a.out
 #SBATCH --error=/home/jl430796/MaizePop/logs/zmays_bcf_2.%A_%a.err
-#SBATCH --array=1-10
 
 bcftools concat /home/jl430796/MaizePop/data/processed/zea_mays/chr_1_zea_mays_filtr.vcf.gz \
 /home/jl430796/MaizePop/data/processed/zea_mays/chr_2_zea_mays_filtr.vcf.gz \
