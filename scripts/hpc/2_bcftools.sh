@@ -21,4 +21,4 @@ bcftools concat /home/jl430796/MaizePop/data/processed/zea_mays/chr_1_zea_mays_f
 /home/jl430796/MaizePop/data/processed/zea_mays/chr_8_zea_mays_filtr.vcf.gz \
 /home/jl430796/MaizePop/data/processed/zea_mays/chr_9_zea_mays_filtr.vcf.gz \
 /home/jl430796/MaizePop/data/processed/zea_mays/chr_10_zea_mays_filtr.vcf.gz \
--O z -o /home/jl430796/MaizePop/data/processed/zea_mays/chr_zea_mays_filtr_all.vcf.gz
+-O z -o /home/jl430796/MaizePop/data/processed/zea_mays/chr_zea_mays_all_filtr.vcf.gz

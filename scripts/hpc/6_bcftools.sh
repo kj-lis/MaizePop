@@ -20,4 +20,4 @@ bcftools concat /home/jl430796/MaizePop/data/processed/zea_LD/chr_1_zea_filtr_LD
 /home/jl430796/MaizePop/data/processed/zea_LD/chr_8_zea_filtr_LD_1.vcf.gz \
 /home/jl430796/MaizePop/data/processed/zea_LD/chr_9_zea_filtr_LD_1.vcf.gz \
 /home/jl430796/MaizePop/data/processed/zea_LD/chr_10_zea_filtr_LD_1.vcf.gz \
--O z -o /home/jl430796/MaizePop/data/processed/zea_LD/chr_zea_filtr_LD_1_all.vcf.gz
+-O z -o /home/jl430796/MaizePop/data/processed/zea_LD/chr_zea_all_filtr_LD_1.vcf.gz
