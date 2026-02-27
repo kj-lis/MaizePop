@@ -10,6 +10,8 @@
 #SBATCH --output=/home/jl430796/MaizePop/logs/zmays_LD_6.%A_%a.out
 #SBATCH --error=/home/jl430796/MaizePop/logs/zmays_LD_6.%A_%a.err
 
+export PATH=~/tools/PopLDdecay/bin:$PATH
+
 PopLDdecay -InVCF /home/jl430796/MaizePop/data/processed/zea_LD/chr_zea_mays_LD1.vcf.gz \
 -OutStat /home/jl430796/MaizePop/results/full/zea_LD/zea_1_LD -MaxDist 500 -MAF 0.05
 
