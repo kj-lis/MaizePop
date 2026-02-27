@@ -9,6 +9,13 @@
 #SBATCH --partition=okeanos
 #SBATCH --output=/home/jl430796/MaizePop/logs/zmays_LD_6.%A_%a.out
 #SBATCH --error=/home/jl430796/MaizePop/logs/zmays_LD_6.%A_%a.err
+#SBATCH --array=1-5
+
+LD=${SLURM_ARRAY_TASK_ID}
+
+bcftools view -S /home/jl430796/MaizePop/metadane/zea_all_metadane.txt /home/marcing/DATA/VCF/chr_${chr}_filtered_raw.vcf.gz \
+-O z -o /home/jl430796/MaizePop/data/processed/zea_mays/chr_${chr}_zea_mays.vcf.gz
+#do poprawienia
 
 /home/jl430796/PopLDdecay/bin/PopLDdecay \
 -InVCF /home/jl430796/MaizePop/data/processed/zea_LD/chr_zea_mays_LD1.vcf.gz \
