@@ -11,6 +11,7 @@ data$Assigned_cluster <- apply(Q, 1, which.max)
 merged <- merge(data, metadane_unique, by.x="ID", by.y="VCFname")
 
 write.csv(merged, "/home/kuba/Desktop/admixture_5.csv", row.names=FALSE)
+table(merged$Assigned_cluster)
 
 polish_lines <- merged[merged$origin == "Poland", ]
 write.csv(polish_lines, "/home/kuba/Desktop/admixture_5_polish.csv", row.names=FALSE)
@@ -18,8 +19,6 @@ write.csv(polish_lines, "/home/kuba/Desktop/admixture_5_polish.csv", row.names=F
 polish <- subset(merged, origin=="Poland")
 table(polish$Assigned_cluster)
 
-
-#############################
 
 K <- max(merged$Assigned_cluster)
 
