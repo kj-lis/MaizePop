@@ -76,9 +76,6 @@ B95_cold,B95,cold,B95,B95,Huangzaosi,NA,NSS,US,NSS_NA_US
 B95_control,B95,control,B95,B95,Huangzaosi,NA,NSS,US,NSS_NA_US
 B97_cold,B97,cold,B97,B97,NSS,I,NSS,US,NSS_I_US
 B97_control,B97,control,B97,B97,NSS,I,NSS,US,NSS_I_US
-Breslau_II_chilling,NA,chilling,Breslau_II,BreslauII,NA,NA,Landrace,NA,Landrace_NA_NA
-Breslau_II_cold,NA,cold,Breslau_II,BreslauII,NA,NA,Landrace,NA,Landrace_NA_NA
-Breslau_II_control,NA,control,Breslau_II,BreslauII,NA,NA,Landrace,NA,Landrace_NA_NA
 CH701_30_chilling,CH701-30,chilling,CH701_30,CH70130,Broad origin-public,I,NSS,US,NSS_I_US
 CH701_30_cold,CH701-30,cold,CH701_30,CH70130,Broad origin-public,I,NSS,US,NSS_I_US
 CH701_30_control,CH701-30,control,CH701_30,CH70130,Broad origin-public,I,NSS,US,NSS_I_US
@@ -88,9 +85,6 @@ CM105_control,CM105,control,CM105,CM105,SS,I,SS,US,SS_I_US
 CM7_chilling,CM7,chilling,CM7,CM7,SS,I,NSS,US,NSS_I_US
 CM7_cold,CM7,cold,CM7,CM7,SS,I,NSS,US,NSS_I_US
 CM7_control,CM7,control,CM7,CM7,SS,I,NSS,US,NSS_I_US
-CML103_chilling,NA,chilling,CML103,CML103,NA,NA,Tropical,Mexico,Tropical
-CML103_cold,NA,cold,CML103,CML103,NA,NA,Tropical,Mexico,Tropical
-CML103_control,NA,control,CML103,CML103,NA,NA,Tropical,Mexico,Tropical
 CML108_chilling,CML_108,chilling,CML108,CML108,Tropical,I,Tropical,Mexico,Tropical
 CML108_cold,CML_108,cold,CML108,CML108,Tropical,I,Tropical,Mexico,Tropical
 CML108_control,CML_108,control,CML108,CML108,Tropical,I,Tropical,Mexico,Tropical
@@ -175,19 +169,11 @@ CO106_cold,CO106,cold,CO106,CO106,Broad origin-public,I,NSS,US,NSS_I_US
 CO106_control,CO106,control,CO106,CO106,Broad origin-public,I,NSS,US,NSS_I_US
 CR14_chilling,CR14,chilling,CR14,CR14,SS,II,SS,US,SS_II_US
 CR14_control,CR14,control,CR14,CR14,SS,II,SS,US,SS_II_US
-Czechnick_chilling,NA,chilling,Czechnick,Czechnick,NA,NA,Landrace,NA,Landrace_NA_NA
-Czechnick_cold,NA,cold,Czechnick,Czechnick,NA,NA,Landrace,NA,Landrace_NA_NA
-Czechnick_control,NA,control,Czechnick,Czechnick,NA,NA,Landrace,NA,Landrace_NA_NA
-Czerwony_Koral_cold,NA,cold,Czerwony_Koral,CzerwonyKoral,NA,NA,Landrace,NA,Landrace_NA_NA
-Czerwony_Koral_control,NA,control,Czerwony_Koral,CzerwonyKoral,NA,NA,Landrace,NA,Landrace_NA_NA
 DE811_chilling,DE811,chilling,DE811,DE811,SS,I,SS,US,SS_I_US
 DE811_control,DE811,control,DE811,DE811,SS,I,SS,US,SS_I_US
 DJ7_chilling,DJ7,chilling,DJ7,DJ7,SS,II,SS,US,SS_II_US
 DJ7_cold,DJ7,cold,DJ7,DJ7,SS,II,SS,US,SS_II_US
 DJ7_control,DJ7,control,DJ7,DJ7,SS,II,SS,US,SS_II_US
-Dolnoslaska_Kiszonkowa_chilling,NA,chilling,Dolnoslaska_Kiszonkowa,DolnoslaskaKiszonkowa,NA,NA,Landrace,NA,Landrace_NA_NA
-Dolnoslaska_Kiszonkowa_cold,NA,cold,Dolnoslaska_Kiszonkowa,DolnoslaskaKiszonkowa,NA,NA,Landrace,NA,Landrace_NA_NA
-Dolnoslaska_Kiszonkowa_control,NA,control,Dolnoslaska_Kiszonkowa,DolnoslaskaKiszonkowa,NA,NA,Landrace,NA,Landrace_NA_NA
 E8501_cold,E8501,cold,E8501,E8501,NSS,II,NSS,US,NSS_II_US
 E8501_control,E8501,control,E8501,E8501,NSS,II,NSS,US,NSS_II_US
 EP1_chilling,EP1,chilling,EP1,EP1,Sweet corn,,Mix,NA,Mix__NA
@@ -231,9 +217,6 @@ I29_control,I29,control,I29,I29,Popcorn,,Mix,NA,Mix__NA
 IBB15_chilling,IBB15,chilling,IBB15,IBB15,IDT,II,Iodent,US,Iodent_II_US
 IBB15_cold,IBB15,cold,IBB15,IBB15,IDT,II,Iodent,US,Iodent_II_US
 IBB15_control,IBB15,control,IBB15,IBB15,IDT,II,Iodent,US,Iodent_II_US
-Janetzkis_Gloria_chilling,NA,chilling,Janetzkis_Gloria,JanetzkisGloria,NA,NA,Landrace,NA,Landrace_NA_NA
-Janetzkis_Gloria_cold,NA,cold,Janetzkis_Gloria,JanetzkisGloria,NA,NA,Landrace,NA,Landrace_NA_NA
-Janetzkis_Gloria_control,NA,control,Janetzkis_Gloria,JanetzkisGloria,NA,NA,Landrace,NA,Landrace_NA_NA
 K4_cold,K4,cold,K4,K4,Broad origin-public,I,NSS,US,NSS_I_US
 K4_control,K4,control,K4,K4,Broad origin-public,I,NSS,US,NSS_I_US
 K67_16_chilling,5E3,chilling,K67_16,K6716,Zea mays subsp. parviglumis,none,Parviglumis,Parviglumis,Zea mays subsp. parviglumis
@@ -344,12 +327,6 @@ ML606_control,ML606,control,ML606,ML606,NSS,NA,NSS,US,NSS_NA_US
 MO1W_chilling,Mo1W,chilling,MO1W,Mo1W,NSS,I,NSS,US,NSS_I_US
 MO1W_cold,Mo1W,cold,MO1W,Mo1W,NSS,I,NSS,US,NSS_I_US
 MO1W_control,Mo1W,control,MO1W,Mo1W,NSS,I,NSS,US,NSS_I_US
-Malopolanka_chilling,NA,chilling,Malopolanka,Malopolanka,NA,NA,Landrace,NA,Landrace_NA_NA
-Malopolanka_cold,NA,cold,Malopolanka,Malopolanka,NA,NA,Landrace,NA,Landrace_NA_NA
-Malopolanka_control,NA,control,Malopolanka,Malopolanka,NA,NA,Landrace,NA,Landrace_NA_NA
-Mieszko_chilling,NA,chilling,Mieszko,Mieszko,NA,NA,Landrace,NA,Landrace_NA_NA
-Mieszko_cold,NA,cold,Mieszko,Mieszko,NA,NA,Landrace,NA,Landrace_NA_NA
-Mieszko_control,NA,control,Mieszko,Mieszko,NA,NA,Landrace,NA,Landrace_NA_NA
 Mo24W_chilling,Mo24W,chilling,Mo24W,Mo24W,Broad origin-public,I,Mix,NA,Mix_I_NA
 Mp339_chilling,Mp339,chilling,Mp339,Mp339,Mixed,,Mix,NA,Mix__NA
 N192_cold,N192,cold,N192,N192,SS,NA,SS,US,SS_NA_US
@@ -418,8 +395,6 @@ NS501_control,NS501,control,NS501,NS501,IDT,II,Mix,NA,Mix_II_NA
 NS701_chilling,NS701,chilling,NS701,NS701,SS,II,SS,US,SS_II_US
 NS701_cold,NS701,cold,NS701,NS701,SS,II,SS,US,SS_II_US
 NS701_control,NS701,control,NS701,NS701,SS,II,SS,US,SS_II_US
-Neuzucht_Kaatz_cold,NA,cold,Neuzucht_Kaatz,NeuzuchtKaatz,NA,NA,Landrace,NA,Landrace_NA_NA
-Neuzucht_Kaatz_control,NA,control,Neuzucht_Kaatz,NeuzuchtKaatz,NA,NA,Landrace,NA,Landrace_NA_NA
 OH7_chilling,Oh7,chilling,OH7,Oh7,Mixed,I,NSS,US,NSS_I_US
 OH7_cold,Oh7,cold,OH7,Oh7,Mixed,I,NSS,US,NSS_I_US
 OH7_control,Oh7,control,OH7,Oh7,Mixed,I,NSS,US,NSS_I_US
@@ -434,9 +409,6 @@ Oh43_cold,Oh43,cold,Oh43,Oh43,NSS,I,NSS,US,NSS_I_US
 Oh43_control,Oh43,control,Oh43,Oh43,NSS,I,NSS,US,NSS_I_US
 Oh7B_chilling,Oh7B,chilling,Oh7B,Oh7B,NSS,I,NSS,US,NSS_I_US
 Oh7B_control,Oh7B,control,Oh7B,Oh7B,NSS,I,NSS,US,NSS_I_US
-Oksonska_chilling,NA,chilling,Oksonska,Oksonska,NA,NA,Landrace,NA,Landrace_NA_NA
-Oksonska_cold,NA,cold,Oksonska,Oksonska,NA,NA,Landrace,NA,Landrace_NA_NA
-Oksonska_control,NA,control,Oksonska,Oksonska,NA,NA,Landrace,NA,Landrace_NA_NA
 PHB47_chilling,PHB47,chilling,PHB47,PHB47,SS,II,SS,US,SS_II_US
 PHB47_cold,PHB47,cold,PHB47,PHB47,SS,II,SS,US,SS_II_US
 PHB47_control,PHB47,control,PHB47,PHB47,SS,II,SS,US,SS_II_US
@@ -472,22 +444,8 @@ Pa880_control,Pa880,control,Pa880,Pa880,Mixed,I,NSS,US,NSS_I_US
 Pa91_chilling,Pa91,chilling,Pa91,Pa91,NSS,I,NSS,US,NSS_I_US
 Pa91_cold,Pa91,cold,Pa91,Pa91,NSS,I,NSS,US,NSS_I_US
 Pa91_control,Pa91,control,Pa91,Pa91,NSS,I,NSS,US,NSS_I_US
-Przebedowska_Biala_chilling,NA,chilling,Przebedowska_Biala,PrzebedowskaBiala,NA,NA,Landrace,NA,Landrace_NA_NA
-Przebedowska_Biala_cold,NA,cold,Przebedowska_Biala,PrzebedowskaBiala,NA,NA,Landrace,NA,Landrace_NA_NA
-Przebedowska_Biala_control,NA,control,Przebedowska_Biala,PrzebedowskaBiala,NA,NA,Landrace,NA,Landrace_NA_NA
-Przebedowska_Bursztynowa_cold,NA,cold,Przebedowska_Bursztynowa,PrzebedowskaBursztynowa,NA,NA,Landrace,NA,Landrace_NA_NA
-Przebedowska_Bursztynowa_control,NA,control,Przebedowska_Bursztynowa,PrzebedowskaBursztynowa,NA,NA,Landrace,NA,Landrace_NA_NA
-Pulawska_Zolta_chilling,NA,chilling,Pulawska_Zolta,PulawskaZolta,NA,NA,Landrace,NA,Landrace_NA_NA
-Pulawska_Zolta_cold,NA,cold,Pulawska_Zolta,PulawskaZolta,NA,NA,Landrace,NA,Landrace_NA_NA
-Pulawska_Zolta_control,NA,control,Pulawska_Zolta,PulawskaZolta,NA,NA,Landrace,NA,Landrace_NA_NA
 R229_chilling,R229,chilling,R229,R229,SS,I,SS,US,SS_I_US
 R229_control,R229,control,R229,R229,SS,I,SS,US,SS_I_US
-Rottaler_Silomais_chilling,NA,chilling,Rottaler_Silomais,RottalerSilomais,NA,NA,Landrace,NA,Landrace_NA_NA
-Rottaler_Silomais_cold,NA,cold,Rottaler_Silomais,RottalerSilomais,NA,NA,Landrace,NA,Landrace_NA_NA
-Rottaler_Silomais_control,NA,control,Rottaler_Silomais,RottalerSilomais,NA,NA,Landrace,NA,Landrace_NA_NA
-Ryzowa_Pulawska_chilling,NA,chilling,Ryzowa_Pulawska,RyzowaPulawska,NA,NA,Landrace,NA,Landrace_NA_NA
-Ryzowa_Pulawska_cold,NA,cold,Ryzowa_Pulawska,RyzowaPulawska,NA,NA,Landrace,NA,Landrace_NA_NA
-Ryzowa_Pulawska_control,NA,control,Ryzowa_Pulawska,RyzowaPulawska,NA,NA,Landrace,NA,Landrace_NA_NA
 S014290_chilling,S014290,chilling,S014290,S014290,Polskie,II,Iodent,Poland,Iodent_II_Poland
 S014290_cold,S014290,cold,S014290,S014290,Polskie,II,Iodent,Poland,Iodent_II_Poland
 S014290_control,S014290,control,S014290,S014290,Polskie,II,Iodent,Poland,Iodent_II_Poland
@@ -569,8 +527,6 @@ S14036_control,S14036,control,S14036,S14036,Polskie,II,NSS,Poland,NSS_II_Poland
 S14068A3_chilling,S14068A3,chilling,S14068A3,S14068A3,Polskie,II,NSS,Poland,NSS_II_Poland
 S14068A3_cold,S14068A3,cold,S14068A3,S14068A3,Polskie,II,NSS,Poland,NSS_II_Poland
 S14068A3_control,S14068A3,control,S14068A3,S14068A3,Polskie,II,NSS,Poland,NSS_II_Poland
-S14149_1_chilling,NA,chilling,S14149_1,S141491,NA,NA,Landrace,NA,Landrace_NA_NA
-S14149_1_cold,NA,cold,S14149_1,S141491,NA,NA,Landrace,NA,Landrace_NA_NA
 S14189_1_chilling,S14189_1,chilling,S14189_1,S141891,Polskie,II,NSS,Poland,NSS_II_Poland
 S14189_1_cold,S14189_1,cold,S14189_1,S141891,Polskie,II,NSS,Poland,NSS_II_Poland
 S14189_1_control,S14189_1,control,S14189_1,S141891,Polskie,II,NSS,Poland,NSS_II_Poland
@@ -703,8 +659,6 @@ S79757_control,S79757,control,S79757,S79757,Polskie,II,Mix,Poland,Mix_II_Poland
 S80660A_chilling,S80660A,chilling,S80660A,S80660A,Polskie,II,NSS,Poland,NSS_II_Poland
 S80660A_cold,S80660A,cold,S80660A,S80660A,Polskie,II,NSS,Poland,NSS_II_Poland
 S80660A_control,S80660A,control,S80660A,S80660A,Polskie,II,NSS,Poland,NSS_II_Poland
-S8236_chilling,NA,chilling,S8236,S8236,NA,NA,Landrace,NA,Landrace_NA_NA
-S8236_control,NA,control,S8236,S8236,NA,NA,Landrace,NA,Landrace_NA_NA
 SD44_chilling,SD44,chilling,SD44,SD44,Mixed,I,NSS,US,NSS_I_US
 SD44_cold,SD44,cold,SD44,SD44,Mixed,I,NSS,US,NSS_I_US
 SD44_control,SD44,control,SD44,SD44,Mixed,I,NSS,US,NSS_I_US
@@ -713,9 +667,6 @@ SH0452_119_cold,SH04_52_119,cold,SH0452_119,SH0452119,Polskie,II,Iodent,Poland,I
 SH0452_119_control,SH04_52_119,control,SH0452_119,SH0452119,Polskie,II,Iodent,Poland,Iodent_II_Poland
 SH12536_3_cold,SH12536_3,cold,SH12536_3,SH125363,Polskie,II,Iodent,Poland,Iodent_II_Poland
 SH12536_3_control,SH12536_3,control,SH12536_3,SH125363,Polskie,II,Iodent,Poland,Iodent_II_Poland
-SH12622_2_chilling,NA,chilling,SH12622_2,SH126222,Polskie,II,Landrace,Poland,Landrace_II_Poland
-SH12622_2_cold,NA,cold,SH12622_2,SH126222,Polskie,II,Landrace,Poland,Landrace_II_Poland
-SH12622_2_control,NA,control,SH12622_2,SH126222,Polskie,II,Landrace,Poland,Landrace_II_Poland
 SH13225_1_chilling,SH13255_1,chilling,SH13225_1,SH132551,Polskie,II,NSS,Poland,NSS_II_Poland
 SH13225_1_cold,SH13255_1,cold,SH13225_1,SH132551,Polskie,II,NSS,Poland,NSS_II_Poland
 SH13225_1_control,SH13255_1,control,SH13225_1,SH132551,Polskie,II,NSS,Poland,NSS_II_Poland
@@ -775,9 +726,6 @@ SR712_18_cold,SR7_12_18,cold,SR712_18,SR71218,Polskie,II,Iodent,Poland,Iodent_II
 SR712_21_chilling,SR7_12_21,chilling,SR712_21,SR71221,Polskie,II,Iodent,Poland,Iodent_II_Poland
 SR712_21_cold,SR7_12_21,cold,SR712_21,SR71221,Polskie,II,Iodent,Poland,Iodent_II_Poland
 SR712_21_control,SR7_12_21,control,SR712_21,SR71221,Polskie,II,Iodent,Poland,Iodent_II_Poland
-Stanowicka_cold,NA,cold,Stanowicka,Stanowicka,NA,NA,Landrace,NA,Landrace_NA_NA
-Szyldecka_cold,NA,cold,Szyldecka,Szyldecka,NA,NA,Landrace,NA,Landrace_NA_NA
-Szyldecka_control,NA,control,Szyldecka,Szyldecka,NA,NA,Landrace,NA,Landrace_NA_NA
 Tx303_chilling,Tx303,chilling,Tx303,Tx303,Mixed,,Tropical,Mexico,Tropical
 Tx303_cold,Tx303,cold,Tx303,Tx303,Mixed,,Tropical,Mexico,Tropical
 Tx303_control,Tx303,control,Tx303,Tx303,Mixed,,Tropical,Mexico,Tropical
@@ -805,17 +753,3 @@ W64A_control,W64A,control,W64A,W64A,NSS,I,NSS,US,NSS_I_US
 WIL901_chilling,WIL901,chilling,WIL901,WIL901,NSS,II,NSS,US,NSS_II_US
 WIL901_cold,WIL901,cold,WIL901,WIL901,NSS,II,NSS,US,NSS_II_US
 WIL901_control,WIL901,control,WIL901,WIL901,NSS,II,NSS,US,NSS_II_US
-W_S_92_10_chilling,NA,chilling,W_S_92_10,WS9210,NA,NA,Landrace,NA,Landrace_NA_NA
-W_S_92_10_control,NA,control,W_S_92_10,WS9210,NA,NA,Landrace,NA,Landrace_NA_NA
-W_S_92_12_chilling,NA,chilling,W_S_92_12,WS9212,NA,NA,Landrace,NA,Landrace_NA_NA
-W_S_92_12_cold,NA,cold,W_S_92_12,WS9212,NA,NA,Landrace,NA,Landrace_NA_NA
-W_S_92_12_control,NA,control,W_S_92_12,WS9212,NA,NA,Landrace,NA,Landrace_NA_NA
-Wawrzenczycka_chilling,NA,chilling,Wawrzenczycka,Wawrzenczycka,NA,NA,Landrace,NA,Landrace_NA_NA
-Wawrzenczycka_cold,NA,cold,Wawrzenczycka,Wawrzenczycka,NA,NA,Landrace,NA,Landrace_NA_NA
-Wawrzenczycka_control,NA,control,Wawrzenczycka,Wawrzenczycka,NA,NA,Landrace,NA,Landrace_NA_NA
-Wawrzynianka_chilling,NA,chilling,Wawrzynianka,Wawrzynianka,NA,NA,Landrace,NA,Landrace_NA_NA
-Wawrzynianka_cold,NA,cold,Wawrzynianka,Wawrzynianka,NA,NA,Landrace,NA,Landrace_NA_NA
-Wawrzynianka_control,NA,control,Wawrzynianka,Wawrzynianka,NA,NA,Landrace,NA,Landrace_NA_NA
-Wielkopolanka_chilling,NA,chilling,Wielkopolanka,Wielkopolanka,NA,NA,Landrace,NA,Landrace_NA_NA
-Wielkopolanka_cold,NA,cold,Wielkopolanka,Wielkopolanka,NA,NA,Landrace,NA,Landrace_NA_NA
-Wielkopolanka_control,NA,control,Wielkopolanka,Wielkopolanka,NA,NA,Landrace,NA,Landrace_NA_NA
