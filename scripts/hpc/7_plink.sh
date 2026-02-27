@@ -12,3 +12,5 @@
 
 plink --vcf /home/jl430796/MaizePop/data/processed/zea_mays/chr_zea_mays_all_filtr.vcf.gz --make-bed --biallelic-only strict --double-id \
 --out /home/jl430796/MaizePop/data/processed/zea_fst/chr_zea_mays_all_plink
+
+odfiltrować tak jak poprzednie
