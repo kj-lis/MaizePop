@@ -9,3 +9,40 @@ plot(LD2$Dist, LD2$Mean_r2, type="l")
 plot(LD3$Dist, LD3$Mean_r2, type="l")
 plot(LD4$Dist, LD4$Mean_r2, type="l")
 plot(LD5$Dist, LD5$Mean_r2, type="l")
+
+
+###############################################
+
+
+library(ggplot2)
+library(dplyr)
+library(readr)
+
+# lista plików LD
+files <- c("group1.stat.gz", "group2.stat.gz", "group3.stat.gz")
+groups <- c("Group1","Group2","Group3")  # nazwy subpopulacji
+
+# wczytanie i połączenie w jeden dataframe
+ld_list <- lapply(seq_along(files), function(i) {
+  df <- read.table(files[i], header=TRUE)
+  df$Group <- groups[i]
+  return(df)
+})
+
+ld_data <- bind_rows(ld_list)
+
+
+ggplot(ld_data, aes(x=Dist, y=Mean_r2, color=Group)) +
+  geom_line(size=1.2) +                 # krzywe LD decay
+  scale_color_brewer(palette="Set1") +  # ładna paleta kolorów
+  labs(
+    x="Distance between SNPs (kb)",
+    y=expression(Mean~r^2),
+    title="LD Decay in Subpopulations",
+    color="Subpopulation"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    legend.position = "right",
+    plot.title = element_text(hjust = 0.5, face="bold")
+  )
