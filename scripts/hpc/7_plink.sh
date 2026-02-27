@@ -10,5 +10,5 @@
 #SBATCH --output=/home/jl430796/MaizePop/logs/zmays_plink_7.%A_%a.out
 #SBATCH --error=/home/jl430796/MaizePop/logs/zmays_plink_7.%A_%a.err
 
-plink --vcf /home/jl430796/MaizePop/data/processed/zea_mays/chr_zea_mays_all_filtr.vcf.gz --make-bed 
+plink --vcf /home/jl430796/MaizePop/data/processed/zea_mays/chr_zea_mays_all_filtr.vcf.gz --make-bed --biallelic-only strict --double-id \
 --out /home/jl430796/MaizePop/data/processed/zea_fst/chr_zea_mays_all_plink
