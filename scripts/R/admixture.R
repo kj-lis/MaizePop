@@ -1,6 +1,6 @@
 Q <- read.table("/home/kuba/Desktop/full/chr_zea_mays_all_plink_3.5.Q")
 
-metadane <- read.csv("/home/kuba/Desktop/zmays_metadane_PCA.csv", header=T)
+metadane <- read.csv("/home/kuba/Desktop/zea_all_metadane.csv", header=T)
 metadane_unique <- metadane[!duplicated(metadane$VCFname), ]
 
 colnames(Q) <- paste0("K",1:5)
