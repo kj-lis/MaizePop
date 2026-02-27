@@ -179,9 +179,6 @@ E8501_control,E8501,control,E8501,E8501,NSS,II,NSS,US,NSS_II_US
 EP1_chilling,EP1,chilling,EP1,EP1,Sweet corn,,Mix,NA,Mix__NA
 EP1_cold,EP1,cold,EP1,EP1,Sweet corn,,Mix,NA,Mix__NA
 EP1_control,EP1,control,EP1,EP1,Sweet corn,,Mix,NA,Mix__NA
-Egyptska_Ryzova_chilling,NA,chilling,Egyptska_Ryzova,EgyptskaRyzova,NA,NA,Landrace,NA,Landrace_NA_NA
-Egyptska_Ryzova_cold,NA,cold,Egyptska_Ryzova,EgyptskaRyzova,NA,NA,Landrace,NA,Landrace_NA_NA
-Egyptska_Ryzova_control,NA,control,Egyptska_Ryzova,EgyptskaRyzova,NA,NA,Landrace,NA,Landrace_NA_NA
 F2834T_control,F2834T,control,F2834T,F2834T,Tropical,,Tropical,Mexico,Tropical
 F2_chilling,F2,chilling,F2,F2,Sweet corn,NA,Mix,NA,Mix_NA_NA
 F2_cold,F2,cold,F2,F2,Sweet corn,NA,Mix,NA,Mix_NA_NA
