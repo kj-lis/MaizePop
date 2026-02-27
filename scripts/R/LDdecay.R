@@ -1,0 +1,11 @@
+LD1 <- read.table("/home/kuba/Desktop/full/zea_LD/zea_1_LD.stat.gz", header=TRUE)
+LD2 <- read.table("/home/kuba/Desktop/full/zea_LD/zea_2_LD.stat.gz", header=TRUE)
+LD3 <- read.table("/home/kuba/Desktop/full/zea_LD/zea_3_LD.stat.gz", header=TRUE)
+LD4 <- read.table("/home/kuba/Desktop/full/zea_LD/zea_4_LD.stat.gz", header=TRUE)
+LD5 <- read.table("/home/kuba/Desktop/full/zea_LD/zea_5_LD.stat.gz", header=TRUE)
+
+plot(LD1$Dist, LD1$Mean_r2, type="l")
+plot(LD2$Dist, LD2$Mean_r2, type="l")
+plot(LD3$Dist, LD3$Mean_r2, type="l")
+plot(LD4$Dist, LD4$Mean_r2, type="l")
+plot(LD5$Dist, LD5$Mean_r2, type="l")

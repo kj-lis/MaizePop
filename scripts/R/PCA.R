@@ -1,7 +1,7 @@
 library(ggplot2)
 library(dplyr)
 
-pca <- read.table("/home/kuba/Desktop/full/chr_zea_mays_all_plink_PCA.eigenvec", header = FALSE)
+pca <- read.table("/home/kuba/Desktop/full/zea_mays/chr_zea_mays_all_plink_PCA.eigenvec", header = FALSE)
 
 colnames(pca)[1:2] <- c("FID", "VCFname")
 colnames(pca)[3:ncol(pca)] <- paste0("PC", 1:(ncol(pca)-2))

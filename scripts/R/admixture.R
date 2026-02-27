@@ -1,4 +1,4 @@
-Q <- read.table("/home/kuba/Desktop/full/chr_zea_mays_all_plink_3.5.Q")
+Q <- read.table("/home/kuba/Desktop/full/zea_mays/chr_zea_mays_all_plink_3.5.Q")
 
 metadane <- read.csv("/home/kuba/Desktop/zea_all_metadane.csv", header=T)
 metadane_unique <- metadane[!duplicated(metadane$VCFname), ]
@@ -6,6 +6,8 @@ metadane_unique <- metadane[!duplicated(metadane$VCFname), ]
 colnames(Q) <- paste0("K",1:5)
 data <- cbind(metadane_unique$VCFname, Q)
 colnames(data)[1] <- "ID"
+
+all(metadane_unique$VCFname == data$ID)
 
 data$Assigned_cluster <- apply(Q, 1, which.max)
 merged <- merge(data, metadane_unique, by.x="ID", by.y="VCFname")
