@@ -12,17 +12,22 @@
 
 export PATH=~/tools/PopLDdecay/bin:$PATH
 
-PopLDdecay -InVCF /home/jl430796/MaizePop/data/processed/zea_LD/chr_zea_mays_LD1.vcf.gz \
+~/home/jl430796/PopLDdecay/bin/PopLDdecay \
+-InVCF /home/jl430796/MaizePop/data/processed/zea_LD/chr_zea_mays_LD1.vcf.gz \
 -OutStat /home/jl430796/MaizePop/results/full/zea_LD/zea_1_LD -MaxDist 500 -MAF 0.05
 
-PopLDdecay -InVCF /home/jl430796/MaizePop/data/processed/zea_LD/chr_zea_mays_LD2.vcf.gz \
+~/home/jl430796/PopLDdecay/bin/PopLDdecay \
+-InVCF /home/jl430796/MaizePop/data/processed/zea_LD/chr_zea_mays_LD2.vcf.gz \
 -OutStat /home/jl430796/MaizePop/results/full/zea_LD/zea_2_LD -MaxDist 500 -MAF 0.05
 
-PopLDdecay -InVCF /home/jl430796/MaizePop/data/processed/zea_LD/chr_zea_mays_LD3.vcf.gz \
+~/home/jl430796/PopLDdecay/bin/PopLDdecay \
+-InVCF /home/jl430796/MaizePop/data/processed/zea_LD/chr_zea_mays_LD3.vcf.gz \
 -OutStat /home/jl430796/MaizePop/results/full/zea_LD/zea_3_LD -MaxDist 500 -MAF 0.05
 
-PopLDdecay -InVCF /home/jl430796/MaizePop/data/processed/zea_LD/chr_zea_mays_LD4.vcf.gz \
+~/home/jl430796/PopLDdecay/bin/PopLDdecay \
+-InVCF /home/jl430796/MaizePop/data/processed/zea_LD/chr_zea_mays_LD4.vcf.gz \
 -OutStat /home/jl430796/MaizePop/results/full/zea_LD/zea_4_LD -MaxDist 500 -MAF 0.05
 
-PopLDdecay -InVCF /home/jl430796/MaizePop/data/processed/zea_LD/chr_zea_mays_LD5.vcf.gz \
+~/home/jl430796/PopLDdecay/bin/PopLDdecay \
+-InVCF /home/jl430796/MaizePop/data/processed/zea_LD/chr_zea_mays_LD5.vcf.gz \
 -OutStat /home/jl430796/MaizePop/results/full/zea_LD/zea_5_LD -MaxDist 500 -MAF 0.05
