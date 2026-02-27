@@ -10,7 +10,7 @@ metadane <- read.csv("/home/kuba/Desktop/zea_all_metadane.csv", stringsAsFactors
 
 pca_meta <- left_join(pca, metadane, by = "VCFname")
 
-pca_meta$Poland_flag <- factor(ifelse(pca_meta$orygin == "Poland",
+pca_meta$Poland_flag <- factor(ifelse(pca_meta$origin == "Poland",
                                       "Poland",
                                       "Other"),
                                levels = c("Other", "Poland"))
@@ -25,7 +25,8 @@ ggplot(pca_meta, aes(x = PC1, y = PC2)) +
   
   geom_point(data = subset(pca_meta, Poland_flag == "Poland"),
              aes(color = Q, shape = Poland_flag),
-             size = 3) +
+             size = 3,
+             alpha = 1) +
   
   scale_color_manual(
     values = c(
@@ -48,8 +49,14 @@ ggplot(pca_meta, aes(x = PC1, y = PC2)) +
   
   guides(
     color = guide_legend(override.aes = list(alpha = 1), order = 1),
-    shape = guide_legend(order = 2)
+    shape = guide_legend(
+      override.aes = list(
+        color = "black",
+        fill = "black",
+        alpha = 1
+      ),
+      order = 2
+    )
   ) +
   
   theme_minimal()
-
