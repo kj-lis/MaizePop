@@ -12,10 +12,10 @@ merged <- merge(data, metadane_unique, by.x="ID", by.y="VCFname")
 
 write.csv(merged, "/home/kuba/Desktop/admixture_5.csv", row.names=FALSE)
 
-polish_lines <- merged[merged$orygin == "Poland", ]
+polish_lines <- merged[merged$origin == "Poland", ]
 write.csv(polish_lines, "/home/kuba/Desktop/admixture_5_polish.csv", row.names=FALSE)
 
-polish <- subset(merged, orygin=="Poland")
+polish <- subset(merged, origin=="Poland")
 table(polish$Assigned_cluster)
 
 
