@@ -1,5 +1,5 @@
 #!/bin/sh
-#SBATCH --job-name=zmays_plink_7_1
+#SBATCH --job-name=zmays_plink_7
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=1
@@ -19,6 +19,3 @@ plink --bfile /home/jl430796/MaizePop/data/processed/zea_LD/chr_zeaLD1_plink_1 -
 plink --bfile /home/jl430796/MaizePop/data/processed/zea_LD/chr_zea_LD1_plink_1 \
 --extract /home/jl430796/MaizePop/data/processed/zea_LD/chr_zea_LD1_plink_2.prune.in --make-bed \
 --out /home/jl430796/MaizePop/data/processed/zea_LD/chr_zea_LD1_plink_3
-
-plink --bfile /home/jl430796/MaizePop/data/processed/zea_LD/chr_zea_LD1_plink_3 --pca 20 \
---out /home/jl430796/MaizePop/results/full/chr_zea_LD1_plink_PCA
