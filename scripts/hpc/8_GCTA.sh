@@ -10,7 +10,7 @@
 #SBATCH --output=/home/jl430796/MaizePop/logs/zmays_gcta_8.%A_%a.out
 #SBATCH --error=/home/jl430796/MaizePop/logs/zmays_gcta_8.%A_%a.err
 
-gcta64 --bfile /home/jl430796/MaizePop/data/processed/zea_fst/chr_zea_mays_all_plink \
+gcta64 --bfile /home/jl430796/MaizePop/data/processed/zea_fst/chr_zea_fst_all_plink_3 \
        --fst \
        --sub-popu /home/jl430796/MaizePop/metadane/zea_mays_fst_metadane.txt \
        --out /home/jl430796/MaizePop/results/full/zea_fst/zea_mays_fst

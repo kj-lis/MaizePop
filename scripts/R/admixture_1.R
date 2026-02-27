@@ -21,6 +21,8 @@ write.csv(polish_lines, "/home/kuba/Desktop/admixture_5_polish.csv", row.names=F
 polish <- subset(merged, origin=="Poland")
 table(polish$Assigned_cluster)
 
+table(merged$Assigned_cluster, merged$Q) #check this
+
 
 K <- max(merged$Assigned_cluster)
 

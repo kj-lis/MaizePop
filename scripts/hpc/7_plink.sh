@@ -11,6 +11,11 @@
 #SBATCH --error=/home/jl430796/MaizePop/logs/zmays_plink_7.%A_%a.err
 
 plink --vcf /home/jl430796/MaizePop/data/processed/zea_mays/chr_zea_mays_all_filtr.vcf.gz --make-bed --biallelic-only strict --double-id \
---out /home/jl430796/MaizePop/data/processed/zea_fst/chr_zea_mays_all_plink
+--out /home/jl430796/MaizePop/data/processed/zea_fst/chr_zea_fst_all_plink_1
 
-odfiltrować tak jak poprzednie
+plink --bfile /home/jl430796/MaizePop/data/processed/zea_fst/chr_zea_fst_all_plink_1 --indep-pairwise 50 5 0.2 \
+--out /home/jl430796/MaizePop/data/processed/zea_fst/chr_zea_fst_all_plink_2
+
+plink --bfile /home/jl430796/MaizePop/data/processed/zea_fst/chr_zea_fst_all_plink_1 \
+--extract /home/jl430796/MaizePop/data/processed/zea_fst/chr_zea_fst_all_plink_2.prune.in --make-bed \
+--out /home/jl430796/MaizePop/data/processed/zea_fst/chr_zea_fst_all_plink_3
