@@ -11,9 +11,9 @@
 #SBATCH --error=/home/jl430796/MaizePop/logs/zea_fst_13.%A_%a.err
 
 vcf="/home/jl430796/MaizePop/data/processed/zea_fst/chr_zea_fst_all.vcf.gz"
-subpops=("/home/jl430796/MaizePop/metadane/pop1.txt" "/home/jl430796/MaizePop/metadane/pop2.txt" \
-"/home/jl430796/MaizePop/metadane/pop3.txt" "/home/jl430796/MaizePop/metadane/pop4.txt" \
-"/home/jl430796/MaizePop/metadane/pop5.txt")
+subpops=("/home/jl430796/MaizePop/metadane/fst/pop1.txt" "/home/jl430796/MaizePop/metadane/fst/pop2.txt" \
+"/home/jl430796/MaizePop/metadane/fst/pop3.txt" "/home/jl430796/MaizePop/metadane/fst/pop4.txt" \
+"/home/jl430796/MaizePop/metadane/fst/pop5.txt")
 
 n=${#subpops[@]}
 
