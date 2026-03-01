@@ -45,3 +45,4 @@ logs/*
 .RData
 .Ruserdata
 
+scripts/hpc/core
