@@ -18,23 +18,23 @@ library(ggplot2)
 library(dplyr)
 library(readr)
 
-# lista plików LD
-files <- c("group1.stat.gz", "group2.stat.gz", "group3.stat.gz")
-groups <- c("Group1","Group2","Group3")  # nazwy subpopulacji
+ld_folder <- "..."
+files <- list.files(ld_folder, pattern="\\.stat\\.gz$", full.names = TRUE)
 
-# wczytanie i połączenie w jeden dataframe
+groups <- sub("\\.stat\\.gz$", "", basename(files))
+
 ld_list <- lapply(seq_along(files), function(i) {
   df <- read.table(files[i], header=TRUE)
   df$Group <- groups[i]
   return(df)
 })
 
-ld_data <- bind_rows(ld_list)
+ld_data <- dplyr::bind_rows(ld_list)
 
 
 ggplot(ld_data, aes(x=Dist, y=Mean_r2, color=Group)) +
-  geom_line(size=1.2) +                 # krzywe LD decay
-  scale_color_brewer(palette="Set1") +  # ładna paleta kolorów
+  geom_line(size=1.2) +                 
+  scale_color_brewer(palette="Set1") +  
   labs(
     x="Distance between SNPs (kb)",
     y=expression(Mean~r^2),
