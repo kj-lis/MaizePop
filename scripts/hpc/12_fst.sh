@@ -13,4 +13,4 @@
 gcta64 --bfile /home/jl430796/MaizePop/data/processed/zea_fst/chr_zea_fst_chr1 \
        --fst \
        --sub-popu /home/jl430796/MaizePop/metadane/zea_fst_metadane_sorted.txt \
-       --out /home/jl430796/MaizePop/results/full/zea_fst/zea_mays_fst
+       --out /home/jl430796/MaizePop/results/full/zea_fst/test_fst > log.txt 2>&1
