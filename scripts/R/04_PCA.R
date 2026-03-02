@@ -16,47 +16,65 @@ pca_meta$Poland_flag <- factor(ifelse(pca_meta$origin == "Poland",
                                levels = c("Other", "Poland"))
 
 
+# 1️⃣ ustawienie kolejności factor i wszystkich poziomów
+pca_meta$Q <- factor(
+  pca_meta$Q,
+  levels = c("Iodent", "SS", "NSS", "Tropical", "Mix", "Parviglumis", "Mexicana")
+)
+
+# 2️⃣ kolory przypisane do faktycznych wartości
+color_values <- c(
+  "Iodent"      = "#00BF7D",
+  "SS"          = "#00B0F6",
+  "NSS"         = "#F8766D",
+  "Tropical"    = "#E76BF3",
+  "Mix"         = "#A3A500",
+  "Parviglumis" = "#f09a4a",
+  "Mexicana"    = "#12E9E3"
+)
+
+# 3️⃣ etykiety do legendy
+color_labels <- c(
+  "Iodent"      = "Iodent",
+  "SS"          = "SS",
+  "NSS"         = "NSS",
+  "Tropical"    = "Tropical",
+  "Mix"         = "Mix",
+  "Parviglumis" = "Z. mays subsp. parviglumis",
+  "Mexicana"    = "Z. mays subsp. mexicana"
+)
+
+# 4️⃣ wykres – wszystkie punkty w jednym geom, alpha zależnie od Poland_flag
 ggplot(pca_meta, aes(x = PC1, y = PC2)) +
   
-  geom_point(data = subset(pca_meta, Poland_flag == "Other"),
-             aes(color = Q, shape = Poland_flag),
-             size = 3,
-             alpha = 0.1) +
-  
-  geom_point(data = subset(pca_meta, Poland_flag == "Poland"),
-             aes(color = Q, shape = Poland_flag),
-             size = 3,
-             alpha = 1) +
-  
-  scale_color_manual(
-    values = c(
-      "NSS"          = "#F8766D",
-      "SS"           = "#00B0F6",
-      "Iodent"       = "#00BF7D",
-      "Mix"          = "#A3A500",
-      "Tropical"     = "#E76BF3",
-      "Parviglumis"  = "#f09a4a",
-      "Mexicana"     = "#12E9E3"
-    )
+  # punkty Other
+  geom_point(
+    data = subset(pca_meta, Poland_flag == "Other"),
+    aes(color = Q, shape = Poland_flag),
+    size = 3,
+    alpha = 0.1
   ) +
   
-  scale_shape_manual(
-    values = c("Other" = 16, "Poland" = 17),
-    name = "Origin"
+  # punkty Poland
+  geom_point(
+    data = subset(pca_meta, Poland_flag == "Poland"),
+    aes(color = Q, shape = Poland_flag),
+    size = 3,
+    alpha = 1
   ) +
   
+  scale_color_manual(values = color_values,
+                     labels = color_labels,
+                     drop = FALSE) +
+  scale_shape_manual(values = c("Other" = 16, "Poland" = 17), name = "Origin") +
   labs(color = "Group") +
-  
   guides(
     color = guide_legend(override.aes = list(alpha = 1), order = 1),
-    shape = guide_legend(
-      override.aes = list(
-        color = "black",
-        fill = "black",
-        alpha = 1
-      ),
-      order = 2
-    )
+    shape = guide_legend(override.aes = list(color = "black", fill = "black", alpha = 1), order = 2)
   ) +
-  
-  theme_minimal()
+  theme_minimal() +
+  theme(
+    panel.border = element_rect(colour = "black", fill = NA, size = 1),
+    legend.position = "right",
+    plot.title = element_text(hjust = 0.5, face = "bold")
+  )
