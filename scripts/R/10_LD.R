@@ -1,3 +1,7 @@
+ld_folder <- "C:/Users/kjlis/Desktop/zea_LD"
+files <- list.files(ld_folder, pattern="\\.stat\\.gz$", full.names = TRUE)
+groups <- sub("\\.stat\\.gz$", "", basename(files))
+
 ld_list <- lapply(seq_along(files), function(i) {
   df <- read.table(files[i], header = FALSE, sep = "\t")
   colnames(df) <- c("Dist", "Mean_r2", "N")  # dostosuj do liczby kolumn
