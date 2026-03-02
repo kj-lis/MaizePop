@@ -1,81 +1,101 @@
-ld_folder <- "C:/Users/kjlis/Desktop/zea_LD"
-files <- list.files(ld_folder, pattern="\\.stat\\.gz$", full.names = TRUE)
-groups <- sub("\\.stat\\.gz$", "", basename(files))
-
-ld_list <- lapply(seq_along(files), function(i) {
-  df <- read.table(files[i], header = FALSE, sep = "\t")
-  colnames(df) <- c("Dist", "Mean_r2", "N")  # dostosuj do liczby kolumn
-  df$Group <- groups[i]
-  return(df)
-})
-
-ld_data <- dplyr::bind_rows(ld_list)
-
-ggplot(ld_data, aes(x = dist, y = Mean_r2, color = Group)) +
-  geom_line(linewidth = 1.2) +
-  scale_color_brewer(palette = "Set1") +
-  labs(
-    x = "Distance between SNPs (kb)",
-    y = expression(Mean~r^2),
-    title = "LD Decay in Subpopulations",
-    color = "Subpopulation"
-  ) +
-  theme_minimal(base_size = 14) +
-  theme(
-    legend.position = "right",
-    plot.title = element_text(hjust = 0.5, face = "bold")
-  )
-
-
-
-
-# biblioteki
 library(data.table)
 library(ggplot2)
+library(R.utils)  # do gunzip
 
-# folder z plikami
-ld_folder <- "/home/kuba/Desktop/full/zea_LD"
-files <- list.files(ld_folder, pattern="\\.stat\\.gz$", full.names = TRUE)
-groups <- sub("\\.stat\\.gz$", "", basename(files))
+# 1️⃣ plik subpopulacji
+file1 <- "C:/Users/kjlis/Desktop/zea_1_LD.stat.gz"
 
-# wczytanie i przygotowanie danych
-ld_list <- lapply(seq_along(files), function(i) {
-  df <- read.table(files[i], header = FALSE, sep = "\t")
+# 2️⃣ rozpakowanie do tymczasowego pliku
+file1_unzipped <- tempfile(fileext = ".stat")
+gunzip(file1, destname = file1_unzipped, overwrite = TRUE, remove = FALSE)
+
+# 3️⃣ wczytanie danych
+ld <- fread(file1_unzipped)
+
+# 4️⃣ uproszczenie nazw kolumn
+setnames(ld, "#Dist", "Dist")
+setnames(ld, "Mean_r^2", "Mean_r2")
+
+# 5️⃣ sprawdzenie wczytanych danych
+head(ld,5)
+nrow(ld)   # powinno być > 0
+
+ld_sample <- ld[seq(1, .N, by = 10)]
+
+# 6️⃣ wykres LD decay
+p <- ggplot(ld_sample, aes(x = Dist/1000, y = Mean_r2)) +
+  geom_line(color = "blue", linewidth = 1) +
+  geom_hline(yintercept = 0.2, linetype = "dashed") +
+  theme_classic(base_size = 14) +
+  labs(x = "Distance (kb)", y = expression(r^2),
+       title = "LD decay - Subpopulation 1")
+
+
+print(p)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+library(data.table)
+library(ggplot2)
+library(R.utils)  # do gunzip
+
+# 1️⃣ lista plików
+files <- list.files("C:/Users/kjlis/Desktop/zea_LD",
+                    pattern = "_LD.stat.gz$",
+                    full.names = TRUE)
+
+# 2️⃣ funkcja do wczytania i rozpakowania pojedynczego pliku
+read_ld_gz <- function(file_path) {
+  # tymczasowy plik do rozpakowania
+  tmp <- tempfile(fileext = ".stat")
+  gunzip(file_path, destname = tmp, overwrite = TRUE, remove = FALSE)
   
-  # wybieramy kolumny Dist (V4) i Mean_r2 (V2)
-  df <- df[, c(4,2)]
-  colnames(df) <- c("Dist", "Mean_r2")
+  # wczytanie danych
+  dt <- fread(tmp)
   
-  # konwersja na liczby
-  df$Dist <- as.numeric(df$Dist)
-  df$Mean_r2 <- as.numeric(df$Mean_r2)
+  # uproszczenie nazw kolumn
+  if ("#Dist" %in% names(dt)) setnames(dt, "#Dist", "Dist")
+  if ("Mean_r^2" %in% names(dt)) setnames(dt, "Mean_r^2", "Mean_r2")
   
-  # dodajemy nazwę populacji
-  df$Group <- groups[i]
+  # dodanie kolumny subpopulacji
+  dt[, Subpop := gsub("zea_|_LD.stat.gz", "", basename(file_path))]
   
-  return(df)
-})
+  return(dt)
+}
 
-# łączenie wszystkich plików w jedną tabelę
-ld_data <- rbindlist(ld_list)
+# 3️⃣ wczytanie wszystkich plików i połączenie
+ld_all <- rbindlist(lapply(files, read_ld_gz))
 
-# agregacja po binach 5 kb
-ld_bin <- ld_data[, .(Mean_r2_bin = mean(Mean_r2)), by = .(Group, Dist_bin = floor(Dist/5000)*5000)]
-setorder(ld_bin, Group, Dist_bin)  # sortowanie po Dist w każdej grupie
+# 4️⃣ próbka danych dla mniejszego pliku (co 10. wiersz)
+ld_sample <- ld_all[seq(1, .N, by = 50)]
 
-# wykres LD decay
-ggplot(ld_data, aes(x = Dist, y = Mean_r2, color = Group)) +
-  geom_smooth(se = FALSE, method = "loess", span = 0.2) +
-  scale_color_brewer(palette = "Set1") +
-  labs(
-    x = "Distance between SNPs (bp)",
-    y = expression(Mean~r^2),
-    title = "LD decay in subpopulations",
-    color = "Subpopulation"
-  ) +
-  theme_minimal(base_size = 14) +
-  theme(
-    panel.border = element_rect(colour = "black", fill = NA, linewidth = 1),
-    legend.position = "right",
-    plot.title = element_text(hjust = 0.5, face = "bold")
-  )
+# 5️⃣ wykres LD decay dla wszystkich subpopulacji
+p <- ggplot(ld_sample, aes(x = Dist/1000, y = Mean_r2, color = Subpop)) +
+  geom_line(se = FALSE, span = 0.15, linewidth = 1.2) +
+  geom_hline(yintercept = 0.2, linetype = "dashed") +
+  theme_classic(base_size = 14) +
+  labs(x = "Distance (kb)",
+       y = expression(r^2),
+       color = "Subpopulation",
+       title = "LD decay - wszystkie subpopulacje")
+
+print(p)
+
+# 6️⃣ zapis do lekkiego PNG
+ggsave("LD_decay_subpops.png", plot = p,
+       width = 8, height = 6, units = "in", dpi = 300)
