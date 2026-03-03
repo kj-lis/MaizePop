@@ -26,7 +26,7 @@ for ((i=0; i<$n; i++)); do
     p2name=$(basename $pop2 .txt)
     outname="fst_${p1name}_${p2name}"
     
-    echo "Liczenie FST dla $p1 i $pop2 -> $outname"
+    echo "FST dla $p1 i $pop2 -> $outname"
     
     vcftools --gzvcf $vcf \
              --weir-fst-pop $pop1 \
@@ -36,7 +36,9 @@ for ((i=0; i<$n; i++)); do
 done
 
 
-########################
+
+#############################
+
 
 
 library(data.table)

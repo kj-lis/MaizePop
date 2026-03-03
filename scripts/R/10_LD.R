@@ -35,18 +35,7 @@ print(p)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+################################
 
 
 
@@ -96,6 +85,6 @@ p <- ggplot(ld_sample, aes(x = Dist/1000, y = Mean_r2, color = Subpop)) +
 
 print(p)
 
-# 6️⃣ zapis do lekkiego PNG
+# 6️⃣ zapis do lekkiego PNG ??
 ggsave("LD_decay_subpops.png", plot = p,
        width = 8, height = 6, units = "in", dpi = 300)
