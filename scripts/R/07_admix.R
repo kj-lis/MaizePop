@@ -21,9 +21,15 @@ boundaries <- cumsum(table(merged_sorted$Assigned_cluster))
 
 ggplot(adm_long, aes(x = Order, y = Ancestry, fill = Cluster)) +
   geom_bar(stat = "identity", width = 1) +
-  geom_vline(xintercept = boundaries,
-             color = "black",
-             linewidth = 0.4) +
+  
+  geom_segment(
+    data = data.frame(x = boundaries),
+    aes(x = x, xend = x, y = 0.00, yend = 1),  # <-- tu kontrolujesz odstęp
+    inherit.aes = FALSE,
+    color = "black",
+    linewidth = 0.8
+  ) +
+  
   scale_fill_manual(values = c(
     "#1b9e77",
     "#d95f02",
@@ -31,6 +37,9 @@ ggplot(adm_long, aes(x = Order, y = Ancestry, fill = Cluster)) +
     "#e7298a",
     "#66a61e"
   )) +
+  
+  coord_cartesian(ylim = c(0, 1)) +
+  
   theme_classic() +
   theme(
     axis.text.x = element_blank(),
@@ -38,16 +47,13 @@ ggplot(adm_long, aes(x = Order, y = Ancestry, fill = Cluster)) +
     panel.grid = element_blank(),
     legend.title = element_blank()
   ) +
-  labs(x = "Individuals",
-       y = "Ancestry proportion")
+  labs(x = "Lines",
+       y = "Ancestry")
 
 
-
+################################################
 
 merged_sorted$Poland <- merged_sorted$origin == "Poland"
-
-
-
 
 ggplot(adm_long, aes(x = Order, y = Ancestry, fill = Cluster)) +
   geom_bar(stat = "identity", width = 1) +
@@ -57,10 +63,3 @@ ggplot(adm_long, aes(x = Order, y = Ancestry, fill = Cluster)) +
              size = 0.8) +
   coord_cartesian(ylim = c(0,1.05)) +
   theme_classic()
-
-
-
-
-ggsave("Admixture_K5.pdf",
-       width = 14,
-       height = 4)
