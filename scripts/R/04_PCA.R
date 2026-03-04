@@ -98,11 +98,3 @@ ggplot(pca_meta, aes(x = PC1, y = PC2)) +
     
     plot.title = element_text(hjust = 0.5, face = "bold")
   )
-
-
-ggsave("C:\Users\kjlis\Desktop\PCA_1.png",
-       plot = p,
-       width = 8,
-       height = 6,
-       units = "in",
-       dpi = 300)
