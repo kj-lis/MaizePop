@@ -41,13 +41,21 @@ color_labels <- c(
   "Mexicana"    = "Z. mays subsp. mexicana"
 )
 
+legend_text_size  <- 12   
+legend_title_size <- 14   
+axis_text_size    <- 12   
+axis_title_size   <- 14 
+
+x_title_margin <- 15
+y_title_margin <- 15
+
 ggplot(pca_meta, aes(x = PC1, y = PC2)) +
   
   geom_point(
     data = subset(pca_meta, Poland_flag == "Other"),
     aes(color = Q, shape = Poland_flag),
     size = 3,
-    alpha = 1
+    alpha = 0.1
   ) +
   
   geom_point(
@@ -60,8 +68,10 @@ ggplot(pca_meta, aes(x = PC1, y = PC2)) +
   scale_color_manual(values = color_values,
                      labels = color_labels,
                      drop = FALSE) +
-  scale_shape_manual(values = c("Other" = 16, "Poland" = 16), name = "Origin") +
-  labs(color = "Group") +
+  scale_shape_manual(values = c("Other" = 16, "Poland" = 17), name = "Origin") +
+  labs(color = "Group",
+       x = "PC1",
+       y = "PC2") +
   guides(
     color = guide_legend(override.aes = list(alpha = 1), order = 1),
     shape = guide_legend(override.aes = list(color = "black", fill = "black", alpha = 1), order = 2)
@@ -70,6 +80,22 @@ ggplot(pca_meta, aes(x = PC1, y = PC2)) +
   theme(
     panel.border = element_rect(colour = "black", fill = NA, size = 1),
     legend.position = "right",
+    
+    legend.text  = element_text(size = legend_text_size),
+    legend.title = element_text(size = legend_title_size, face = "bold"),
+    
+    axis.text  = element_text(size = axis_text_size),
+    
+    axis.title.x = element_text(
+      size = axis_title_size,
+      margin = margin(t = x_title_margin)
+    ),
+    
+    axis.title.y = element_text(
+      size = axis_title_size,
+      margin = margin(r = y_title_margin)
+    ),
+    
     plot.title = element_text(hjust = 0.5, face = "bold")
   )
 
