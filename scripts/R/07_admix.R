@@ -12,40 +12,10 @@ merged_sorted <- merged %>%
 # nadajemy kolejność na osi X
 merged_sorted$Order <- 1:nrow(merged_sorted)
 
-# konwersja do formatu long
 adm_long <- merged_sorted %>%
   pivot_longer(cols = starts_with("K"),
                names_to = "Cluster",
                values_to = "Ancestry")
-
-
-
-
-
-ggplot(adm_long, aes(x = Order, y = Ancestry, fill = Cluster)) +
-  geom_bar(stat = "identity", width = 1) +
-  scale_fill_manual(values = c(
-    "#1b9e77",
-    "#d95f02",
-    "#7570b3",
-    "#e7298a",
-    "#66a61e"
-  )) +
-  theme_classic() +
-  theme(
-    axis.text.x = element_blank(),
-    axis.ticks.x = element_blank(),
-    axis.line.x = element_blank(),
-    panel.grid = element_blank(),
-    legend.title = element_blank(),
-    legend.position = "right"
-  ) +
-  labs(x = "Individuals",
-       y = "Ancestry proportion")
-
-
-
-
 
 boundaries <- cumsum(table(merged_sorted$Assigned_cluster))
 
@@ -53,7 +23,7 @@ ggplot(adm_long, aes(x = Order, y = Ancestry, fill = Cluster)) +
   geom_bar(stat = "identity", width = 1) +
   geom_vline(xintercept = boundaries,
              color = "black",
-             size = 0.4) +
+             linewidth = 0.4) +
   scale_fill_manual(values = c(
     "#1b9e77",
     "#d95f02",
