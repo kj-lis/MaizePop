@@ -55,7 +55,7 @@ ggplot(pca_meta, aes(x = PC1, y = PC2)) +
     data = subset(pca_meta, Poland_flag == "Other"),
     aes(color = Q, shape = Poland_flag),
     size = 3,
-    alpha = 0.1
+    alpha = 1
   ) +
   
   geom_point(
@@ -68,13 +68,13 @@ ggplot(pca_meta, aes(x = PC1, y = PC2)) +
   scale_color_manual(values = color_values,
                      labels = color_labels,
                      drop = FALSE) +
-  scale_shape_manual(values = c("Other" = 16, "Poland" = 17), name = "Origin") +
+  scale_shape_manual(values = c("Other" = 16, "Poland" = 16), name = "Origin") +
   labs(color = "Group",
        x = "PC1",
        y = "PC2") +
   guides(
     color = guide_legend(override.aes = list(alpha = 1), order = 1),
-    shape = guide_legend(override.aes = list(color = "black", fill = "black", alpha = 1), order = 2)
+    shape = "none"
   ) +
   theme_minimal() +
   theme(
