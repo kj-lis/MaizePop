@@ -4,8 +4,10 @@ library(ggplot2)
 
 # przygotowanie danych
 merged$maxQ <- apply(merged[, paste0("K",1:5)], 1, max)
+
 merged_sorted <- merged %>%
   arrange(Assigned_cluster, desc(maxQ))
+
 merged_sorted$Order <- 1:nrow(merged_sorted)
 
 adm_long <- merged_sorted %>%
@@ -27,6 +29,7 @@ cluster_labels <- c(
   "K4 - NSS",
   "K5 - Zea mays subsp."
 )
+
 legend_title_text <- "Subpopulations"
 
 # ustawienia czcionek i marginesów
@@ -38,7 +41,7 @@ x_title_margin    <- 15
 y_title_margin    <- 15
 cluster_line_offset <- 0.0
 
-# offset dla słupków w prawo, aby był odstęp od osi Y
+# offset dla słupków (odstęp od osi Y)
 x_offset <- 0.5
 
 # rysowanie wykresu
@@ -46,7 +49,7 @@ ggplot(adm_long, aes(x = Order + x_offset, y = Ancestry, fill = Cluster)) +
   
   geom_bar(stat = "identity", width = 1) +
   
-  # linie graniczne
+  # linie graniczne klastrów
   geom_segment(
     data = data.frame(x = boundaries + x_offset),
     aes(x = x, xend = x, y = cluster_line_offset, yend = 1),
@@ -61,14 +64,27 @@ ggplot(adm_long, aes(x = Order + x_offset, y = Ancestry, fill = Cluster)) +
     name = legend_title_text
   ) +
   
-  scale_y_continuous(breaks = seq(0,1,0.2)) +
-  coord_cartesian(ylim = c(0,1), expand = FALSE) +
+  scale_y_continuous(
+    breaks = seq(0,1,0.2),
+    expand = expansion(mult = c(0.03, 0.03))
+  ) +
+  
+  scale_x_continuous(
+    expand = expansion(mult = c(0.03, 0.03))
+  ) +
+  
+  coord_cartesian(
+    ylim = c(0,1)
+  ) +
   
   theme_classic() +
+  
   theme(
-    axis.line.x  = element_blank(),
+    axis.line = element_line(),
+    
     axis.text.x  = element_blank(),
     axis.ticks.x = element_blank(),
+    
     axis.text.y  = element_text(size = axis_text_size),
     
     axis.title.x = element_text(size = axis_title_size, margin = margin(t = x_title_margin)),
