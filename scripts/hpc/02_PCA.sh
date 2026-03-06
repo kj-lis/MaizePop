@@ -10,14 +10,14 @@
 #SBATCH --output=/home/jl430796/MaizePop/logs/zea_PCA_2.%A_%a.out
 #SBATCH --error=/home/jl430796/MaizePop/logs/zea_PCA_2.%A_%a.err
 
-bcftools concat /home/jl430796/MaizePop/data/processed/zea_mays/chr_1_zea_mays_filtr.vcf.gz \
-/home/jl430796/MaizePop/data/processed/zea_mays/chr_2_zea_mays_filtr.vcf.gz \
-/home/jl430796/MaizePop/data/processed/zea_mays/chr_3_zea_mays_filtr.vcf.gz \
-/home/jl430796/MaizePop/data/processed/zea_mays/chr_4_zea_mays_filtr.vcf.gz \
-/home/jl430796/MaizePop/data/processed/zea_mays/chr_5_zea_mays_filtr.vcf.gz \
-/home/jl430796/MaizePop/data/processed/zea_mays/chr_6_zea_mays_filtr.vcf.gz \
-/home/jl430796/MaizePop/data/processed/zea_mays/chr_7_zea_mays_filtr.vcf.gz \
-/home/jl430796/MaizePop/data/processed/zea_mays/chr_8_zea_mays_filtr.vcf.gz \
-/home/jl430796/MaizePop/data/processed/zea_mays/chr_9_zea_mays_filtr.vcf.gz \
-/home/jl430796/MaizePop/data/processed/zea_mays/chr_10_zea_mays_filtr.vcf.gz \
--O z -o /home/jl430796/MaizePop/data/processed/zea_mays/chr_zea_mays_all_filtr.vcf.gz
+bcftools concat /home/jl430796/MaizePop/data/processed/zea_PCA/chr_1_zea_filtr.vcf.gz \
+/home/jl430796/MaizePop/data/processed/zea_PCA/chr_2_zea_filtr.vcf.gz \
+/home/jl430796/MaizePop/data/processed/zea_PCA/chr_3_zea_filtr.vcf.gz \
+/home/jl430796/MaizePop/data/processed/zea_PCA/chr_4_zea_filtr.vcf.gz \
+/home/jl430796/MaizePop/data/processed/zea_PCA/chr_5_zea_filtr.vcf.gz \
+/home/jl430796/MaizePop/data/processed/zea_PCA/chr_6_zea_filtr.vcf.gz \
+/home/jl430796/MaizePop/data/processed/zea_PCA/chr_7_zea_filtr.vcf.gz \
+/home/jl430796/MaizePop/data/processed/zea_PCA/chr_8_zea_filtr.vcf.gz \
+/home/jl430796/MaizePop/data/processed/zea_PCA/chr_9_zea_filtr.vcf.gz \
+/home/jl430796/MaizePop/data/processed/zea_PCA/chr_10_zea_filtr.vcf.gz \
+-O z -o /home/jl430796/MaizePop/data/processed/zea_PCA/chr_all_zea_filtr.vcf.gz
