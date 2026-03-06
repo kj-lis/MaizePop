@@ -21,4 +21,4 @@ plink --bfile /home/jl430796/MaizePop/data/processed/zea_PCA/chr_all_zea_plink_1
 --out /home/jl430796/MaizePop/data/processed/zea_PCA/chr_all_zea_plink_3
 
 plink --bfile /home/jl430796/MaizePop/data/processed/zea_PCA/chr_all_zea_plink_3 --pca 20 \
---out /home/jl430796/MaizePop/results/full/chr_all_zea_PCA
+--out /home/jl430796/MaizePop/results/full/zea_PCA/chr_all_zea_PCA
