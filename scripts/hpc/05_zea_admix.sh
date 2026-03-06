@@ -10,4 +10,4 @@
 #SBATCH --output=/home/jl430796/MaizePop/logs/zea_admix_5.%A_%a.out
 #SBATCH --error=/home/jl430796/MaizePop/logs/zea_admix_5.%A_%a.err
 
-admixture /home/jl430796/MaizePop/data/processed/zea_mays/chr_zea_mays_all_plink_3.bed 5
+admixture /home/jl430796/MaizePop/data/processed/zea_PCA/chr_all_plink_3.bed 5

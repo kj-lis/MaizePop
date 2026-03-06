@@ -1,12 +1,12 @@
 library(ggplot2)
 library(dplyr)
 
-pca <- read.table("/home/kuba/Desktop/full/zea_mays/chr_zea_mays_all_plink_PCA.eigenvec", header = FALSE)
+pca <- read.table("/home/kuba/Desktop/full/full/zea_PCA/chr_all_zea_PCA.eigenvec", header = FALSE)
 
 colnames(pca)[1:2] <- c("FID", "VCFname")
 colnames(pca)[3:ncol(pca)] <- paste0("PC", 1:(ncol(pca)-2))
 
-metadane <- read.csv("/home/kuba/Desktop/zea_all_metadane.csv", stringsAsFactors = FALSE)
+metadane <- read.csv("/home/kuba/Desktop/zea_metadane.csv", stringsAsFactors = FALSE)
 
 pca_meta <- left_join(pca, metadane, by = "VCFname")
 

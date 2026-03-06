@@ -2,7 +2,6 @@ library(dplyr)
 library(tidyr)
 library(ggplot2)
 
-# przygotowanie danych
 merged$maxQ <- apply(merged[, paste0("K",1:5)], 1, max)
 
 merged_sorted <- merged %>%
@@ -17,11 +16,9 @@ adm_long <- merged_sorted %>%
     values_to = "Ancestry"
   )
 
-# granice klastrów
 boundaries <- cumsum(table(merged_sorted$Assigned_cluster))
 boundaries <- boundaries[-length(boundaries)]
 
-# etykiety legendy
 cluster_labels <- c(
   "K1 - Iodent",
   "K2 - SS",
@@ -32,7 +29,6 @@ cluster_labels <- c(
 
 legend_title_text <- "Subpopulations"
 
-# ustawienia czcionek i marginesów
 legend_text_size  <- 12
 legend_title_size <- 14
 axis_text_size    <- 12
@@ -41,15 +37,12 @@ x_title_margin    <- 15
 y_title_margin    <- 15
 cluster_line_offset <- 0.0
 
-# offset dla słupków (odstęp od osi Y)
 x_offset <- 0.5
 
-# rysowanie wykresu
 ggplot(adm_long, aes(x = Order + x_offset, y = Ancestry, fill = Cluster)) +
   
   geom_bar(stat = "identity", width = 1) +
   
-  # linie graniczne klastrów
   geom_segment(
     data = data.frame(x = boundaries + x_offset),
     aes(x = x, xend = x, y = cluster_line_offset, yend = 1),
@@ -100,16 +93,3 @@ ggplot(adm_long, aes(x = Order + x_offset, y = Ancestry, fill = Cluster)) +
     x = "Lines",
     y = "Ancestry"
   )
-
-################################################
-
-merged_sorted$Poland <- merged_sorted$origin == "Poland"
-
-ggplot(adm_long, aes(x = Order, y = Ancestry, fill = Cluster)) +
-  geom_bar(stat = "identity", width = 1) +
-  geom_point(data = merged_sorted %>% filter(Poland),
-             aes(x = Order, y = 1.02),
-             inherit.aes = FALSE,
-             size = 0.8) +
-  coord_cartesian(ylim = c(0,1.05)) +
-  theme_classic()
