@@ -11,5 +11,5 @@
 #SBATCH --error=/home/jl430796/MaizePop/logs/zmays_PCA_1.%A_%a.err
 
 plink --bfile /home/jl430796/MaizePop/data/processed/base/chr_all_zea_plink_3 \
---extract /home/jl430796/MaizePop/metadane/zmays_metadane.txt \
---make-bed --out /home/jl430796/MaizePop/data/processed/zmays/chr_all_zmays_plink_3
+--extract /home/jl430796/MaizePop/metadane/zmays.txt \
+--make-bed --out /home/jl430796/MaizePop/data/processed/zmays/PCA/chr_all_zmays_plink_3
