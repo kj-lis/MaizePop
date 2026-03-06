@@ -13,5 +13,5 @@
 
 LD=${SLURM_ARRAY_TASK_ID}
 
-bcftools view -S /home/jl430796/MaizePop/metadane/LDdecay/${LD}_IDs.txt /home/jl430796/MaizePop/data/processed/zea_mays/chr_zea_mays_all_filtr.vcf.gz \
--O z -o /home/jl430796/MaizePop/data/processed/zea_LD/chr_zea_mays_LD${LD}.vcf.gz
+bcftools view -S /home/jl430796/MaizePop/metadane/LD/zea${LD}_IDs.txt /home/jl430796/MaizePop/data/processed/zea_PCA/chr_all_filtr.vcf.gz \
+-O z -o /home/jl430796/MaizePop/data/processed/zea_LD/chr_zea_LD_${LD}.vcf.gz
