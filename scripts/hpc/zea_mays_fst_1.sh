@@ -10,6 +10,9 @@
 #SBATCH --output=/home/jl430796/MaizePop/logs/zea_fst_11.%A_%a.out
 #SBATCH --error=/home/jl430796/MaizePop/logs/zea_fst_11.%A_%a.err
 
+#to ma byc chyba w ogole tak, ze mam vcf all chr dla danych subpopulacji i z tego robic plinki i na tym robic fst
+
+
 plink --vcf /home/jl430796/MaizePop/data/processed/zea_mays/chr_zea_mays_all_filtr.vcf.gz --make-bed --biallelic-only strict --double-id \
 --out /home/jl430796/MaizePop/data/processed/zea_fst/chr_zea_fst_all_plink_1
 
