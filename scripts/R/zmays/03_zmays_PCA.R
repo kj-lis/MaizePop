@@ -1,7 +1,7 @@
 library(ggplot2)
 library(dplyr)
 
-pca <- read.table("/home/kuba/Desktop/full/full/zea_PCA/chr_all_zea_PCA.eigenvec", header = FALSE)
+pca <- read.table("/home/kuba/Desktop/chr_all_zea_PCA.eigenvec", header = FALSE)
 
 colnames(pca)[1:2] <- c("FID", "VCFname")
 colnames(pca)[3:ncol(pca)] <- paste0("PC", 1:(ncol(pca)-2))
@@ -26,9 +26,7 @@ color_values <- c(
   "SS"          = "#00B0F6",
   "NSS"         = "#F8766D",
   "Tropical"    = "#E76BF3",
-  "Mix"         = "#A3A500",
-  "Parviglumis" = "#f09a4a",
-  "Mexicana"    = "#12E9E3"
+  "Mix"         = "#f09a4a",
 )
 
 color_labels <- c(
@@ -37,8 +35,6 @@ color_labels <- c(
   "NSS"         = "NSS",
   "Tropical"    = "Tropical",
   "Mix"         = "Mix",
-  "Parviglumis" = "Z. mays subsp. parviglumis",
-  "Mexicana"    = "Z. mays subsp. mexicana"
 )
 
 legend_text_size  <- 12   
