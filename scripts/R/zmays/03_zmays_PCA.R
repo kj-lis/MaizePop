@@ -1,12 +1,12 @@
 library(ggplot2)
 library(dplyr)
 
-pca <- read.table("/home/kuba/Desktop/chr_all_zea_PCA.eigenvec", header = FALSE)
+pca <- read.table("/home/kuba/Desktop/chr_all_zmays_PCA.eigenvec", header = FALSE)
 
 colnames(pca)[1:2] <- c("FID", "VCFname")
 colnames(pca)[3:ncol(pca)] <- paste0("PC", 1:(ncol(pca)-2))
 
-metadane <- read.csv("/home/kuba/Desktop/zea_metadane.csv", stringsAsFactors = FALSE)
+metadane <- read.csv("/home/kuba/Desktop/zmays2.csv", stringsAsFactors = FALSE, sep = ";")
 
 pca_meta <- left_join(pca, metadane, by = "VCFname")
 
@@ -18,7 +18,7 @@ pca_meta$Poland_flag <- factor(ifelse(pca_meta$origin == "Poland",
 
 pca_meta$Q <- factor(
   pca_meta$Q,
-  levels = c("Iodent", "SS", "NSS", "Tropical", "Mix", "Parviglumis", "Mexicana")
+  levels = c("Iodent", "SS", "NSS", "Tropical", "Mix")
 )
 
 color_values <- c(
@@ -26,16 +26,14 @@ color_values <- c(
   "SS"          = "#00B0F6",
   "NSS"         = "#F8766D",
   "Tropical"    = "#E76BF3",
-  "Mix"         = "#f09a4a",
-)
+  "Mix"         = "#f09a4a")
 
 color_labels <- c(
   "Iodent"      = "Iodent",
   "SS"          = "SS",
   "NSS"         = "NSS",
   "Tropical"    = "Tropical",
-  "Mix"         = "Mix",
-)
+  "Mix"         = "Mix")
 
 legend_text_size  <- 12   
 legend_title_size <- 14   
@@ -94,3 +92,24 @@ ggplot(pca_meta, aes(x = PC1, y = PC2)) +
     
     plot.title = element_text(hjust = 0.5, face = "bold")
   )
+
+
+
+
+ggplot(pca_meta, aes(x = PC3, y = PC2, color = Q)) +
+  geom_point(size = 3, alpha = 1) +
+  scale_color_manual(values = color_values, drop = FALSE, na.translate = FALSE) +
+  scale_shape_manual(values = c("Other" = 16, "Poland" = 16), name = "Origin") +
+  labs(color = "Group", x = "PC1", y = "PC2") +
+  theme_minimal()
+
+
+sum(is.na(pca_meta$Q))
+sum(is.na(pca_meta$PC1))
+sum(is.na(pca_meta$PC2))
+
+levels(pca_meta$Q)
+table(pca_meta$Q)
+
+pca_meta$Q <- factor(pca_meta$Q, levels = c("Iodent", "SS", "NSS", "Tropical", "Mix"))
+levels(pca_meta$Q)
