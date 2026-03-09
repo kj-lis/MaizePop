@@ -11,5 +11,5 @@
 #SBATCH --error=/home/jl430796/MaizePop/logs/zmays_admix_4.%A_%a.err
 
 for K in {2..10}; do
-  admixture --cv /home/jl430796/MaizePop/data/processed/zmays/PCA/chr_all_zmays_plink_3.bed $K | tee log${K}.out
+    admixture /home/jl430796/MaizePop/data/processed/zmays/PCA/chr_all_zmays_plink_3.bed $K
 done
