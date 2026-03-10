@@ -2,114 +2,82 @@ library(ggplot2)
 library(dplyr)
 
 pca <- read.table("/home/kuba/Desktop/chr_all_zmays_PCA.eigenvec", header = FALSE)
+metadane <- read.csv("/home/kuba/Desktop/zmays_uniq.csv", stringsAsFactors = FALSE, sep = ";")
 
 colnames(pca)[1:2] <- c("FID", "VCFname")
 colnames(pca)[3:ncol(pca)] <- paste0("PC", 1:(ncol(pca)-2))
 
-metadane <- read.csv("/home/kuba/Desktop/zmays2.csv", stringsAsFactors = FALSE, sep = ";")
+pca_metadane <- left_join(pca, metadane, by = "VCFname")
 
-pca_meta <- left_join(pca, metadane, by = "VCFname")
+legend_title <- "Group"
 
-pca_meta$Poland_flag <- factor(ifelse(pca_meta$origin == "Poland",
-                                      "Poland",
-                                      "Other"),
-                               levels = c("Other", "Poland"))
+axis_title_size <- 14
+axis_text_size <- 12
 
+legend_title_size <- 15
+legend_text_size <- 12
 
-pca_meta$Q <- factor(
-  pca_meta$Q,
-  levels = c("Iodent", "SS", "NSS", "Tropical", "Mix")
-)
+legend_point_size <- 3
+point_size <- 2.5
 
-color_values <- c(
+font_family <- "Helvetica"
+
+legend_order <- c(
+  "Iodent",
+  "SS",
+  "NSS",
+  "Tropical",
+  "Mix")
+
+group_colors <- c(
   "Iodent"      = "#00BF7D",
   "SS"          = "#00B0F6",
   "NSS"         = "#F8766D",
   "Tropical"    = "#E76BF3",
   "Mix"         = "#f09a4a")
 
-color_labels <- c(
-  "Iodent"      = "Iodent",
-  "SS"          = "SS",
-  "NSS"         = "NSS",
-  "Tropical"    = "Tropical",
-  "Mix"         = "Mix")
-
-legend_text_size  <- 12   
-legend_title_size <- 14   
-axis_text_size    <- 12   
-axis_title_size   <- 14 
-
-x_title_margin <- 15
-y_title_margin <- 15
-
-ggplot(pca_meta, aes(x = PC1, y = PC2)) +
+p <- ggplot(pca_metadane, aes(x = PC1, y = PC2, color = Q)) +
   
-  geom_point(
-    data = subset(pca_meta, Poland_flag == "Other"),
-    aes(color = Q, shape = Poland_flag),
-    size = 3,
-    alpha = 1
-  ) +
+  geom_point(size = point_size) +
   
-  geom_point(
-    data = subset(pca_meta, Poland_flag == "Poland"),
-    aes(color = Q, shape = Poland_flag),
-    size = 3,
-    alpha = 1
-  ) +
+  scale_color_manual(
+    name = legend_title,
+    values = group_colors,
+    breaks = legend_order) +
   
-  scale_color_manual(values = color_values,
-                     labels = color_labels,
-                     drop = FALSE) +
-  scale_shape_manual(values = c("Other" = 16, "Poland" = 16), name = "Origin") +
-  labs(color = "Group",
-       x = "PC1",
-       y = "PC2") +
-  guides(
-    color = guide_legend(override.aes = list(alpha = 1), order = 1),
-    shape = "none"
-  ) +
-  theme_minimal() +
+  labs(
+    x = "PC1",
+    y = "PC2") +
+  
+  theme_classic() +
+  
   theme(
-    panel.border = element_rect(colour = "black", fill = NA, size = 1),
-    legend.position = "right",
     
-    legend.text  = element_text(size = legend_text_size),
-    legend.title = element_text(size = legend_title_size, face = "bold"),
-    
-    axis.text  = element_text(size = axis_text_size),
+    text = element_text(family = font_family),
     
     axis.title.x = element_text(
       size = axis_title_size,
-      margin = margin(t = x_title_margin)
-    ),
+      margin = margin(t = 13)),
     
     axis.title.y = element_text(
       size = axis_title_size,
-      margin = margin(r = y_title_margin)
-    ),
+      margin = margin(r = 13)),
     
-    plot.title = element_text(hjust = 0.5, face = "bold")
-  )
+    axis.text = element_text(size = axis_text_size),
+    
+    legend.position = "right",
+    
+    legend.title = element_text(
+      size = legend_title_size,
+      face = "bold"),
+    
+    legend.text = element_text(
+      size = legend_text_size),
+    
+    legend.key.size = unit(1, "cm")) +
+  
+  guides(
+    color = guide_legend(
+      override.aes = list(size = legend_point_size)))
 
-
-
-
-ggplot(pca_meta, aes(x = PC3, y = PC2, color = Q)) +
-  geom_point(size = 3, alpha = 1) +
-  scale_color_manual(values = color_values, drop = FALSE, na.translate = FALSE) +
-  scale_shape_manual(values = c("Other" = 16, "Poland" = 16), name = "Origin") +
-  labs(color = "Group", x = "PC1", y = "PC2") +
-  theme_minimal()
-
-
-sum(is.na(pca_meta$Q))
-sum(is.na(pca_meta$PC1))
-sum(is.na(pca_meta$PC2))
-
-levels(pca_meta$Q)
-table(pca_meta$Q)
-
-pca_meta$Q <- factor(pca_meta$Q, levels = c("Iodent", "SS", "NSS", "Tropical", "Mix"))
-levels(pca_meta$Q)
+p
