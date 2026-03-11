@@ -94,19 +94,19 @@ library(ggplot2)
 library(dplyr)
 
 pca <- read.table("/home/kuba/Desktop/chr_all_zea_PCA.eigenvec", header = FALSE)
-metadane <- read.csv("/home/kuba/Desktop/zea_all_admix.csv", stringsAsFactors = FALSE, sep = ";")
+metadane <- read.csv("/home/kuba/Desktop/zea_all_admix.csv", stringsAsFactors = FALSE, sep = ",")
 
 colnames(pca)[1:2] <- c("FID", "VCFname")
 colnames(pca)[3:ncol(pca)] <- paste0("PC", 1:(ncol(pca)-2))
 
 pca_metadane <- left_join(pca, metadane, by = "VCFname")
 
-legend_title <- "Group"
+legend_title <- "Heterotic group"
 
 axis_title_size <- 14
 axis_text_size <- 12
 
-legend_title_size <- 15
+legend_title_size <- 14
 legend_text_size <- 12
 
 legend_point_size <- 3
@@ -132,7 +132,7 @@ group_colors <- c(
   "Mexicana"    = "#f09a4a",
   "Parviglumis" = "#12E9E3")
 
-p <- ggplot(pca_metadane, aes(x = PC1, y = PC2, color = Q)) +
+p <- ggplot(pca_metadane, aes(x = PC2, y = PC3, color = Q2)) +
   
   geom_point(size = point_size) +
   
@@ -142,8 +142,8 @@ p <- ggplot(pca_metadane, aes(x = PC1, y = PC2, color = Q)) +
     breaks = legend_order) +
   
   labs(
-    x = "PC1",
-    y = "PC2") +
+    x = "PC2",
+    y = "PC3") +
   
   theme_classic() +
   
