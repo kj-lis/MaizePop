@@ -2,7 +2,7 @@ library(ggplot2)
 library(dplyr)
 
 pca <- read.table("/home/kuba/Desktop/chr_all_zmays_PCA.eigenvec", header = FALSE)
-metadane <- read.csv("/home/kuba/Desktop/zea_all_admix.csv", stringsAsFactors = FALSE, sep = ";")
+metadane <- read.csv("/home/kuba/Desktop/zea_all_admix.csv", stringsAsFactors = FALSE, sep = ",")
 
 colnames(pca)[1:2] <- c("FID", "VCFname")
 colnames(pca)[3:ncol(pca)] <- paste0("PC", 1:(ncol(pca)-2))
@@ -109,13 +109,13 @@ colnames(pca)[3:ncol(pca)] <- paste0("PC", 1:(ncol(pca)-2))
 
 pca_metadane <- left_join(pca, metadane, by = "VCFname")
 
-legend_title <- "Group"
+legend_title <- "Heterotic group"
 shape_legend_title <- "Origin"
 
 axis_title_size <- 14
 axis_text_size <- 12
 
-legend_title_size <- 15
+legend_title_size <- 14
 legend_text_size <- 12
 
 legend_point_size <- 3
@@ -143,7 +143,7 @@ group_colors <- c(
 
 shape_values <- c(
   "Other" = 16,
-  "Poland" = 3)
+  "Poland" = 8)
 
 alpha_other <- 0.3
 alpha_poland <- 1
@@ -155,7 +155,7 @@ pca_metadane <- pca_metadane %>%
 
 p <- ggplot(
   pca_metadane,
-  aes(x = PC1, y = PC2, color = Q, shape = origin_group, alpha = point_alpha)) +
+  aes(x = PC2, y = PC3, color = Q2, shape = origin_group, alpha = point_alpha)) +
   geom_point(size = point_size) +
   
   scale_color_manual(
@@ -170,8 +170,8 @@ p <- ggplot(
   scale_alpha_identity() +  
   
   labs(
-    x = "PC1",
-    y = "PC2") +
+    x = "PC2",
+    y = "PC3") +
   
   theme_classic() +
   
