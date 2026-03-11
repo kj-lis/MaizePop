@@ -2,7 +2,7 @@ library(ggplot2)
 library(dplyr)
 
 pca <- read.table("/home/kuba/Desktop/chr_all_zmays_PCA.eigenvec", header = FALSE)
-metadane <- read.csv("/home/kuba/Desktop/zmays_uniq.csv", stringsAsFactors = FALSE, sep = ";")
+metadane <- read.csv("/home/kuba/Desktop/zea_all_admix.csv", stringsAsFactors = FALSE, sep = ";")
 
 colnames(pca)[1:2] <- c("FID", "VCFname")
 colnames(pca)[3:ncol(pca)] <- paste0("PC", 1:(ncol(pca)-2))
@@ -94,7 +94,7 @@ library(ggplot2)
 library(dplyr)
 
 pca <- read.table("/home/kuba/Desktop/chr_all_zea_PCA.eigenvec", header = FALSE)
-metadane <- read.csv("/home/kuba/Desktop/zea_uniq.csv", stringsAsFactors = FALSE, sep = ";")
+metadane <- read.csv("/home/kuba/Desktop/zea_all_admix.csv", stringsAsFactors = FALSE, sep = ";")
 
 colnames(pca)[1:2] <- c("FID", "VCFname")
 colnames(pca)[3:ncol(pca)] <- paste0("PC", 1:(ncol(pca)-2))
