@@ -24,5 +24,3 @@ for(i in 1:K){
   cluster_ids <- merged$ID[merged$Assigned_cluster == i]
   writeLines(cluster_ids, paste0("/home/kuba/Desktop/zea", i, "_IDs.txt"))
 }
-
-##### zrobic tak zeby te co maja mniej niz 0.5 do jakiejs subpop to byly jako mix
