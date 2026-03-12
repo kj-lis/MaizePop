@@ -1,1 +1,0 @@
-perl /home/jl430796/software/PopLDdecay/bin/Plot_OnePop.pl -inFile /home/jl430796/MaizePop/data/processed/03_LDdecay/zea_LD1.stat.gz -output   /home/jl430796/MaizePop/results/full/zea_LD1
