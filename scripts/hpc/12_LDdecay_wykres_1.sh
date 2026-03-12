@@ -16,3 +16,5 @@ Pop=${SLURM_ARRAY_TASK_ID}
 perl      /home/jl430796/software/PopLDdecay/bin/Plot_OnePop.pl \
 -inFile   /home/jl430796/MaizePop/results/full/zea_LD/zea_LD${Pop}.stat.gz \
 -output   /home/jl430796/MaizePop/results/full/zea_LD/zea_LD${Pop}
+
+perl  bin/Plot_MutiPop.pl  -inList  Pop.ResultPath.list  -output Fig
