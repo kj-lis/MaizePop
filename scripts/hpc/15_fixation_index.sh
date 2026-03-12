@@ -11,7 +11,7 @@
 #SBATCH --error=/home/jl430796/MaizePop/logs/zmays_15.%A_%a.err
 
 /home/jl430796/software/gcta-1.95.1-linux-x86_64/gcta64 \
-        --bfile /home/jl430796/MaizePop/results/full/04_fixation_index/zea_Parviglumis_Tropical \
+        --bfile /home/jl430796/MaizePop/data/processed/04_fixation_index/zea_Parviglumis_Tropical \
         --fst \
         --sub-popu /home/jl430796/MaizePop/metadane/05_fixation_index/Parviglumis_Tropical_fst_IDs.txt \
         --out /home/jl430796/MaizePop/data/processed/04_fixation_index/...
