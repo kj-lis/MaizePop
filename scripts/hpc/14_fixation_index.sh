@@ -13,7 +13,7 @@
 #do przerobienia
 
 /home/jl430796/software/gcta-1.95.1-linux-x86_64/gcta64 \
-        --bfile /home/jl430796/MaizePop/data/processed/zea_fst/chr_zea_fst_all_plink_3 \
+        --bfile /home/jl430796/MaizePop/data/processed/zea_fst/??? \
         --fst \
         --sub-popu /home/jl430796/MaizePop/metadane/fst/zea_fst_metadane_sorted.txt \
         --out /home/jl430796/MaizePop/results/full/zea_fst/zea_fst
