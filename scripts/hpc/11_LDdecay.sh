@@ -9,10 +9,10 @@
 #SBATCH --partition=okeanos
 #SBATCH --output=/home/jl430796/MaizePop/logs/zmays_11.%A_%a.out
 #SBATCH --error=/home/jl430796/MaizePop/logs/zmays_11.%A_%a.err
-#SBATCH --array=1-5
+#SBATCH --array=1-7
 
-Pop=${SLURM_ARRAY_TASK_ID}
+LD=${SLURM_ARRAY_TASK_ID}
 
 /home/jl430796/software/PopLDdecay/bin/PopLDdecay \
--InVCF /home/jl430796/MaizePop/data/processed/zea_LD/chr_zea_LD${Pop}.vcf.gz \
--OutStat /home/jl430796/MaizePop/results/full/zea_LD/zea_LD${Pop} -MaxDist 1000 -MAF 0.05
+-InVCF /home/jl430796/MaizePop/data/processed/03_LDdecay/zea_LD${LD}.vcf.gz \
+-OutStat /home/jl430796/MaizePop/data/processed/03_LDdecay/zea_LD${LD} -MaxDist 1000 -MAF 0.05
