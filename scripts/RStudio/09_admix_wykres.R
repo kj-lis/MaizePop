@@ -6,9 +6,9 @@ rownames(tbl) <- fam$V2
 tbl <- tbl[order, ]
 
 my_colors <- c(
-  V1 = "#00BF7D",
+  V1 = "green",
   V2 = "#00B0F6",
-  V3 = "#F8766D",
+  V3 = "red",
   V4 = "#F8766D",
   V5 = "#00B0F6",
   V6 = "#E76BF3",
