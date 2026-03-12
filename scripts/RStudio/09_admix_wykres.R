@@ -1,5 +1,5 @@
 order <- scan("C:/Users/kjlis/Desktop/kolejność.txt", what="character")
-fam <- read.table("C:/Users/kjlis/Desktop/chr_all_zmays.fam")
+fam <- read.table("C:/Users/kjlis/Desktop/chr_all_zmays_plink_3.fam")
 tbl <- read.table("C:/Users/kjlis/Desktop/chr_all_zmays_plink_3.7.Q")
 
 rownames(tbl) <- fam$V2
