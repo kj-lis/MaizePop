@@ -14,4 +14,4 @@
         --bfile /home/jl430796/MaizePop/data/processed/04_fixation_index/zea_Parviglumis_Tropical \
         --fst \
         --sub-popu /home/jl430796/MaizePop/metadane/05_fixation_index/Parviglumis_Tropical_fst_IDs.txt \
-        --out /home/jl430796/MaizePop/data/processed/04_fixation_index/...
+        --out /home/jl430796/MaizePop/data/processed/04_fixation_index/Parviglumis_Tropical_fst
