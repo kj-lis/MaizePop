@@ -15,4 +15,4 @@ LD=${SLURM_ARRAY_TASK_ID}
 
 /home/jl430796/software/PopLDdecay/bin/PopLDdecay \
 -InVCF /home/jl430796/MaizePop/data/processed/03_LDdecay/zea_LD${LD}.vcf.gz \
--OutStat /home/jl430796/MaizePop/data/processed/03_LDdecay/zea_LD${LD} -MaxDist 1000 -MAF 0.05
+-OutStat /home/jl430796/MaizePop/data/processed/LDdecay_test/zea_LD${LD} -MaxDist 1000
