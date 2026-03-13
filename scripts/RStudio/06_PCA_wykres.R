@@ -93,8 +93,8 @@ p
 library(ggplot2)
 library(dplyr)
 
-pca <- read.table("C:/Users/kjlis/Desktop/chr_all_zea_PCA.eigenvec", header = FALSE)
-metadane <- read.csv("C:/Users/kjlis/Desktop/zea_all_admix.csv", stringsAsFactors = FALSE, sep = ";")
+pca <- read.table("/home/kuba/Desktop/chr_all_zea_PCA.eigenvec", header = FALSE)
+metadane <- read.csv("/home/kuba/Desktop/zea_all_admix.csv", stringsAsFactors = FALSE, sep = ";")
 
 colnames(pca)[1:2] <- c("FID", "VCFname")
 colnames(pca)[3:ncol(pca)] <- paste0("PC", 1:(ncol(pca)-2))
@@ -132,7 +132,7 @@ group_colors <- c(
   "Parviglumis" = "#12E9E3",
   "Mexicana"    = "#f09a4a")
 
-p <- ggplot(pca_metadane, aes(x = PC1, y = PC2, color = heterotic_final)) +
+p <- ggplot(pca_metadane, aes(x = PC2, y = PC3, color = heterotic_final)) +
   
   geom_point(size = point_size) +
   
@@ -142,8 +142,8 @@ p <- ggplot(pca_metadane, aes(x = PC1, y = PC2, color = heterotic_final)) +
     breaks = legend_order) +
   
   labs(
-    x = "PC1",
-    y = "PC2") +
+    x = "PC2",
+    y = "PC3") +
   
   theme_classic() +
   
@@ -343,7 +343,7 @@ pca_metadane <- pca_metadane %>%
 
 p <- ggplot(
   pca_metadane,
-  aes(x = PC2, y = PC3, color = Q2, shape = origin_group, alpha = point_alpha)) +
+  aes(x = PC2, y = PC3, color = heterotic_final, shape = origin_group, alpha = point_alpha)) +
   geom_point(size = point_size) +
   
   scale_color_manual(
