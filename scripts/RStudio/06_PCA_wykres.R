@@ -132,7 +132,7 @@ group_colors <- c(
   "Parviglumis" = "#12E9E3",
   "Mexicana"    = "#f09a4a")
 
-p <- ggplot(pca_metadane, aes(x = PC2, y = PC3, color = heterotic_final)) +
+p <- ggplot(pca_metadane, aes(x = PC1, y = PC2, color = heterotic_final)) +
   
   geom_point(size = point_size) +
   
@@ -142,8 +142,8 @@ p <- ggplot(pca_metadane, aes(x = PC2, y = PC3, color = heterotic_final)) +
     breaks = legend_order) +
   
   labs(
-    x = "PC2",
-    y = "PC3") +
+    x = "PC1",
+    y = "PC2") +
   
   theme_classic() +
   
@@ -333,7 +333,7 @@ shape_values <- c(
   "Other" = 16,
   "Poland" = 8)
 
-alpha_other <- 0.3
+alpha_other <- 0.7
 alpha_poland <- 1
 
 pca_metadane <- pca_metadane %>%

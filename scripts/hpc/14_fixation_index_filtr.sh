@@ -10,6 +10,6 @@
 #SBATCH --output=/home/jl430796/MaizePop/logs/zmays_14.%A_%a.out
 #SBATCH --error=/home/jl430796/MaizePop/logs/zmays_14.%A_%a.err
 
-plink --bfile /home/jl430796/MaizePop/data/processed/00_SNP_odfiltr/chr_all_zea_plink_3 \
+plink --bfile /home/jl430796/MaizePop/data/processed/00_SNP_odfiltr/chr_all_zea_plink_1 \
 --keep /home/jl430796/MaizePop/metadane/05_fixation_index/Parviglumis_Tropical_IDs.txt \
 --make-bed --out /home/jl430796/MaizePop/data/processed/04_fixation_index/zea_Parviglumis_Tropical

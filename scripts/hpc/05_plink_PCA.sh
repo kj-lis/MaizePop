@@ -11,4 +11,4 @@
 #SBATCH --error=/home/jl430796/MaizePop/logs/zmays_5.%A_%a.err
 
 plink --bfile /home/jl430796/MaizePop/data/processed/00_SNP_odfiltr/chr_all_zea_plink_1 --pca 20 \
---out /home/jl430796/MaizePop/results/full/chr_all_zea_PCA
+--out /home/jl430796/MaizePop/results/full/chr_all_snp_zea_PCA
