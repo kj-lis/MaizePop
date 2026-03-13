@@ -10,5 +10,5 @@
 #SBATCH --output=/home/jl430796/MaizePop/logs/zmays_5.%A_%a.out
 #SBATCH --error=/home/jl430796/MaizePop/logs/zmays_5.%A_%a.err
 
-plink --bfile /home/jl430796/MaizePop/data/processed/zmays/PCA/chr_all_zmays_plink_3 --pca 20 \
---out /home/jl430796/MaizePop/results/full/zmays/chr_all_zmays_PCA
+plink --bfile /home/jl430796/MaizePop/data/processed/zmays/PCA/chr_all_zea_plink_1 --pca 20 \
+--out /home/jl430796/MaizePop/results/full/chr_all_zea_PCA
