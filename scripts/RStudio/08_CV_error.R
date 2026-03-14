@@ -1,4 +1,4 @@
-log_files <- paste0("/home/kuba/Desktop/log", 2:10, ".out")
+log_files <- paste0("C:/Users/kjlis/Desktop/log", 2:10, ".out")
 
 get_cv <- function(file) {
   line <- grep("CV error", readLines(file), value = TRUE)
@@ -14,7 +14,6 @@ plot(cv_df$K, cv_df$CV_error, type = "b", pch = 19, col = "black",
      xlab = "K",
      ylab = "CV error",
      xaxt = "n")
-grid()
 axis(1, at = cv_df$K, labels = cv_df$K)
 
 min_idx <- which.min(cv_df$CV_error)
