@@ -1,1 +1,1 @@
-/home/kuba/Desktop/gcta-1.95.1-linux-x86_64./gcta-1.95.1-linux-x86_64/gcta64 --bfile zea_Parviglumis_Tropical --fst --sub-popu Parviglumis_Tropical_fst_IDs.txt  --out Parviglumis_Tropical_fst
+C:/Users/kjlis/Desktop/gcta-1.95.1-windows-x86_64/gcta-1.95.1-windows-x86_64/gcta64 --bfile zea_Parviglumis_Tropical --fst --sub-popu Parviglumis_Tropical_fst_IDs.txt  --out Parviglumis_Tropical_fst
