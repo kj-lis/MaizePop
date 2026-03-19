@@ -1,3 +1,36 @@
+PT_fst <- read.table("/home/kuba/Desktop/Parviglumis_Tropical.fst", header=TRUE)
+TI_fst <- read.table("/home/kuba/Desktop/Tropical_Iodent.fst", header=TRUE)
+TSS_fst <- read.table("/home/kuba/Desktop/Tropical_SS.fst", header=TRUE)
+TNS_fst <- read.table("/home/kuba/Desktop/Tropical_NSS.fst", header=TRUE)
+
+summary(PT_fst$Fst)
+summary(TI_fst$FST)
+summary(TSS_fst$FST)
+summary(TNS_fst$FST)
+
+PT_fst_mean <- mean(PT_fst$Fst, na.rm=TRUE)
+TI_fst_mean <- mean(TI_fst$Fst, na.rm=TRUE)
+TSS_fst_mean <- mean(TSS_fst$Fst, na.rm=TRUE)
+TNS_fst_mean <- mean(TNS_fst$Fst, na.rm=TRUE)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 fst_data <- read.table("fst_results.txt", header=TRUE) 
 head(fst_data)
 
@@ -64,10 +97,10 @@ fst2<- read.table("/home/kuba/Desktop/Tropical_Iodent.fst", header=TRUE)
 fst3<- read.table("/home/kuba/Desktop/Tropical_SS.fst", header=TRUE)
 fst4<- read.table("/home/kuba/Desktop/Tropical_NSS.fst", header=TRUE)
 
-head(fst1)
-str(fst1)
+head(fst2)
+str(fst2)
 
-hist(fst1$Fst,
+hist(fst4$Fst,
      breaks=100,
      col="steelblue",
      main="Distribution of FST",
@@ -76,11 +109,11 @@ hist(fst1$Fst,
 install.packages("qqman")
 library(qqman)
 
-fst2 <- fst
-fst2 <- fst2[!is.na(fst2$Fst), ]
-fst2$Fst[fst2$Fst < 0] <- 0
+fst1_2 <- fst1
+fst1_2 <- fst1_2[!is.na(fst1_2$Fst), ]
+fst1_2$Fst[fst1_2$Fst < 0] <- 0
 
-manhattan(fst2,
+manhattan(fst1_2,
           chr="Chr",
           bp="bp",
           snp="SNP",
