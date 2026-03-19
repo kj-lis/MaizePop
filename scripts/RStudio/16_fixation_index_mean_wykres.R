@@ -59,11 +59,15 @@ abline(v = mean_fst, col="red", lwd=2)
 ################################
 
 
-fst <- read.table("/home/kuba/Desktop/Parviglumis_Tropical_fst.fst", header=TRUE)
-head(fst)
-str(fst)
+fst1<- read.table("/home/kuba/Desktop/Parviglumis_Tropical.fst", header=TRUE)
+fst2<- read.table("/home/kuba/Desktop/Tropical_Iodent.fst", header=TRUE)
+fst3<- read.table("/home/kuba/Desktop/Tropical_SS.fst", header=TRUE)
+fst4<- read.table("/home/kuba/Desktop/Tropical_NSS.fst", header=TRUE)
 
-hist(fst$Fst,
+head(fst1)
+str(fst1)
+
+hist(fst1$Fst,
      breaks=100,
      col="steelblue",
      main="Distribution of FST",
