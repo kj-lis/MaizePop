@@ -11,5 +11,5 @@
 #SBATCH --error=/home/jl430796/MaizePop/logs/zmays_14.%A_%a.err
 
 plink --bfile /home/jl430796/MaizePop/data/processed/00_SNP_odfiltr/chr_all_zea_plink_1 \
---keep /home/jl430796/MaizePop/metadane/05_fixation_index/Tropical_Iodent_IDs.txt \
---make-bed --out /home/jl430796/MaizePop/data/processed/04_fixation_index/Tropical_Iodent
+--keep /home/jl430796/MaizePop/metadane/05_fixation_index/Tropical_SS_IDs.txt \
+--make-bed --out /home/jl430796/MaizePop/data/processed/04_fixation_index/Tropical_SS
