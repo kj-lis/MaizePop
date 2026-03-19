@@ -13,16 +13,19 @@ TI_fst_2 <- TI_fst[TI_fst$Fst >= 0, ]
 TSS_fst_2 <- TSS_fst[TSS_fst$Fst >= 0, ]
 TNS_fst_2 <- TNS_fst[TNS_fst$FST >= 0, ]
 
-ggplot(PT_fst_2, aes(x = Fst)) +
+PT_fst_clean <- PT_fst_2[is.na(PT_fst_2$Fst), ]
+TI_fst_clean <- TI_fst_2[is.na(TI_fst_2$Fst), ]
+TSS_fst_clean <- TSS_fst_2[is.na(TSS_fst_2$Fst), ]
+TNS_fst_clean <- TNS_fst_2[is.na(TNS_fst_2$Fst), ]
+
+library(ggplot2)
+
+ggplot(PT_fst_clean, aes(x = Fst)) +
   geom_histogram(bins = 100, fill = "steelblue", color = "black") +
-  theme_minimal() +
+  theme_minimal(panel.grid = element_blank()) +
   labs(
     x = "fixation index",
     y = "number of SNPs")
-
-sum(is.na(PT_fst_2$Fst))
-sum(is.nan(PT_fst_2$Fst))
-sum(is.infinite(PT_fst_2$Fst))
 
 
 
