@@ -13,7 +13,14 @@ TI_fst_mean <- mean(TI_fst$Fst, na.rm=TRUE)
 TSS_fst_mean <- mean(TSS_fst$Fst, na.rm=TRUE)
 TNS_fst_mean <- mean(TNS_fst$Fst, na.rm=TRUE)
 
-
+ggplot(df, aes(x = FST)) +
+  geom_histogram(bins = 50, fill = "steelblue", color = "black") +
+  theme_minimal() +
+  labs(
+    title = "Rozkład FST",
+    x = "FST",
+    y = "Liczba SNP"
+  )
 
 
 
