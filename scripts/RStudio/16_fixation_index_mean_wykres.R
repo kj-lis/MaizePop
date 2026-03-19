@@ -8,23 +8,21 @@ summary(TI_fst$FST)
 summary(TSS_fst$FST)
 summary(TNS_fst$FST)
 
-PT_fst_mean <- mean(PT_fst$Fst, na.rm=TRUE)
-TI_fst_mean <- mean(TI_fst$Fst, na.rm=TRUE)
-TSS_fst_mean <- mean(TSS_fst$Fst, na.rm=TRUE)
-TNS_fst_mean <- mean(TNS_fst$Fst, na.rm=TRUE)
+PT_fst_2 <- PT_fst[PT_fst$Fst >= 0, ]
+TI_fst_2 <- TI_fst[TI_fst$Fst >= 0, ]
+TSS_fst_2 <- TSS_fst[TSS_fst$Fst >= 0, ]
+TNS_fst_2 <- TNS_fst[TNS_fst$FST >= 0, ]
 
-ggplot(df, aes(x = FST)) +
-  geom_histogram(bins = 50, fill = "steelblue", color = "black") +
+ggplot(PT_fst_2, aes(x = Fst)) +
+  geom_histogram(bins = 100, fill = "steelblue", color = "black") +
   theme_minimal() +
   labs(
-    title = "Rozkład FST",
-    x = "FST",
-    y = "Liczba SNP"
-  )
+    x = "fixation index",
+    y = "number of SNPs")
 
-
-
-
+sum(is.na(PT_fst_2$Fst))
+sum(is.nan(PT_fst_2$Fst))
+sum(is.infinite(PT_fst_2$Fst))
 
 
 
@@ -107,7 +105,7 @@ fst4<- read.table("/home/kuba/Desktop/Tropical_NSS.fst", header=TRUE)
 head(fst2)
 str(fst2)
 
-hist(fst4$Fst,
+hist(PT_fst$Fst,
      breaks=100,
      col="steelblue",
      main="Distribution of FST",
