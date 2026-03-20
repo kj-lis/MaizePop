@@ -1,4 +1,4 @@
-PT_fst <- read.table("/home/kuba/Desktop/Parviglumis_Tropical.fst", header=TRUE)
+PT_fst <- read.table("C:/Users/kjlis/Desktop/Parviglumis_Tropical.fst", header=TRUE)
 TI_fst <- read.table("/home/kuba/Desktop/Tropical_Iodent.fst", header=TRUE)
 TSS_fst <- read.table("/home/kuba/Desktop/Tropical_SS.fst", header=TRUE)
 TNS_fst <- read.table("/home/kuba/Desktop/Tropical_NSS.fst", header=TRUE)
