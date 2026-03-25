@@ -1,27 +1,22 @@
-PT_fst <- read.table("C:/Users/kjlis/Desktop/Parviglumis_Tropical.fst", header=TRUE)
+PT_fst <- read.table("/home/kuba/Desktop/Parviglumis_Tropical.fst", header=TRUE)
 TI_fst <- read.table("/home/kuba/Desktop/Tropical_Iodent.fst", header=TRUE)
 TSS_fst <- read.table("/home/kuba/Desktop/Tropical_SS.fst", header=TRUE)
 TNS_fst <- read.table("/home/kuba/Desktop/Tropical_NSS.fst", header=TRUE)
 
-summary(PT_fst$Fst)
-summary(TI_fst$FST)
-summary(TSS_fst$FST)
-summary(TNS_fst$FST)
+PT_fst_clean <- PT_fst[!is.na(PT_fst$Fst), ]
+TI_fst_clean <- TI_fst[!is.na(TI_fst$Fst), ]
+TSS_fst_clean <- TSS_fst[!is.na(TSS_fst$Fst), ]
+TNS_fst_clean <- TNS_fst[!is.na(TNS_fst$Fst), ]
 
-PT_fst_2 <- PT_fst[PT_fst$Fst >= 0, ]
-TI_fst_2 <- TI_fst[TI_fst$Fst >= 0, ]
-TSS_fst_2 <- TSS_fst[TSS_fst$Fst >= 0, ]
-TNS_fst_2 <- TNS_fst[TNS_fst$Fst >= 0, ]
-
-PT_fst_clean <- PT_fst_2[!is.na(PT_fst_2$Fst), ]
-TI_fst_clean <- TI_fst_2[!is.na(TI_fst_2$Fst), ]
-TSS_fst_clean <- TSS_fst_2[!is.na(TSS_fst_2$Fst), ]
-TNS_fst_clean <- TNS_fst_2[!is.na(TNS_fst_2$Fst), ]
+summary(PT_fst_clean$Fst)
+summary(TI_fst_clean$FST)
+summary(TSS_fst_clean$FST)
+summary(TNS_fst_clean$FST)
 
 library(ggplot2)
 
 ggplot(PT_fst_clean, aes(x = Fst)) +
-  geom_histogram(bins = 50, fill = "steelblue", color = "black") +
+  geom_histogram(bins = 100, fill = "steelblue", color = "black") +
   theme_minimal() + 
   theme(panel.grid = element_blank()) +
   labs(
@@ -39,10 +34,14 @@ PT_fst_chr8 <- PT_fst_clean[PT_fst_clean$Chr == 8, ]
 PT_fst_chr9 <- PT_fst_clean[PT_fst_clean$Chr == 9, ]
 PT_fst_chr10 <- PT_fst_clean[PT_fst_clean$Chr == 10, ]
 
+chr10_subset <- subset(PT_fst_chr10, bp >= 2e7 & bp <= 3e7)
+
 library(GenWin)
 
-PT_fst_chr10_Spline <- splineAnalyze(Y=PT_fst_chr10$Fst,map=PT_fst_chr10$bp,smoothness=100,
-                            plotRaw=TRUE,plotWindows=TRUE,method=4)
+PT_fst_chr10_spline <- splineAnalyze(Y=chr10_subset$Fst,map=chr10_subset$bp,smoothness=300,
+                                     plotRaw=TRUE,plotWindows=TRUE,method=4)
+
+
 
 
 ################################
@@ -132,3 +131,9 @@ manhattan(fst1_2,
           logp=FALSE,
           col=c("darkblue","orange"),
           ylab="FST")
+
+
+PT_fst_2 <- PT_fst[PT_fst$Fst >= 0, ]
+TI_fst_2 <- TI_fst[TI_fst$Fst >= 0, ]
+TSS_fst_2 <- TSS_fst[TSS_fst$Fst >= 0, ]
+TNS_fst_2 <- TNS_fst[TNS_fst$Fst >= 0, ]
