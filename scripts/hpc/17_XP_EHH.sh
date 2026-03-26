@@ -9,3 +9,4 @@
 #SBATCH --partition=okeanos
 #SBATCH --output=/home/jl430796/MaizePop/logs/zmays_17.%A_%a.out
 #SBATCH --error=/home/jl430796/MaizePop/logs/zmays_17.%A_%a.err
+

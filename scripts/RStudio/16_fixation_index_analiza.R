@@ -1,44 +1,50 @@
-PT_fst <- read.table("/home/kuba/Desktop/Parviglumis_Tropical.fst", header=TRUE)
-TI_fst <- read.table("/home/kuba/Desktop/Tropical_Iodent.fst", header=TRUE)
-TSS_fst <- read.table("/home/kuba/Desktop/Tropical_SS.fst", header=TRUE)
-TNS_fst <- read.table("/home/kuba/Desktop/Tropical_NSS.fst", header=TRUE)
+PT <- read.table("C:/Users/kjlis/Desktop/Parviglumis_Tropical.fst", header=TRUE)
+TI <- read.table("/home/kuba/Desktop/Tropical_Iodent.fst", header=TRUE)
+TSS <- read.table("/home/kuba/Desktop/Tropical_SS.fst", header=TRUE)
+TNS <- read.table("/home/kuba/Desktop/Tropical_NSS.fst", header=TRUE)
 
-PT_fst_clean <- PT_fst[!is.na(PT_fst$Fst), ]
-TI_fst_clean <- TI_fst[!is.na(TI_fst$Fst), ]
-TSS_fst_clean <- TSS_fst[!is.na(TSS_fst$Fst), ]
-TNS_fst_clean <- TNS_fst[!is.na(TNS_fst$Fst), ]
+PT$Fst <- pmax(PT$Fst, 0)
+TI$Fst <- pmax(TI$Fst, 0)
+TSS$Fst <- pmax(TSS$Fst, 0)
+TNS$Fst <- pmax(TNS$Fst, 0)
 
-summary(PT_fst_clean$Fst)
-summary(TI_fst_clean$FST)
-summary(TSS_fst_clean$FST)
-summary(TNS_fst_clean$FST)
+PT_clean <- PT[!is.na(PT$Fst), ]
+TI_clean <- TI[!is.na(TI$Fst), ]
+TSS_clean <- TSS[!is.na(TSS$Fst), ]
+TNS_clean <- TNS[!is.na(TNS$Fst), ]
+
+summary(PT_clean$Fst)
+summary(TI_clean$FST)
+summary(TSS_clean$FST)
+summary(TNS_clean$FST)
 
 library(ggplot2)
 
-ggplot(PT_fst_clean, aes(x = Fst)) +
-  geom_histogram(bins = 100, fill = "steelblue", color = "black") +
+ggplot(PT_clean, aes(x = Fst)) +
+  geom_histogram(bins = 50, fill = "steelblue", color = "black") +
+  coord_cartesian(ylim = c(0, 4000000)) +
   theme_minimal() + 
   theme(panel.grid = element_blank()) +
   labs(
     x = "fixation index",
     y = "number of SNPs")
 
-PT_fst_chr1 <- PT_fst_clean[PT_fst_clean$Chr == 1, ]
-PT_fst_chr2 <- PT_fst_clean[PT_fst_clean$Chr == 2, ]
-PT_fst_chr3 <- PT_fst_clean[PT_fst_clean$Chr == 3, ]
-PT_fst_chr4 <- PT_fst_clean[PT_fst_clean$Chr == 4, ]
-PT_fst_chr5 <- PT_fst_clean[PT_fst_clean$Chr == 5, ]
-PT_fst_chr6 <- PT_fst_clean[PT_fst_clean$Chr == 6, ]
-PT_fst_chr7 <- PT_fst_clean[PT_fst_clean$Chr == 7, ]
-PT_fst_chr8 <- PT_fst_clean[PT_fst_clean$Chr == 8, ]
-PT_fst_chr9 <- PT_fst_clean[PT_fst_clean$Chr == 9, ]
-PT_fst_chr10 <- PT_fst_clean[PT_fst_clean$Chr == 10, ]
+PT_chr1 <- PT_clean[PT_clean$Chr == 1, ]
+PT_chr2 <- PT_clean[PT_clean$Chr == 2, ]
+PT_chr3 <- PT_clean[PT_clean$Chr == 3, ]
+PT_chr4 <- PT_clean[PT_clean$Chr == 4, ]
+PT_chr5 <- PT_clean[PT_clean$Chr == 5, ]
+PT_chr6 <- PT_clean[PT_clean$Chr == 6, ]
+PT_chr7 <- PT_clean[PT_clean$Chr == 7, ]
+PT_chr8 <- PT_clean[PT_clean$Chr == 8, ]
+PT_chr9 <- PT_clean[PT_clean$Chr == 9, ]
+PT_chr10 <- PT_clean[PT_clean$Chr == 10, ]
 
-chr10_subset <- subset(PT_fst_chr10, bp >= 2e7 & bp <= 3e7)
+chr4_subset <- subset(PT_chr4, bp >= 1e7 & bp <= 3e7)
 
 library(GenWin)
 
-PT_fst_chr10_spline <- splineAnalyze(Y=chr10_subset$Fst,map=chr10_subset$bp,smoothness=300,
+PT_chr4_spline <- splineAnalyze(Y=chr4_subset$Fst,map=chr4_subset$bp,smoothness=300,
                                      plotRaw=TRUE,plotWindows=TRUE,method=4)
 
 
@@ -66,7 +72,7 @@ abline(v = mean_fst, col = "red", lwd = 2)
 text(mean_fst, par("usr")[4]*0.9, labels = paste0("Mean = ", round(mean_fst,3)),
      col="red", pos=4)
 
-boxplot(fst_data$FST,
+boxplot(PT_clean$Fst,
         horizontal = TRUE,
         col = "lightgreen",
         main = "FST: Parviglumis vs. Iodent",
@@ -90,7 +96,7 @@ barplot(fst_by_chr$mean_fst,
         main = "Mean FST per chromosome")
 mean_fst <- mean(TI_fst_clean$Fst, na.rm = TRUE)
 
-plot(density(TI_fst_clean$Fst, na.rm=TRUE),
+plot(density(PT_clean$Fst),
      main="Density of FST",
      xlab="FST",
      ylab="Density",
