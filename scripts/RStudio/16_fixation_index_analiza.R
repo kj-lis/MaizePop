@@ -3,6 +3,9 @@ TI <- read.table("/home/kuba/Desktop/Tropical_Iodent.fst", header=TRUE)
 TSS <- read.table("/home/kuba/Desktop/Tropical_SS.fst", header=TRUE)
 TNS <- read.table("/home/kuba/Desktop/Tropical_NSS.fst", header=TRUE)
 
+#rbind, boxplot, SS I vs. SS II, Iodent stary vs. Iodent nowy
+#Tropical vs stary SS, tak samo Iodent
+
 PT$Fst <- pmax(PT$Fst, 0)
 TI$Fst <- pmax(TI$Fst, 0)
 TSS$Fst <- pmax(TSS$Fst, 0)
@@ -39,8 +42,6 @@ PT_chr7 <- PT_clean[PT_clean$Chr == 7, ]
 PT_chr8 <- PT_clean[PT_clean$Chr == 8, ]
 PT_chr9 <- PT_clean[PT_clean$Chr == 9, ]
 PT_chr10 <- PT_clean[PT_clean$Chr == 10, ]
-
-chr4_subset <- subset(PT_chr4, bp >= 1e7 & bp <= 3e7)
 
 library(GenWin)
 
