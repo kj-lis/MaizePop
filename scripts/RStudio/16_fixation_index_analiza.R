@@ -1,13 +1,33 @@
-PT <- read.table("C:/Users/kjlis/Desktop/Parviglumis_Tropical.fst", header=TRUE)
-TI_1 <- read.table("C:/Users/kjlis/Desktop/Tropical_Iodent_era1.fst", header=TRUE)
+Pv_Tr <- read.table("C:/Users/kjlis/Desktop/Parviglumis_Tropical.fst", header=TRUE)
+Tr_Idt_1 <- read.table("C:/Users/kjlis/Desktop/Tropical_Iodent_era1.fst", header=TRUE)
+Tr_SS_1 <- read.table("C:/Users/kjlis/Desktop/Tropical_SS_era1.fst", header=TRUE)
+Idt_1vs2 <- read.table("C:/Users/kjlis/Desktop/Iodent_era1_era2.fst", header=TRUE)
+SS_1vs2 <- read.table("C:/Users/kjlis/Desktop/SS_era1_era2.fst", header=TRUE)
+
+Pv_Tr <- pmax(Pv_Tr$Fst, 0)
+Tr_Idt_1 <- pmax(Tr_Idt_1$Fst, 0)
+Tr_SS_1 <- pmax(Tr_SS_1$Fst, 0)
+Idt_1vs2 <- pmax(Idt_1vs2$Fst, 0)
+SS_1vs2 <- pmax(SS_1vs2$Fst, 0)
+
+Pv_Tr_clean <- Pv_Tr[!is.na(Pv_Tr$Fst), ]
+Tr_Idt_1_clean <- Tr_Idt_1[!is.na(Tr_Idt_1$Fst), ]
+Tr_SS_1_clean <- Tr_SS_1[!is.na(Tr_SS_1$Fst), ]
+Idt_1vs2_clean <- Idt_1vs2[!is.na(Idt_1vs2$Fst), ]
+SS_1vs2_clean <- SS_1vs2[!is.na(SS_1vs2$Fst), ]
+
+summary(Pv_Tr_clean$Fst)
+summary(Tr_Idt_1_clean$Fst)
+summary(Tr_SS_1_clean$Fst)
+summary(Idt_1vs2_clean$Fst)
+summary(SS_1vs2_clean$Fst)
 
 
 
 
-PT <- read.table("C:/Users/kjlis/Desktop/Parviglumis_Tropical.fst", header=TRUE)
-TI <- read.table("/home/kuba/Desktop/Tropical_Iodent.fst", header=TRUE)
-TSS <- read.table("/home/kuba/Desktop/Tropical_SS.fst", header=TRUE)
-TNS <- read.table("/home/kuba/Desktop/Tropical_NSS.fst", header=TRUE)
+
+
+
 
 #rbind, boxplot, SS I vs. SS II, Iodent stary vs. Iodent nowy
 #Tropical vs stary SS, tak samo Iodent
