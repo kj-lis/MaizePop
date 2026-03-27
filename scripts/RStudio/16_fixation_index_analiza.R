@@ -4,11 +4,11 @@ Tr_SS_1 <- read.table("C:/Users/kjlis/Desktop/Tropical_SS_era1.fst", header=TRUE
 Idt_1vs2 <- read.table("C:/Users/kjlis/Desktop/Iodent_era1_era2.fst", header=TRUE)
 SS_1vs2 <- read.table("C:/Users/kjlis/Desktop/SS_era1_era2.fst", header=TRUE)
 
-Pv_Tr <- pmax(Pv_Tr$Fst, 0)
-Tr_Idt_1 <- pmax(Tr_Idt_1$Fst, 0)
-Tr_SS_1 <- pmax(Tr_SS_1$Fst, 0)
-Idt_1vs2 <- pmax(Idt_1vs2$Fst, 0)
-SS_1vs2 <- pmax(SS_1vs2$Fst, 0)
+Pv_Tr$Fst <- pmax(Pv_Tr$Fst, 0)
+Tr_Idt_1$Fst <- pmax(Tr_Idt_1$Fst, 0)
+Tr_SS_1$Fst <- pmax(Tr_SS_1$Fst, 0)
+Idt_1vs2$Fst <- pmax(Idt_1vs2$Fst, 0)
+SS_1vs2$Fst <- pmax(SS_1vs2$Fst, 0)
 
 Pv_Tr_clean <- Pv_Tr[!is.na(Pv_Tr$Fst), ]
 Tr_Idt_1_clean <- Tr_Idt_1[!is.na(Tr_Idt_1$Fst), ]
@@ -22,12 +22,40 @@ summary(Tr_SS_1_clean$Fst)
 summary(Idt_1vs2_clean$Fst)
 summary(SS_1vs2_clean$Fst)
 
+fst_all <- rbind(
+  data.frame(Group = "Parviglumis vs Tropical", Fst = Pv_Tr_clean$Fst),
+  data.frame(Group = "Tropical vs Iodent era I", Fst = Tr_Idt_1_clean$Fst),
+  data.frame(Group = "Tropical vs SS era I", Fst = Tr_SS_1_clean$Fst),
+  data.frame(Group = "Iodent era I vs era II", Fst = Idt_1vs2_clean$Fst),
+  data.frame(Group = "SS era I vs era II", Fst = SS_1vs2_clean$Fst)
+)
+
+fst_all$Group <- factor(
+  fst_all$Group,
+  levels = c("Parviglumis vs Tropical", "Tropical vs Iodent era I", "Tropical vs SS era I",
+             "Iodent era I vs era II", "SS era I vs era II")
+)
+
+library(ggplot2)
+
+ggplot(fst_all, aes(x = Group, y = Fst)) +
+  geom_boxplot(fill = "lightblue") +
+  theme_classic() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(title = "fst between groups",
+       x = "Group",
+       y = "fst")
+
+Pv_Tr_chr <- split(Pv_Tr_clean, Pv_Tr_clean$Chr)
+Tr_Idt_1_chr <- split(Tr_Idt_1_clean, Tr_Idt_1_clean$Chr)
+Tr_SS_1_chr <- split(Tr_SS_1_clean, Tr_SS_1_clean$Chr)
+Idt_1vs2_chr <- split(Idt_1vs2_clean, Idt_1vs2_clean$Chr)
+SS_1vs2_chr <- split(SS_1vs2_clean, SS_1vs2_clean$Chr)
 
 
 
 
-
-
+################################
 
 #rbind, boxplot, SS I vs. SS II, Iodent stary vs. Iodent nowy
 #Tropical vs stary SS, tak samo Iodent
