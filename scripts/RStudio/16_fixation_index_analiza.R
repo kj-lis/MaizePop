@@ -90,3 +90,14 @@ Pv_Tr_chr9_spline <- splineAnalyze(Y=Pv_Tr_chr9$Fst,map=Pv_Tr_chr9$bp,smoothness
                                    plotRaw=TRUE,plotWindows=TRUE,method=4)
 Pv_Tr_chr10_spline <- splineAnalyze(Y=Pv_Tr_chr10$Fst,map=Pv_Tr_chr10$bp,smoothness=200,
                                    plotRaw=TRUE,plotWindows=TRUE,method=4)
+
+Pv_Tr_chr1_data <- Pv_Tr_chr1_spline[["windowData"]]
+Pv_Tr_chr2_data <- Pv_Tr_chr2_spline[["windowData"]]
+Pv_Tr_chr3_data <- Pv_Tr_chr3_spline[["windowData"]]
+Pv_Tr_chr4_data <- Pv_Tr_chr4_spline[["windowData"]]
+Pv_Tr_chr5_data <- Pv_Tr_chr5_spline[["windowData"]]
+Pv_Tr_chr6_data <- Pv_Tr_chr6_spline[["windowData"]]
+Pv_Tr_chr7_data <- Pv_Tr_chr7_spline[["windowData"]]
+Pv_Tr_chr8_data <- Pv_Tr_chr8_spline[["windowData"]]
+Pv_Tr_chr9_data <- Pv_Tr_chr9_spline[["windowData"]]
+Pv_Tr_chr10_data <- Pv_Tr_chr10_spline[["windowData"]]
