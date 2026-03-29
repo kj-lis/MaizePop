@@ -101,3 +101,6 @@ Pv_Tr_chr7_data <- Pv_Tr_chr7_spline[["windowData"]]
 Pv_Tr_chr8_data <- Pv_Tr_chr8_spline[["windowData"]]
 Pv_Tr_chr9_data <- Pv_Tr_chr9_spline[["windowData"]]
 Pv_Tr_chr10_data <- Pv_Tr_chr10_spline[["windowData"]]
+
+Pv_Tr_chr10_threshold <- quantile(Pv_Tr_chr10_data$MeanY, 0.99, na.rm = TRUE)
+Pv_Tr_chr10_candidates <- Pv_Tr_chr10_data[Pv_Tr_chr10_data$MeanY >= Pv_Tr_chr10_threshold , ]
