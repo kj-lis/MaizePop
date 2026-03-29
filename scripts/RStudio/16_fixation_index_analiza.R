@@ -40,54 +40,53 @@ fst_all$Group <- factor(
 
 library(ggplot2)
 
-png(file="C:/Users/kjlis/Desktop/fst_all.png", width=1000, height=950, res=150)
+png(file="C:/Users/kjlis/Desktop/fst_all.png", width=1000, height=1100, res=150)
 ggplot(fst_all, aes(x = Group, y = Fst)) +
   geom_boxplot(fill = "aquamarine3") +
   theme_classic() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12),
-        axis.title.x = element_text(size = 14, margin = margin(t = 10)),
-        axis.title.y = element_text(size = 14, margin = margin(r = 10)),
+        axis.title.x = element_text(size = 13, margin = margin(t = 12), face = "bold"),
+        axis.title.y = element_text(size = 13, margin = margin(r = 12), face = "bold"),
         axis.text.y = element_text(size = 12),
-        plot.title = element_text(size = 16, face = "bold", hjust = 0.5),
-        plot.margin = margin(10, 10, 10, 10)) +
-  labs(title = "fixation index between subpopulations",
-       x = "subpopulation",
+        plot.title = element_text(size = 15, face = "bold", hjust = 0.5),
+        plot.margin = margin(11, 11, 11, 11)) +
+  labs(title = "fixation index between groups",
+       x = "group",
        y = "fst")
 dev.off()
 
 
 
-Pv_Tr_chr <- split(Pv_Tr_clean, Pv_Tr_clean$Chr)
-Tr_Idt_1_chr <- split(Tr_Idt_1_clean, Tr_Idt_1_clean$Chr)
-Tr_SS_1_chr <- split(Tr_SS_1_clean, Tr_SS_1_clean$Chr)
-Idt_1vs2_chr <- split(Idt_1vs2_clean, Idt_1vs2_clean$Chr)
-SS_1vs2_chr <- split(SS_1vs2_clean, SS_1vs2_clean$Chr)
+Pv_Tr_chr1 <- Pv_Tr_clean[Pv_Tr_clean$Chr == 1, ]
+Pv_Tr_chr2 <- Pv_Tr_clean[Pv_Tr_clean$Chr == 2, ]
+Pv_Tr_chr3 <- Pv_Tr_clean[Pv_Tr_clean$Chr == 3, ]
+Pv_Tr_chr4 <- Pv_Tr_clean[Pv_Tr_clean$Chr == 4, ]
+Pv_Tr_chr5 <- Pv_Tr_clean[Pv_Tr_clean$Chr == 5, ]
+Pv_Tr_chr6 <- Pv_Tr_clean[Pv_Tr_clean$Chr == 6, ]
+Pv_Tr_chr7 <- Pv_Tr_clean[Pv_Tr_clean$Chr == 7, ]
+Pv_Tr_chr8 <- Pv_Tr_clean[Pv_Tr_clean$Chr == 8, ]
+Pv_Tr_chr9 <- Pv_Tr_clean[Pv_Tr_clean$Chr == 9, ]
+Pv_Tr_chr10 <- Pv_Tr_clean[Pv_Tr_clean$Chr == 10, ]
 
 library(GenWin)
 
-
-
-
-################################
-
-#rbind, boxplot, SS I vs. SS II, Iodent stary vs. Iodent nowy
-#Tropical vs stary SS, tak samo Iodent
-
-PT_chr1 <- PT_clean[PT_clean$Chr == 1, ]
-PT_chr2 <- PT_clean[PT_clean$Chr == 2, ]
-PT_chr3 <- PT_clean[PT_clean$Chr == 3, ]
-PT_chr4 <- PT_clean[PT_clean$Chr == 4, ]
-PT_chr5 <- PT_clean[PT_clean$Chr == 5, ]
-PT_chr6 <- PT_clean[PT_clean$Chr == 6, ]
-PT_chr7 <- PT_clean[PT_clean$Chr == 7, ]
-PT_chr8 <- PT_clean[PT_clean$Chr == 8, ]
-PT_chr9 <- PT_clean[PT_clean$Chr == 9, ]
-PT_chr10 <- PT_clean[PT_clean$Chr == 10, ]
-
-library(GenWin)
-
-PT_chr4_spline <- splineAnalyze(Y=chr4_subset$Fst,map=chr4_subset$bp,smoothness=300,
-                                     plotRaw=TRUE,plotWindows=TRUE,method=4)
-
-
-
+Pv_Tr_chr1_spline <- splineAnalyze(Y=Pv_Tr_chr1$Fst,map=Pv_Tr_chr1$bp,smoothness=200,
+                                   plotRaw=TRUE,plotWindows=TRUE,method=4)
+Pv_Tr_chr2_spline <- splineAnalyze(Y=Pv_Tr_chr2$Fst,map=Pv_Tr_chr2$bp,smoothness=200,
+                                   plotRaw=TRUE,plotWindows=TRUE,method=4)
+Pv_Tr_chr3_spline <- splineAnalyze(Y=Pv_Tr_chr3$Fst,map=Pv_Tr_chr3$bp,smoothness=200,
+                                   plotRaw=TRUE,plotWindows=TRUE,method=4)
+Pv_Tr_chr4_spline <- splineAnalyze(Y=Pv_Tr_chr4$Fst,map=Pv_Tr_chr4$bp,smoothness=200,
+                                   plotRaw=TRUE,plotWindows=TRUE,method=4)
+Pv_Tr_chr5_spline <- splineAnalyze(Y=Pv_Tr_chr5$Fst,map=Pv_Tr_chr5$bp,smoothness=200,
+                                   plotRaw=TRUE,plotWindows=TRUE,method=4)
+Pv_Tr_chr6_spline <- splineAnalyze(Y=Pv_Tr_chr6$Fst,map=Pv_Tr_chr6$bp,smoothness=200,
+                                   plotRaw=TRUE,plotWindows=TRUE,method=4)
+Pv_Tr_chr7_spline <- splineAnalyze(Y=Pv_Tr_chr7$Fst,map=Pv_Tr_chr7$bp,smoothness=200,
+                                   plotRaw=TRUE,plotWindows=TRUE,method=4)
+Pv_Tr_chr8_spline <- splineAnalyze(Y=Pv_Tr_chr8$Fst,map=Pv_Tr_chr8$bp,smoothness=200,
+                                   plotRaw=TRUE,plotWindows=TRUE,method=4)
+Pv_Tr_chr9_spline <- splineAnalyze(Y=Pv_Tr_chr9$Fst,map=Pv_Tr_chr9$bp,smoothness=200,
+                                   plotRaw=TRUE,plotWindows=TRUE,method=4)
+Pv_Tr_chr10_spline <- splineAnalyze(Y=Pv_Tr_chr10$Fst,map=Pv_Tr_chr10$bp,smoothness=200,
+                                   plotRaw=TRUE,plotWindows=TRUE,method=4)
