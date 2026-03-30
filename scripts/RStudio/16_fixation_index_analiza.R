@@ -45,21 +45,21 @@ summary(SS_1vs2_clean$Fst)
 fst_all <- rbind(
   data.frame(Group = "Mexicana vs. Parviglumis", Fst = Mx_Pv_clean$Fst),
   data.frame(Group = "Parviglumis vs. Tropical", Fst = Pv_Tr_clean$Fst),
-  data.frame(Group = "Tropical vs. Iodent era I", Fst = Tr_Idt_1_clean$Fst),
-  data.frame(Group = "Tropical vs. SS era I", Fst = Tr_SS_1_clean$Fst),
+  data.frame(Group = "Tropical vs. Iodent I", Fst = Tr_Idt_1_clean$Fst),
+  data.frame(Group = "Tropical vs. SS I", Fst = Tr_SS_1_clean$Fst),
   data.frame(Group = "Tropical vs. NSS", Fst = Tr_NSS_clean$Fst),
   data.frame(Group = "SS vs. NSS", Fst = SS_NSS_clean$Fst),
-  data.frame(Group = "Iodent era I vs. SS era I", Fst = Idt_1_SS_1_clean$Fst),
-  data.frame(Group = "Iodent era II vs. SS era II", Fst = Idt_2_SS_2_clean$Fst),
-  data.frame(Group = "Iodent era I vs. era II", Fst = Idt_1vs2_clean$Fst),
-  data.frame(Group = "SS era I vs. era II", Fst = SS_1vs2_clean$Fst)
+  data.frame(Group = "Iodent I vs. SS I", Fst = Idt_1_SS_1_clean$Fst),
+  data.frame(Group = "Iodent II vs. SS II", Fst = Idt_2_SS_2_clean$Fst),
+  data.frame(Group = "Iodent I vs. II", Fst = Idt_1vs2_clean$Fst),
+  data.frame(Group = "SS I vs. II", Fst = SS_1vs2_clean$Fst)
 )
 
 fst_all$Group <- factor(
   fst_all$Group,
-  levels = c("Mexicana vs. Parviglumis","Parviglumis vs. Tropical","Tropical vs. Iodent era I","Tropical vs. SS era I",
-             "Tropical vs. NSS","SS vs. NSS","Iodent era I vs. SS era I","Iodent era II vs. SS era II",
-             "Iodent era I vs. era II","SS era I vs. era II")
+  levels = c("Mexicana vs. Parviglumis","Parviglumis vs. Tropical","Tropical vs. Iodent I","Tropical vs. SS I",
+             "Tropical vs. NSS","SS vs. NSS","Iodent I vs. SS I","Iodent II vs. SS II",
+             "Iodent I vs. II","SS I vs. II")
 )
 
 library(ggplot2)
@@ -79,6 +79,8 @@ ggplot(fst_all, aes(x = Group, y = Fst)) +
        y = "fst")
 dev.off()
 
+
+################################
 
 
 Pv_Tr_chr1 <- Pv_Tr_clean[Pv_Tr_clean$Chr == 1, ]
@@ -125,6 +127,8 @@ Pv_Tr_chr7_data <- Pv_Tr_chr7_spline[["windowData"]]
 Pv_Tr_chr8_data <- Pv_Tr_chr8_spline[["windowData"]]
 Pv_Tr_chr9_data <- Pv_Tr_chr9_spline[["windowData"]]
 Pv_Tr_chr10_data <- Pv_Tr_chr10_spline[["windowData"]]
+
+
 
 #wziac 10% najwyzszego Wstat i zapisac te dane
 #zrobic jeszcze fst Iodent 1 vs SS 1
