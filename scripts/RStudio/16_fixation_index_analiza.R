@@ -64,7 +64,7 @@ fst_all$Group <- factor(
 
 library(ggplot2)
 
-png(file="/home/kuba/Desktop/fst_all.png", width=1000, height=1100, res=150)
+png(file="/home/kuba/Desktop/fst_all.png", width=950, height=700, res=150)
 ggplot(fst_all, aes(x = Group, y = Fst)) +
   geom_boxplot(fill = "aquamarine2") +
   theme_classic() +
@@ -73,7 +73,7 @@ ggplot(fst_all, aes(x = Group, y = Fst)) +
         axis.title.y = element_text(size = 13, margin = margin(r = 12), face = "bold"),
         axis.text.y = element_text(size = 12),
         plot.title = element_text(size = 15, face = "bold", hjust = 0.5),
-        plot.margin = margin(11, 11, 11, 11)) +
+        plot.margin = margin(11, 11, 11, 20)) +
   labs(title = "fixation index between groups",
        x = "group",
        y = "fst")
@@ -83,55 +83,97 @@ dev.off()
 ################################
 
 
-Pv_Tr_chr1 <- Pv_Tr_clean[Pv_Tr_clean$Chr == 1, ]
-Pv_Tr_chr2 <- Pv_Tr_clean[Pv_Tr_clean$Chr == 2, ]
-Pv_Tr_chr3 <- Pv_Tr_clean[Pv_Tr_clean$Chr == 3, ]
-Pv_Tr_chr4 <- Pv_Tr_clean[Pv_Tr_clean$Chr == 4, ]
-Pv_Tr_chr5 <- Pv_Tr_clean[Pv_Tr_clean$Chr == 5, ]
-Pv_Tr_chr6 <- Pv_Tr_clean[Pv_Tr_clean$Chr == 6, ]
-Pv_Tr_chr7 <- Pv_Tr_clean[Pv_Tr_clean$Chr == 7, ]
-Pv_Tr_chr8 <- Pv_Tr_clean[Pv_Tr_clean$Chr == 8, ]
-Pv_Tr_chr9 <- Pv_Tr_clean[Pv_Tr_clean$Chr == 9, ]
-Pv_Tr_chr10 <- Pv_Tr_clean[Pv_Tr_clean$Chr == 10, ]
+library(GenWin)
+library(dplyr)
+
+Pv_Tr_spline_list <- list()
+for (i in 1:10) {
+  chr_data <- Pv_Tr_clean[Pv_Tr_clean$Chr == i, ]
+  Pv_Tr_spline_list[[i]] <- splineAnalyze(
+    Y = chr_data$Fst,
+    map = chr_data$bp,
+    smoothness = 200,
+    plotRaw = TRUE,
+    plotWindows = TRUE,
+    method = 4
+  )
+}
+names(Pv_Tr_spline_list) <- paste0("chr", 1:10)
+
+Pv_Tr_results <- list()
+for (i in 1:10) {
+  spline_obj <- Pv_Tr_spline_list[[i]]
+  candidates <- spline_obj[["windowData"]] %>%
+    filter(Wstat >= quantile(Wstat, 0.9, na.rm = TRUE)) %>%
+    mutate(chromosome = paste0("chr", i))
+  Pv_Tr_results[[i]] <- candidates
+}
+names(Pv_Tr_results) <- paste0("chr", 1:10)
+all_candidates <- bind_rows(Pv_Tr_results)
+write.csv(all_candidates, "Pv_Tr_candidates.csv", row.names = FALSE)
+
+
+################################
+
 
 library(GenWin)
+library(dplyr)
 
-Pv_Tr_chr1_spline <- splineAnalyze(Y=Pv_Tr_chr1$Fst,map=Pv_Tr_chr1$bp,smoothness=200,
-                                   plotRaw=TRUE,plotWindows=TRUE,method=4)
-Pv_Tr_chr2_spline <- splineAnalyze(Y=Pv_Tr_chr2$Fst,map=Pv_Tr_chr2$bp,smoothness=200,
-                                   plotRaw=TRUE,plotWindows=TRUE,method=4)
-Pv_Tr_chr3_spline <- splineAnalyze(Y=Pv_Tr_chr3$Fst,map=Pv_Tr_chr3$bp,smoothness=200,
-                                   plotRaw=TRUE,plotWindows=TRUE,method=4)
-Pv_Tr_chr4_spline <- splineAnalyze(Y=Pv_Tr_chr4$Fst,map=Pv_Tr_chr4$bp,smoothness=200,
-                                   plotRaw=TRUE,plotWindows=TRUE,method=4)
-Pv_Tr_chr5_spline <- splineAnalyze(Y=Pv_Tr_chr5$Fst,map=Pv_Tr_chr5$bp,smoothness=200,
-                                   plotRaw=TRUE,plotWindows=TRUE,method=4)
-Pv_Tr_chr6_spline <- splineAnalyze(Y=Pv_Tr_chr6$Fst,map=Pv_Tr_chr6$bp,smoothness=200,
-                                   plotRaw=TRUE,plotWindows=TRUE,method=4)
-Pv_Tr_chr7_spline <- splineAnalyze(Y=Pv_Tr_chr7$Fst,map=Pv_Tr_chr7$bp,smoothness=200,
-                                   plotRaw=TRUE,plotWindows=TRUE,method=4)
-Pv_Tr_chr8_spline <- splineAnalyze(Y=Pv_Tr_chr8$Fst,map=Pv_Tr_chr8$bp,smoothness=200,
-                                   plotRaw=TRUE,plotWindows=TRUE,method=4)
-Pv_Tr_chr9_spline <- splineAnalyze(Y=Pv_Tr_chr9$Fst,map=Pv_Tr_chr9$bp,smoothness=200,
-                                   plotRaw=TRUE,plotWindows=TRUE,method=4)
-Pv_Tr_chr10_spline <- splineAnalyze(Y=Pv_Tr_chr10$Fst,map=Pv_Tr_chr10$bp,smoothness=200,
-                                   plotRaw=TRUE,plotWindows=TRUE,method=4)
+Tr_Idt_1_clean_spline_list <- list()
+for (i in 1:10) {
+  chr_data <- Tr_Idt_1_clean[Tr_Idt_1_clean$Chr == i, ]
+  Pv_Tr_spline_list[[i]] <- splineAnalyze(
+    Y = chr_data$Fst,
+    map = chr_data$bp,
+    smoothness = 200,
+    plotRaw = TRUE,
+    plotWindows = TRUE,
+    method = 4
+  )
+}
+names(Tr_Idt_1_clean_spline_list) <- paste0("chr", 1:10)
 
-Pv_Tr_chr1_data <- Pv_Tr_chr1_spline[["windowData"]]
-Pv_Tr_chr2_data <- Pv_Tr_chr2_spline[["windowData"]]
-Pv_Tr_chr3_data <- Pv_Tr_chr3_spline[["windowData"]]
-Pv_Tr_chr4_data <- Pv_Tr_chr4_spline[["windowData"]]
-Pv_Tr_chr5_data <- Pv_Tr_chr5_spline[["windowData"]]
-Pv_Tr_chr6_data <- Pv_Tr_chr6_spline[["windowData"]]
-Pv_Tr_chr7_data <- Pv_Tr_chr7_spline[["windowData"]]
-Pv_Tr_chr8_data <- Pv_Tr_chr8_spline[["windowData"]]
-Pv_Tr_chr9_data <- Pv_Tr_chr9_spline[["windowData"]]
-Pv_Tr_chr10_data <- Pv_Tr_chr10_spline[["windowData"]]
+Tr_Idt_1_results <- list()
+for (i in 1:10) {
+  spline_obj <- Tr_Idt_1_spline_list[[i]]
+  candidates <- spline_obj[["windowData"]] %>%
+    filter(Wstat >= quantile(Wstat, 0.9, na.rm = TRUE)) %>%
+    mutate(chromosome = paste0("chr", i))
+  Tr_Idt_1_results[[i]] <- candidates
+}
+names(Tr_Idt_1_results) <- paste0("chr", 1:10)
+all_candidates <- bind_rows(Pv_Tr_results)
+write.csv(all_candidates, "Tr_Idt_1_candidates.csv", row.names = FALSE)
 
 
+################################
 
-#wziac 10% najwyzszego Wstat i zapisac te dane
-#zrobic jeszcze fst Iodent 1 vs SS 1
 
-Pv_Tr_chr10_threshold <- quantile(Pv_Tr_chr10_data$MeanY, 0.99, na.rm = TRUE)
-Pv_Tr_chr10_candidates <- Pv_Tr_chr10_data[Pv_Tr_chr10_data$MeanY >= Pv_Tr_chr10_threshold , ]
+library(GenWin)
+library(dplyr)
+
+Tr_SS_1_clean_spline_list <- list()
+for (i in 1:10) {
+  chr_data <- Tr_SS_1_clean[Tr_SS_1_clean$Chr == i, ]
+  Pv_SS_spline_list[[i]] <- splineAnalyze(
+    Y = chr_data$Fst,
+    map = chr_data$bp,
+    smoothness = 200,
+    plotRaw = TRUE,
+    plotWindows = TRUE,
+    method = 4
+  )
+}
+names(Tr_SS_1_clean_spline_list) <- paste0("chr", 1:10)
+
+Tr_SS_1_results <- list()
+for (i in 1:10) {
+  spline_obj <- Tr_SS_1_spline_list[[i]]
+  candidates <- spline_obj[["windowData"]] %>%
+    filter(Wstat >= quantile(Wstat, 0.9, na.rm = TRUE)) %>%
+    mutate(chromosome = paste0("chr", i))
+  Tr_SS_1_results[[i]] <- candidates
+}
+names(Tr_SS_1_results) <- paste0("chr", 1:10)
+all_candidates <- bind_rows(Pv_Tr_results)
+write.csv(all_candidates, "Tr_SS_1_candidates.csv", row.names = FALSE)
