@@ -11,5 +11,5 @@
 #SBATCH --error=/home/jl430796/MaizePop/logs/zmays_14.%A_%a.err
 
 plink --bfile /home/jl430796/MaizePop/data/processed/00_SNP_odfiltr/chr_all_zea_plink_1 \
---keep /home/jl430796/MaizePop/metadane/05_fixation_index/Iodent_era2_SS_era2_IDs.txt \
---make-bed --out /home/jl430796/MaizePop/data/processed/04_fixation_index/Iodent_era2_SS_era2
+--keep /home/jl430796/MaizePop/metadane/05_fixation_index/Mexicana_Parviglumis_IDs.txt \
+--make-bed --out /home/jl430796/MaizePop/data/processed/04_fixation_index/Mexicana_Parviglumis

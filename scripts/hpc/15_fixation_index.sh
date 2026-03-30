@@ -1,3 +1,5 @@
+/home/kuba/Desktop/gcta-1.95.1-linux-x86_64./gcta-1.95.1-linux-x86_64/gcta64 --bfile ./04_fixation_index/Mexicana_Parviglumis --fst --sub-popu ./Mexicana_Parviglumis_fst_IDs.txt  --out ./Mexicana_Parviglumis
+
 /home/kuba/Desktop/gcta-1.95.1-linux-x86_64./gcta-1.95.1-linux-x86_64/gcta64 --bfile ./04_fixation_index/Parviglumis_Tropical --fst --sub-popu ./Parviglumis_Tropical_fst_IDs.txt  --out ./Parviglumis_Tropical
 
 /home/kuba/Desktop/gcta-1.95.1-linux-x86_64./gcta-1.95.1-linux-x86_64/gcta64 --bfile ./04_fixation_index/Tropical_Iodent_era1 --fst --sub-popu ./Tropical_Iodent_era1_fst_IDs.txt  --out ./Tropical_Iodent_era1
