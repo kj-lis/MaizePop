@@ -42,7 +42,7 @@ library(ggplot2)
 
 png(file="C:/Users/kjlis/Desktop/fst_all.png", width=1000, height=1100, res=150)
 ggplot(fst_all, aes(x = Group, y = Fst)) +
-  geom_boxplot(fill = "aquamarine3") +
+  geom_boxplot(fill = "aquamarine2") +
   theme_classic() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12),
         axis.title.x = element_text(size = 13, margin = margin(t = 12), face = "bold"),
