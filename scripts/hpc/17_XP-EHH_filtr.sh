@@ -12,7 +12,7 @@
 #SBATCH --array=1-10
 
 chr=${SLURM_ARRAY_TASK_ID}
-populations=("Parviglumis" "Tropical" "Iodent_1" "SS_1")
+populations=("Parviglumis" "Tropical" "Iodent_1" "Iodent_2" "SS_1" "SS_2")
 
 for pop in "${populations[@]}"; do
     bcftools view \
