@@ -88,10 +88,10 @@ library(dplyr)
 
 Pv_Tr_spline_list <- list()
 for (i in 1:10) {
-  chr_data <- Pv_Tr_clean[Pv_Tr_clean$Chr == i, ]
+  chr_data_Pv_Tr <- Pv_Tr_clean[Pv_Tr_clean$Chr == i, ]
   Pv_Tr_spline_list[[i]] <- splineAnalyze(
-    Y = chr_data$Fst,
-    map = chr_data$bp,
+    Y = chr_data_Pv_Tr$Fst,
+    map = chr_data_Pv_Tr$bp,
     smoothness = 200,
     plotRaw = TRUE,
     plotWindows = TRUE,
@@ -102,15 +102,15 @@ names(Pv_Tr_spline_list) <- paste0("chr", 1:10)
 
 Pv_Tr_results <- list()
 for (i in 1:10) {
-  spline_obj <- Pv_Tr_spline_list[[i]]
-  candidates <- spline_obj[["windowData"]] %>%
+  spline_obj_Pv_Tr <- Pv_Tr_spline_list[[i]]
+  candidates_Pv_Tr <- spline_obj_Pv_Tr[["windowData"]] %>%
     filter(Wstat >= quantile(Wstat, 0.9, na.rm = TRUE)) %>%
     mutate(chromosome = paste0("chr", i))
-  Pv_Tr_results[[i]] <- candidates
+  Pv_Tr_results[[i]] <- candidates_Pv_Tr
 }
 names(Pv_Tr_results) <- paste0("chr", 1:10)
-all_candidates <- bind_rows(Pv_Tr_results)
-write.csv(all_candidates, "Pv_Tr_candidates.csv", row.names = FALSE)
+all_candidates_Pv_Tr <- bind_rows(Pv_Tr_results)
+write.csv(all_candidates_Pv_Tr, "/home/kuba/Desktop/Pv_Tr_candidates.csv", row.names = FALSE)
 
 
 ################################
@@ -119,31 +119,31 @@ write.csv(all_candidates, "Pv_Tr_candidates.csv", row.names = FALSE)
 library(GenWin)
 library(dplyr)
 
-Tr_Idt_1_clean_spline_list <- list()
+Tr_Idt_1_spline_list <- list()
 for (i in 1:10) {
-  chr_data <- Tr_Idt_1_clean[Tr_Idt_1_clean$Chr == i, ]
-  Pv_Tr_spline_list[[i]] <- splineAnalyze(
-    Y = chr_data$Fst,
-    map = chr_data$bp,
+  chr_data_Tr_Idt_1 <- Tr_Idt_1_clean[Tr_Idt_1_clean$Chr == i, ]
+  Tr_Idt_1_spline_list[[i]] <- splineAnalyze(
+    Y = chr_data_Tr_Idt_1$Fst,
+    map = chr_data_Tr_Idt_1$bp,
     smoothness = 200,
     plotRaw = TRUE,
     plotWindows = TRUE,
     method = 4
   )
 }
-names(Tr_Idt_1_clean_spline_list) <- paste0("chr", 1:10)
+names(Tr_Idt_1_spline_list) <- paste0("chr", 1:10)
 
 Tr_Idt_1_results <- list()
 for (i in 1:10) {
-  spline_obj <- Tr_Idt_1_spline_list[[i]]
-  candidates <- spline_obj[["windowData"]] %>%
+  spline_obj_Tr_Idt_1 <- Tr_Idt_1_spline_list[[i]]
+  candidates_Tr_Idt_1 <- spline_obj_Tr_Idt_1[["windowData"]] %>%
     filter(Wstat >= quantile(Wstat, 0.9, na.rm = TRUE)) %>%
     mutate(chromosome = paste0("chr", i))
-  Tr_Idt_1_results[[i]] <- candidates
+  Tr_Idt_1_results[[i]] <- candidates_Tr_Idt_1
 }
 names(Tr_Idt_1_results) <- paste0("chr", 1:10)
-all_candidates <- bind_rows(Pv_Tr_results)
-write.csv(all_candidates, "Tr_Idt_1_candidates.csv", row.names = FALSE)
+all_candidates_Tr_Idt_1 <- bind_rows(Tr_Idt_1_results)
+write.csv(all_candidates_Tr_Idt_1, "/home/kuba/Desktop/Tr_Idt_1_candidates.csv", row.names = FALSE)
 
 
 ################################
@@ -152,28 +152,28 @@ write.csv(all_candidates, "Tr_Idt_1_candidates.csv", row.names = FALSE)
 library(GenWin)
 library(dplyr)
 
-Tr_SS_1_clean_spline_list <- list()
+Tr_SS_1_spline_list <- list()
 for (i in 1:10) {
-  chr_data <- Tr_SS_1_clean[Tr_SS_1_clean$Chr == i, ]
-  Pv_SS_spline_list[[i]] <- splineAnalyze(
-    Y = chr_data$Fst,
-    map = chr_data$bp,
+  chr_data_Tr_SS_1 <- Tr_SS_1_clean[Tr_SS_1_clean$Chr == i, ]
+  Tr_SS_1_spline_list[[i]] <- splineAnalyze(
+    Y = chr_data_Tr_SS_1$Fst,
+    map = chr_data_Tr_SS_1$bp,
     smoothness = 200,
     plotRaw = TRUE,
     plotWindows = TRUE,
     method = 4
   )
 }
-names(Tr_SS_1_clean_spline_list) <- paste0("chr", 1:10)
+names(Tr_SS_1_spline_list) <- paste0("chr", 1:10)
 
 Tr_SS_1_results <- list()
 for (i in 1:10) {
-  spline_obj <- Tr_SS_1_spline_list[[i]]
-  candidates <- spline_obj[["windowData"]] %>%
+  spline_obj_Tr_SS_1 <- Tr_SS_1_spline_list[[i]]
+  candidates_Tr_SS_1 <- spline_obj_Tr_SS_1[["windowData"]] %>%
     filter(Wstat >= quantile(Wstat, 0.9, na.rm = TRUE)) %>%
     mutate(chromosome = paste0("chr", i))
-  Tr_SS_1_results[[i]] <- candidates
+  Tr_SS_1_results[[i]] <- candidates_Tr_SS_1
 }
 names(Tr_SS_1_results) <- paste0("chr", 1:10)
-all_candidates <- bind_rows(Pv_Tr_results)
-write.csv(all_candidates, "Tr_SS_1_candidates.csv", row.names = FALSE)
+all_candidates_Tr_SS_1 <- bind_rows(Tr_SS_1_results)
+write.csv(all_candidates_Tr_SS_1, "/home/kuba/Desktop/Tr_SS_1_candidates.csv", row.names = FALSE)
