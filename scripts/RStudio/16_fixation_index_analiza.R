@@ -177,3 +177,69 @@ for (i in 1:10) {
 names(Tr_SS_1_results) <- paste0("chr", 1:10)
 all_candidates_Tr_SS_1 <- bind_rows(Tr_SS_1_results)
 write.csv(all_candidates_Tr_SS_1, "/home/kuba/Desktop/Tr_SS_1_candidates.csv", row.names = FALSE)
+
+
+################################
+
+
+library(GenWin)
+library(dplyr)
+
+Idt_1vs2_spline_list <- list()
+for (i in 1:10) {
+  chr_data_Idt_1vs2 <- Idt_1vs2_clean[Idt_1vs2_clean$Chr == i, ]
+  Idt_1vs2_spline_list[[i]] <- splineAnalyze(
+    Y = chr_data_Idt_1vs2$Fst,
+    map = chr_data_Idt_1vs2$bp,
+    smoothness = 200,
+    plotRaw = TRUE,
+    plotWindows = TRUE,
+    method = 4
+  )
+}
+names(Idt_1vs2_spline_list) <- paste0("chr", 1:10)
+
+Idt_1vs2_results <- list()
+for (i in 1:10) {
+  spline_obj_Idt_1vs2 <- Idt_1vs2_spline_list[[i]]
+  candidates_Idt_1vs2 <- spline_obj_Idt_1vs2[["windowData"]] %>%
+    filter(Wstat >= quantile(Wstat, 0.9, na.rm = TRUE)) %>%
+    mutate(chromosome = paste0("chr", i))
+  Idt_1vs2_results[[i]] <- candidates_Idt_1vs2
+}
+names(Idt_1vs2_results) <- paste0("chr", 1:10)
+all_candidates_Idt_1vs2 <- bind_rows(Idt_1vs2_results)
+write.csv(all_candidates_Idt_1vs2, "/home/kuba/Desktop/Idt_1vs2_candidates.csv", row.names = FALSE)
+
+
+################################
+
+
+library(GenWin)
+library(dplyr)
+
+SS_1vs2_spline_list <- list()
+for (i in 1:10) {
+  chr_data_SS_1vs2 <- SS_1vs2_clean[SS_1vs2_clean$Chr == i, ]
+  SS_1vs2_spline_list[[i]] <- splineAnalyze(
+    Y = chr_data_SS_1vs2$Fst,
+    map = chr_data_SS_1vs2$bp,
+    smoothness = 200,
+    plotRaw = TRUE,
+    plotWindows = TRUE,
+    method = 4
+  )
+}
+names(SS_1vs2_spline_list) <- paste0("chr", 1:10)
+
+SS_1vs2_results <- list()
+for (i in 1:10) {
+  spline_obj_SS_1vs2 <- SS_1vs2_spline_list[[i]]
+  candidates_SS_1vs2 <- spline_obj_SS_1vs2[["windowData"]] %>%
+    filter(Wstat >= quantile(Wstat, 0.9, na.rm = TRUE)) %>%
+    mutate(chromosome = paste0("chr", i))
+  SS_1vs2_results[[i]] <- candidates_SS_1vs2
+}
+names(SS_1vs2_results) <- paste0("chr", 1:10)
+all_candidates_SS_1vs2 <- bind_rows(SS_1vs2_results)
+write.csv(all_candidates_SS_1vs2, "/home/kuba/Desktop/SS_1vs2_candidates.csv", row.names = FALSE)
