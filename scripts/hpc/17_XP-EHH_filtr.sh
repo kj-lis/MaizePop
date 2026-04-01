@@ -9,9 +9,15 @@
 #SBATCH --partition=okeanos
 #SBATCH --output=/home/jl430796/MaizePop/logs/zmays_17.%A_%a.out
 #SBATCH --error=/home/jl430796/MaizePop/logs/zmays_17.%A_%a.err
+#SBATCH --array=1-10
 
 chr=${SLURM_ARRAY_TASK_ID}
+populations=("Parviglumis" "Tropical" "Iodent_1" "SS_1")
 
-bcftools view -S /home/jl430796/MaizePop/metadane/03_XP_EHH/Tropical.txt \
-/home/jl430796/MaizePop/data/raw/chr_${chr}_zea_filtr.vcf.gz \
--O z -o /home/jl430796/MaizePop/data/processed/05_XP_EHH/chr_${chr}_Tropical.vcf.gz
+for pop in "${populations[@]}"; do
+    bcftools view \
+        -S /home/jl430796/MaizePop/metadane/03_XP_EHH/${pop}.txt \
+        /home/jl430796/MaizePop/data/raw/chr_${chr}_zea_filtr.vcf.gz \
+        -O z -o /home/jl430796/MaizePop/data/processed/05_XP_EHH/chr_${chr}_${pop}.vcf.gz
+
+done
