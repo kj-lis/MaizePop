@@ -20,4 +20,7 @@ bcftools concat /home/jl430796/MaizePop/data/raw/inputed_chr_1.vcf.gz \
 /home/jl430796/MaizePop/data/raw/inputed_chr_8.vcf.gz \
 /home/jl430796/MaizePop/data/raw/inputed_chr_9.vcf.gz \
 /home/jl430796/MaizePop/data/raw/inputed_chr_10.vcf.gz \
--O z -o /home/jl430796/MaizePop/data/processed/zea_PCA/chr_all_zea_filtr.vcf.gz
+-O z -o /home/jl430796/MaizePop/data/processed/00/chr_all_zea_filtr.vcf.gz
+
+
+java -Xmx45g -jar /home/jl430796/software/beagle.27Feb25.75f.jar gt=chr_1_zea.vcf.gz out=inputed_chr_1 nthreads=12
