@@ -1,3 +1,6 @@
+################################
+
+
 Mx_Pv <- read.table("/home/kuba/Desktop/Mexicana_Parviglumis.fst", header=TRUE)
 Pv_Tr <- read.table("/home/kuba/Desktop/Parviglumis_Tropical.fst", header=TRUE)
 Tr_Idt_1 <- read.table("/home/kuba/Desktop/Tropical_Iodent_era1.fst", header=TRUE)
@@ -78,6 +81,12 @@ ggplot(fst_all, aes(x = Group, y = Fst)) +
        x = "group",
        y = "fst")
 dev.off()
+
+
+################################
+
+
+
 
 
 library(GenWin)

@@ -13,6 +13,3 @@
 
 chr=${SLURM_ARRAY_TASK_ID}
 
-bcftools view /home/jl430796/MaizePop/data/raw/chr_${chr}_zea_filtr.vcf.gz \
--i 'F_MISSING=0 && MAF>=0.05' -m2 -M2 -v snps \
--O z -o /home/jl430796/MaizePop/data/processed/05_XP_EHH/chr_${chr}_filtr.vcf.gz
