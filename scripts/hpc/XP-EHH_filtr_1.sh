@@ -13,3 +13,7 @@
 
 chr=${SLURM_ARRAY_TASK_ID}
 
+java -Xmx45g -jar /home/jl430796/software/beagle.27Feb25.75f.jar \
+gt=/home/jl430796/MaizePop/data/raw/chr_${chr}_zea.vcf.gz \
+out=/home/jl430796/MaizePop/data/raw/inputed_chr_${chr} \
+nthreads=12
