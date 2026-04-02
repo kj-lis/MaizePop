@@ -80,11 +80,12 @@ ggplot(fst_all, aes(x = Group, y = Fst)) +
 dev.off()
 
 
-################################
-
-
 library(GenWin)
 library(dplyr)
+
+
+################################
+
 
 Pv_Tr_spline_list <- list()
 for (i in 1:10) {
@@ -116,9 +117,6 @@ write.csv(all_candidates_Pv_Tr, "/home/kuba/Desktop/Pv_Tr_candidates.csv", row.n
 ################################
 
 
-library(GenWin)
-library(dplyr)
-
 Tr_Idt_1_spline_list <- list()
 for (i in 1:10) {
   chr_data_Tr_Idt_1 <- Tr_Idt_1_clean[Tr_Idt_1_clean$Chr == i, ]
@@ -148,9 +146,6 @@ write.csv(all_candidates_Tr_Idt_1, "/home/kuba/Desktop/Tr_Idt_1_candidates.csv",
 
 ################################
 
-
-library(GenWin)
-library(dplyr)
 
 Tr_SS_1_spline_list <- list()
 for (i in 1:10) {
@@ -182,9 +177,6 @@ write.csv(all_candidates_Tr_SS_1, "/home/kuba/Desktop/Tr_SS_1_candidates.csv", r
 ################################
 
 
-library(GenWin)
-library(dplyr)
-
 Idt_1vs2_spline_list <- list()
 for (i in 1:10) {
   chr_data_Idt_1vs2 <- Idt_1vs2_clean[Idt_1vs2_clean$Chr == i, ]
@@ -214,9 +206,6 @@ write.csv(all_candidates_Idt_1vs2, "/home/kuba/Desktop/Idt_1vs2_candidates.csv",
 
 ################################
 
-
-library(GenWin)
-library(dplyr)
 
 SS_1vs2_spline_list <- list()
 for (i in 1:10) {
