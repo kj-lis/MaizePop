@@ -86,9 +86,6 @@ dev.off()
 ################################
 
 
-
-
-
 library(GenWin)
 library(dplyr)
 
