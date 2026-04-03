@@ -16,6 +16,10 @@
 
 set -euo pipefail
 
+# Activate bcftools (installed in the "geno" conda environment)
+module load common/anaconda/3.8
+conda activate geno
+
 # Inputs --------------------------------------------------------------------
 INCLUDE_SAMPLES_FILE=/home/jl430796/MaizePop/metadane/linie.txt
 VCF_DIR=/home/marcing/DATA/VCF
