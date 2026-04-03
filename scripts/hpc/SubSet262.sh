@@ -10,20 +10,16 @@
 #SBATCH --time=48:00:00                # Max runtime
 #SBATCH --account=g102-2488            # Allocation/account
 #SBATCH --partition=okeanos            # Partition/queue
-#SBATCH --error=logs/subsetting/subset_262.%A_%a.err
-#SBATCH --output=logs/subsetting/subset_262.%A_%a.out
+#SBATCH --output=/home/jl430796/MaizePop/logs/subset_maize.%A_%a.out
+#SBATCH --error=/home/jl430796/MaizePop/logs/subset_maize.%A_%a.err
 #SBATCH --array=1-10                   # chr_1..chr_10
 
 set -euo pipefail
 
-# Activate bcftools (installed in the "geno" conda environment)
-module load common/anaconda/3.8
-conda activate geno
-
 # Inputs --------------------------------------------------------------------
-INCLUDE_SAMPLES_FILE=data/raw/meta/VCFname262.txt
-VCF_DIR=../DATA/VCF/
-OUTPUT_DIR=data/processed/VCF_262/
+INCLUDE_SAMPLES_FILE=/home/jl430796/MaizePop/metadane/linie.txt
+VCF_DIR=/home/marcing/DATA/VCF
+OUTPUT_DIR=/home/jl430796/MaizePop/data/raw/inputed
 
 # Optional reference FASTA for left-alignment/normalization.
 # Set REF_FASTA to the path of your reference (e.g., B73 v5) to enable
