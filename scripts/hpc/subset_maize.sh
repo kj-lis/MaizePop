@@ -1,18 +1,15 @@
 #!/bin/bash -l
-# Subset per-chromosome VCFs to include only samples listed in VCFname262.txt,
-# then apply standard variant/site filters and normalization.
-
-#SBATCH --job-name=subset_maize        # Descriptive job name
-#SBATCH --nodes=1                      # One node
-#SBATCH --ntasks-per-node=1            # One task per node
-#SBATCH --cpus-per-task=1              # CPU threads for bcftools
-#SBATCH --mem=5G                       # Memory
-#SBATCH --time=48:00:00                # Max runtime
-#SBATCH --account=g102-2488            # Allocation/account
-#SBATCH --partition=okeanos            # Partition/queue
+#SBATCH --job-name=subset_maize
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=5G
+#SBATCH --time=48:00:00
+#SBATCH --account=g102-2488
+#SBATCH --partition=okeanos
 #SBATCH --output=/home/jl430796/MaizePop/logs/subset_maize.%A_%a.out
 #SBATCH --error=/home/jl430796/MaizePop/logs/subset_maize.%A_%a.err
-#SBATCH --array=1-10                   # chr_1..chr_10
+#SBATCH --array=1-10
 
 set -euo pipefail
 
@@ -88,3 +85,4 @@ fi
 
 # Index the resulting VCF
 bcftools index --force "${OUTPUT_VCF}"
+
