@@ -89,8 +89,6 @@ p_no_legend <- p + theme(legend.position = "none")
 p_no_legend
 
 
-
-
 ################################
 
 

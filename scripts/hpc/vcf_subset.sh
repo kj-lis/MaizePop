@@ -1,5 +1,5 @@
 #!/bin/bash -l
-#SBATCH --job-name=subset_maize
+#SBATCH --job-name=vcf_subset
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=1
@@ -7,8 +7,8 @@
 #SBATCH --time=48:00:00
 #SBATCH --account=g102-2488
 #SBATCH --partition=okeanos
-#SBATCH --output=/home/jl430796/MaizePop/logs/subset_maize.%A_%a.out
-#SBATCH --error=/home/jl430796/MaizePop/logs/subset_maize.%A_%a.err
+#SBATCH --output=/home/jl430796/MaizePop/logs/vcf_subset.%A_%a.out
+#SBATCH --error=/home/jl430796/MaizePop/logs/vcf_subset.%A_%a.err
 #SBATCH --array=1-10
 
 set -euo pipefail
