@@ -9,10 +9,10 @@
 #SBATCH --partition=okeanos
 #SBATCH --output=/home/jl430796/MaizePop/logs/vcf_inpute.%A_%a.out
 #SBATCH --error=/home/jl430796/MaizePop/logs/vcf_inpute.%A_%a.err
-#SBATCH --array=1-10
 
-i=$SLURM_ARRAY_TASK_ID
+for i in {1..10}; do
+  java -Xmx45g -jar /home/jl430796/software/beagle.27Feb25.75f.jar \
+    gt=/home/jl430796/MaizePop/data/raw/vcf_current/chr${i}_maf005_miss025.vcf.gz \
+    out=/home/jl430796/MaizePop/data/raw/inputed/chr${i}_inputed
+done
 
-java -Xmx45g -jar /home/jl430796/software/beagle.27Feb25.75f.jar \
-  gt=/home/jl430796/MaizePop/data/raw/vcf_current/chr${i}_maf005_miss025.vcf.gz \
-  out=/home/jl430796/MaizePop/data/raw/inputed/chr${i}_inputed
