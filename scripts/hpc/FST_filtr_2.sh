@@ -13,6 +13,6 @@
 populations=("Mexicana_Parviglumis" "Tropical_NSS" "Iodent_1_SS_1" "Iodent_2_SS_2" "NSS_SS" "Tropical_Iodent" "Tropical_SS")
 
 plink --bfile /home/jl430796/MaizePop/data/processed/00_SNP/chr_all_plink \
---keep /home/jl430796/MaizePop/metadane/05_fixation_index/${popoulations}_IDs.txt \
---make-bed --out /home/jl430796/MaizePop/data/processed/04_FST/${populations}_FST
+--keep /home/jl430796/MaizePop/metadane/03_fixation_index/${popoulations}_IDs.txt \
+--make-bed --out /home/jl430796/MaizePop/data/processed/03_FST/${populations}_FST
 
