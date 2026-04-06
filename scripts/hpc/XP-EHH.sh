@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #SBATCH --job-name=XP_EHH
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #SBATCH --job-name=FST_filtr
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
@@ -9,10 +9,13 @@
 #SBATCH --partition=okeanos
 #SBATCH --output=/home/jl430796/MaizePop/logs/FST_filtr.%A_%a.out
 #SBATCH --error=/home/jl430796/MaizePop/logs/FST_filtr.%A_%a.err
+#SBATCH --array=0-4
 
 populations=("Parviglumis_Tropical" "Tropical_Iodent_1" "Tropical_SS_1" "Iodent_1vs2" "SS_1vs2")
 
+pop=${populations[$SLURM_ARRAY_TASK_ID]}
+
 plink --bfile /home/jl430796/MaizePop/data/processed/00_SNP/chr_all_plink \
---keep /home/jl430796/MaizePop/metadane/03_fixation_index/${popoulations}_IDs.txt \
---make-bed --out /home/jl430796/MaizePop/data/processed/03_FST/${populations}_FST
+--keep /home/jl430796/MaizePop/metadane/03_FST/${pop}_IDs.txt \
+--make-bed --out /home/jl430796/MaizePop/data/processed/03_FST/${pop}_FST
 

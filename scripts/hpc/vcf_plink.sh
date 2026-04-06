@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #SBATCH --job-name=vcf_plink
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
