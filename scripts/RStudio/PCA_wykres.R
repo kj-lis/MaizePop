@@ -1,15 +1,15 @@
 library(ggplot2)
 library(dplyr)
 
-pca <- read.table("C:/Users/kjlis/Desktop/all_SNP_PCA.eigenvec", header = FALSE)
-metadane <- read.csv("C:/Users/kjlis/Desktop/zea_all_admix.csv", stringsAsFactors = FALSE, sep = ";")
+pca <- read.table("C:/Users/kjlis/Desktop/chr_all_PCA.eigenvec", header = FALSE)
+metadane <- read.csv("C:/Users/kjlis/Desktop/metadane_final.csv", stringsAsFactors = FALSE, sep = ";")
 
 colnames(pca)[1:2] <- c("FID", "VCFname")
 colnames(pca)[3:ncol(pca)] <- paste0("PC", 1:(ncol(pca)-2))
 
 pca_metadane <- left_join(pca, metadane, by = "VCFname")
 
-legend_title <- "Heterotic group"
+legend_title <- "Subpopulation"
 
 axis_title_size <- 14
 axis_text_size <- 14
@@ -28,19 +28,20 @@ legend_order <- c(
   "NSS",
   "Tropical",
   "Mix",
-  "Zea mays subsp. parviglumis",
-  "Zea mays subsp. mexicana")
+  "Parviglumis",
+  "Mexicana")
 
 group_colors <- c(
-  "Iodent"      = "#00BF7D",
-  "SS"          = "#00B0F6",
-  "NSS"         = "#F8766D",
-  "Tropical"    = "#E76BF3",
-  "Mix"         = "#A3A500",
-  "Zea mays subsp. parviglumis" = "#12E9E3",
-  "Zea mays subsp. mexicana"    = "#f09a4a")
+  "Iodent"      = "green3",
+  "SS"          = "blue",
+  "NSS"         = "red3",
+  "Tropical"    = "purple",
+  "Mix"         = "gold",
+  "Parviglumis" = "#12E9E3",
+  "Mexicana"    = "#f09a4a")
 
-p <- ggplot(pca_metadane, aes(x = PC1, y = PC2, color = heterotic_final)) +
+png(file="C:/Users/kjlis/Desktop/PCA_new.png", width=1600, height=1300, res=200)
+ggplot(pca_metadane, aes(x = PC1, y = PC2, color = population)) +
   
   geom_point(size = point_size) +
   
@@ -82,6 +83,11 @@ p <- ggplot(pca_metadane, aes(x = PC1, y = PC2, color = heterotic_final)) +
   guides(
     color = guide_legend(
       override.aes = list(size = legend_point_size)))
+dev.off()
+
+
+################################
+
 
 p
 
@@ -89,23 +95,18 @@ p_no_legend <- p + theme(legend.position = "none")
 p_no_legend
 
 
-################################
-
-
-
-
 library(ggplot2)
 library(dplyr)
 
-pca <- read.table("C:/Users/kjlis/Desktop/all_SNP_PCA.eigenvec", header = FALSE)
-metadane <- read.csv("C:/Users/kjlis/Desktop/zea_all_admix.csv", stringsAsFactors = FALSE, sep = ";")
+pca <- read.table("C:/Users/kjlis/Desktop/chr_all_PCA.eigenvec", header = FALSE)
+metadane <- read.csv("C:/Users/kjlis/Desktop/metadane_final.csv", stringsAsFactors = FALSE, sep = ";")
 
 colnames(pca)[1:2] <- c("FID", "VCFname")
 colnames(pca)[3:ncol(pca)] <- paste0("PC", 1:(ncol(pca)-2))
 
 pca_metadane <- left_join(pca, metadane, by = "VCFname")
 
-legend_title <- "Heterotic group"
+legend_title <- "Subpopulation"
 shape_legend_title <- "Origin"
 
 axis_title_size <- 14
@@ -123,8 +124,8 @@ legend_order <- c(
   "NSS",
   "Tropical",
   "Mix",
-  "Zea mays subsp. parviglumis",
-  "Zea mays subsp. mexicana")
+  "Parviglumis",
+  "Mexicana")
 
 group_colors <- c(
   "Iodent"      = "#00BF7D",
@@ -132,8 +133,8 @@ group_colors <- c(
   "NSS"         = "#F8766D",
   "Tropical"    = "#E76BF3",
   "Mix"         = "#A3A500",
-  "Zea mays subsp. parviglumis" = "#12E9E3",
-  "Zea mays subsp. mexicana"    = "#f09a4a")
+  "Parviglumis" = "#12E9E3",
+  "Mexicana"    = "#f09a4a")
 
 shape_values <- c(
   "Other" = 16,
@@ -144,12 +145,12 @@ alpha_poland <- 1
 
 pca_metadane <- pca_metadane %>%
   mutate(
-    origin_group = ifelse(is.na(origin) | origin != "Poland", "Other", "Poland"),
+    origin_group = ifelse(is.na(meta_original) | meta_original != "Poland", "Other", "Poland"),
     point_alpha = ifelse(origin_group == "Poland", alpha_poland, alpha_other))
 
-p <- ggplot(
+ggplot(
   pca_metadane,
-  aes(x = PC2, y = PC3, color = heterotic_final, shape = origin_group, alpha = point_alpha)) +
+  aes(x = PC1, y = PC2, color = population, shape = origin_group, alpha = point_alpha)) +
   geom_point(size = point_size) +
   
   scale_color_manual(
@@ -164,8 +165,8 @@ p <- ggplot(
   scale_alpha_identity() +  
   
   labs(
-    x = "PC2",
-    y = "PC3") +
+    x = "PC1",
+    y = "PC2") +
   
   theme_classic() +
   
