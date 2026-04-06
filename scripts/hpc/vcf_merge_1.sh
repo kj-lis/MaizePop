@@ -1,5 +1,5 @@
 #!/bin/sh
-#SBATCH --job-name=vcf_merge
+#SBATCH --job-name=vcf_merge_1
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=1
@@ -7,8 +7,8 @@
 #SBATCH --time=48:00:00
 #SBATCH --account=g102-2488
 #SBATCH --partition=okeanos
-#SBATCH --output=/home/jl430796/MaizePop/logs/vcf_merge.%A_%a.out
-#SBATCH --error=/home/jl430796/MaizePop/logs/vcf_merge.%A_%a.err
+#SBATCH --output=/home/jl430796/MaizePop/logs/vcf_merge_1.%A_%a.out
+#SBATCH --error=/home/jl430796/MaizePop/logs/vcf_merge_1.%A_%a.err
 
 bcftools concat /home/jl430796/MaizePop/data/raw/imputed/chr1_fixed.vcf.gz \
 /home/jl430796/MaizePop/data/raw/imputed/chr2_fixed.vcf.gz \
