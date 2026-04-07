@@ -37,10 +37,10 @@ group_colors <- c(
   "NSS"         = "red3",
   "Tropical"    = "purple",
   "Mix"         = "gold",
-  "Parviglumis" = "#12E9E3",
-  "Mexicana"    = "#f09a4a")
+  "Parviglumis" = "cyan3",
+  "Mexicana"    = "darkorange")
 
-png(file="C:/Users/kjlis/Desktop/PCA_new.png", width=1600, height=1300, res=200)
+png(file="C:/Users/kjlis/Desktop/PCA_1v2.png", width=1600, height=1300, res=200)
 ggplot(pca_metadane, aes(x = PC1, y = PC2, color = population)) +
   
   geom_point(size = point_size) +
