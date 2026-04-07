@@ -13,8 +13,8 @@ read.table("C:/Users/kjlis/Desktop/zea_LD7.bin")->data7
 
 datasets <- list(data1, data2, data3, data4, data5, data6, data7)
 
-pop_names <- c("Iodent","SS","NSS","Tropical","Mix","Zea mays subsp. parviglumis","Zea mays subsp. mexicana")
-colors <- c("#00BF7D","#00B0F6","#F8766D","#E76BF3","#A3A500","#12E9E3","#f09a4a")
+pop_names <- c("Iodent","SS","NSS","Tropical","Mix","Parviglumis","Mexicana")
+colors <- c("green3","blue","red","purple","gold","cyan3","darkorange")
 
 
 axis_label_size <- 1.5
