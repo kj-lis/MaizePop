@@ -1,3 +1,5 @@
+#do poprawienia
+
 #!/bin/bash
 #SBATCH --job-name=XP_EHH_filtr
 #SBATCH --nodes=1

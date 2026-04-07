@@ -1,8 +1,8 @@
 Pv_Tr <- read.table("/home/kuba/Desktop/Parviglumis_Tropical.fst", header=TRUE)
-Tr_Idt_1 <- read.table("/home/kuba/Desktop/Tropical_Iodent_era1.fst", header=TRUE)
-Tr_SS_1 <- read.table("/home/kuba/Desktop/Tropical_SS_era1.fst", header=TRUE)
-Idt_1vs2 <- read.table("/home/kuba/Desktop/Iodent_era1_era2.fst", header=TRUE)
-SS_1vs2 <- read.table("/home/kuba/Desktop/SS_era1_era2.fst", header=TRUE)
+Tr_Idt_1 <- read.table("/home/kuba/Desktop/Tropical_Iodent_1.fst", header=TRUE)
+Tr_SS_1 <- read.table("/home/kuba/Desktop/Tropical_SS_1.fst", header=TRUE)
+Idt_1vs2 <- read.table("/home/kuba/Desktop/Iodent_1vs2.fst", header=TRUE)
+SS_1vs2 <- read.table("/home/kuba/Desktop/SS_1vs2.fst", header=TRUE)
 
 Pv_Tr$Fst <- pmax(Pv_Tr$Fst, 0)
 Tr_Idt_1$Fst <- pmax(Tr_Idt_1$Fst, 0)
