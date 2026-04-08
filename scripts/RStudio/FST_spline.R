@@ -22,7 +22,6 @@ summary(Tr_SS_1_clean$Fst)
 summary(Idt_1vs2_clean$Fst)
 summary(SS_1vs2_clean$Fst)
 
-
 library(GenWin)
 library(dplyr)
 

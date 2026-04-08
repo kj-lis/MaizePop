@@ -6,7 +6,7 @@
 
 /home/kuba/Desktop/gcta-1.95.1-linux-x86_64./gcta-1.95.1-linux-x86_64/gcta64 --bfile ./03_FST/Iodent_1vs2_FST --fst --sub-popu ./Iodent_1vs2_fst_IDs.txt  --out ./Iodent_1vs2
 
-/home/kuba/Desktop/gcta-1.95.1-linux-x86_64./gcta-1.95.1-linux-x86_64/gcta64 --bfile ./03_FST/SS_1vs2_FST --fst --sub-popu ./SS_era1_era2_fst_IDs.txt  --out ./SS_1vs2
+/home/kuba/Desktop/gcta-1.95.1-linux-x86_64./gcta-1.95.1-linux-x86_64/gcta64 --bfile ./03_FST/SS_1vs2_FST --fst --sub-popu ./SS_1vs2_fst_IDs.txt  --out ./SS_1vs2
 
 
 ################################
