@@ -19,7 +19,7 @@ populations=("Parviglumis" "Tropical" "Iodent_1" "Iodent_2" "SS_1" "SS_2")
 for pop in "${populations[@]}"; do
     bcftools view \
         -S /home/jl430796/MaizePop/metadane/04_XP_EHH/${pop}.txt \
-        /home/jl430796/MaizePop/data/raw/imputed/chr${chr}_imputed.vcf.gz \
+        /home/jl430796/MaizePop/data/raw/imputed/chr${chr}_fixed.vcf.gz \
         -O z -o /home/jl430796/MaizePop/data/processed/04_XP_EHH/chr${chr}_${pop}.vcf.gz
 done
 
