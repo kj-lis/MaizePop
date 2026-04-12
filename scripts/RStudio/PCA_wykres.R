@@ -313,7 +313,7 @@ pca_metadane <- pca_metadane %>%
   )
 
 shape_values <- c(
-  "Era I" = 24,
+  "Era I" = 23,
   "Era II" = 22,
   "Other" = 21)
 
@@ -356,20 +356,20 @@ group_colors <- c(
   "Parviglumis" = "cyan3",
   "Mexicana"    = "darkorange")
 
-png(file="C:/Users/kjlis/Desktop/PCA_all_1v2.png",
+png(file="C:/Users/kjlis/Desktop/PCA_all_2v3.png",
     width=2000, height=1800, res=250)
 
 ggplot(
   pca_metadane,
   aes(
-    x = PC1,
-    y = PC2,
+    x = PC2,
+    y = PC3,
     fill = population,
     shape = era_shape,
     color = origin_group
   )
 ) +
-  geom_point(size = point_size, stroke = 1.3) +
+  geom_point(size = point_size, stroke = 1) +
   
   scale_fill_manual(
     name = legend_title_fill,
@@ -389,8 +389,8 @@ ggplot(
   ) +
   
   labs(
-    x = "PC1",
-    y = "PC2"
+    x = "PC2",
+    y = "PC3"
   ) +
   
   theme_classic() +
