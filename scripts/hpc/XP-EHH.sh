@@ -3,7 +3,7 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=1
-#SBATCH --mem=5G
+#SBATCH --mem=10G
 #SBATCH --time=48:00:00
 #SBATCH --account=g102-2488
 #SBATCH --partition=okeanos
@@ -11,12 +11,11 @@
 #SBATCH --error=/home/jl430796/MaizePop/logs/XP_EHH.%A_%a.err
 #SBATCH --array=1-10
 
-set -euo pipefail
+chr=${SLURM_ARRAY_TASK_ID}
 
 selscan \
 --xpehh \
---hap pop1.hap \
---ref pop2.hap \
---pmap
---out chr1_pop1_vs_pop2 \
---threads 4
+--hap /home/jl430796/MaizePop/data/processed/04_XP_EHH/XP_EHH_2/chr${chr}_Parviglumis.hap \
+--ref /home/jl430796/MaizePop/data/processed/04_XP_EHH/XP_EHH_2/${chr}_Tropical.hap \
+--pmap /home/jl430796/MaizePop/data/processed/04_XP_EHH/XP_EHH_2/chr${chr}.map
+--out chr${chr}_Pv_Tr \
