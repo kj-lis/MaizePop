@@ -13,15 +13,22 @@
 
 chr=${SLURM_ARRAY_TASK_ID}
 
-bcftools query -f '%CHROM\t%POS[\t%GT]\n' \
-/home/jl430796/MaizePop/data/processed/04_XP_EHH/XP_EHH_1/chr${chr}_Tropical.vcf.gz \
-| awk '{
-    for(i=3; i<=NF; i++) {
+bcftools query -f '[%GT\t]\n' \
+/home/jl430796/MaizePop/data/processed/04_XP_EHH/XP_EHH_1/chr${chr}_Parviglumis.vcf.gz \
+| awk '
+{
+    for(i=1; i<=NF; i++) {
         split($i,a,"|");
-        printf "%s %s ", a[1], a[2];
+        h1[i]=h1[i]" "a[1];
+        h2[i]=h2[i]" "a[2];
     }
-    printf "\n";
-}' > /home/jl430796/MaizePop/data/processed/04_XP_EHH/XP_EHH_2/chr${chr}_Tropical.hap
+}
+END {
+    for(i=1; i<=NF; i++) {
+        print substr(h1[i],2);
+        print substr(h2[i],2);
+    }
+}' > /home/jl430796/MaizePop/data/processed/04_XP_EHH/XP_EHH_2/chr${chr}_Parviglumis.hap
 
 MAKE_MAP=false
 
