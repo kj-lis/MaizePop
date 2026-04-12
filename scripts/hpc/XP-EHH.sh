@@ -13,7 +13,7 @@
 
 chr=${SLURM_ARRAY_TASK_ID}
 
-selscan \
+/home/jl430796/software/selscan \
 --xpehh \
 --hap /home/jl430796/MaizePop/data/processed/04_XP_EHH/XP_EHH_2/chr${chr}_Parviglumis.hap \
 --ref /home/jl430796/MaizePop/data/processed/04_XP_EHH/XP_EHH_2/${chr}_Tropical.hap \
