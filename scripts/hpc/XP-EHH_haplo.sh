@@ -14,15 +14,20 @@
 chr=${SLURM_ARRAY_TASK_ID}
 
 bcftools query -f '%CHROM\t%POS[\t%GT]\n' \
-/home/jl430796/MaizePop/data/processed/04_XP_EHH/XP_EHH_1/chr${chr}_Parviglumis.vcf.gz \
+/home/jl430796/MaizePop/data/processed/04_XP_EHH/XP_EHH_1/chr${chr}_Tropical.vcf.gz \
 | awk '{
     for(i=3; i<=NF; i++) {
         split($i,a,"|");
         printf "%s %s ", a[1], a[2];
     }
     printf "\n";
-}' > /home/jl430796/MaizePop/data/processed/04_XP_EHH/XP_EHH_2/chr${chr}_Parviglumis.hap
+}' > /home/jl430796/MaizePop/data/processed/04_XP_EHH/XP_EHH_2/chr${chr}_Tropical.hap
 
+MAKE_MAP=false
+
+if [ "$MAKE_MAP" = true ]; then
 bcftools query -f '%CHROM\t%ID\t%POS\n' \
 /home/jl430796/MaizePop/data/processed/04_XP_EHH/XP_EHH_1/chr${chr}_Parviglumis.vcf.gz \
-| awk '{print $1, $2, $3/1000000, $3}' > /home/jl430796/MaizePop/data/processed/04_XP_EHH/XP_EHH_2/chr${chr}.map
+| awk '{print $1, $2, $3/1000000, $3}' \
+> /home/jl430796/MaizePop/data/processed/04_XP_EHH/XP_EHH_2/chr${chr}.map
+fi
