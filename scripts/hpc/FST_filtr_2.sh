@@ -11,7 +11,7 @@
 #SBATCH --error=/home/jl430796/MaizePop/logs/FST_filtr_2.%A_%a.err
 #SBATCH --array=0-6
 
-populations=("Mexicana_Parviglumis" "Tropical_NSS" "Iodent_1_SS_1" "Iodent_2_SS_2" "NSS_SS" "Tropical_Iodent" "Tropical_SS")
+populations=("Mexicana_Parviglumis" "Tropical_NSS" "Iodent_1_SS_1" "Iodent_2_SS_2" "SS_NSS" "Tropical_Iodent" "Tropical_SS")
 
 pop=${populations[$SLURM_ARRAY_TASK_ID]}
 
