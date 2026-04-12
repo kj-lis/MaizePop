@@ -1,3 +1,5 @@
+#nieaktualne
+
 log_files <- paste0("C:/Users/kjlis/Desktop/log", 2:10, ".out")
 
 get_cv <- function(file) {

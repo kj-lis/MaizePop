@@ -1,3 +1,5 @@
+#nieaktualne
+
 #!/bin/bash
 #SBATCH --job-name=admix
 #SBATCH --nodes=1

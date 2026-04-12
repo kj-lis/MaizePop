@@ -1,3 +1,5 @@
+#nieaktualne
+
 Q <- read.table("/home/kuba/Desktop/zmays/admix/chr_all_zmays_plink_3.7.Q")
 metadane <- read.csv("/home/kuba/Desktop/zmays_uniq.csv", stringsAsFactors = FALSE, sep = ";")
 
