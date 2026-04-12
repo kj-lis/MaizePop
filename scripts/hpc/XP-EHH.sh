@@ -9,4 +9,14 @@
 #SBATCH --partition=okeanos
 #SBATCH --output=/home/jl430796/MaizePop/logs/XP_EHH.%A_%a.out
 #SBATCH --error=/home/jl430796/MaizePop/logs/XP_EHH.%A_%a.err
+#SBATCH --array=1-10
 
+set -euo pipefail
+
+selscan \
+--xpehh \
+--hap pop1.hap \
+--ref pop2.hap \
+--pmap
+--out chr1_pop1_vs_pop2 \
+--threads 4
