@@ -41,8 +41,8 @@ group_colors <- c(
   "Parviglumis" = "cyan3",
   "Mexicana"    = "darkorange")
 
-png(file="C:/Users/kjlis/Desktop/PCA_2v3.png", width=1800, height=1400, res=250)
-ggplot(pca_metadane, aes(x = PC2, y = PC3, color = population)) +
+png(file="C:/Users/kjlis/Desktop/PCA_1v2.png", width=2000, height=1800, res=250)
+ggplot(pca_metadane, aes(x = PC1, y = PC2, color = population)) +
   
   geom_point(size = point_size) +
   
@@ -52,8 +52,8 @@ ggplot(pca_metadane, aes(x = PC2, y = PC3, color = population)) +
     breaks = legend_order) +
   
   labs(
-    x = "PC2",
-    y = "PC3") +
+    x = "PC1",
+    y = "PC2") +
   
   theme_classic() +
   
