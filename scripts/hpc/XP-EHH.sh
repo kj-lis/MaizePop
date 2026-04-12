@@ -17,5 +17,5 @@ selscan \
 --xpehh \
 --hap /home/jl430796/MaizePop/data/processed/04_XP_EHH/XP_EHH_2/chr${chr}_Parviglumis.hap \
 --ref /home/jl430796/MaizePop/data/processed/04_XP_EHH/XP_EHH_2/${chr}_Tropical.hap \
---pmap /home/jl430796/MaizePop/data/processed/04_XP_EHH/XP_EHH_2/chr${chr}.map
---out chr${chr}_Pv_Tr \
+--pmap /home/jl430796/MaizePop/data/processed/04_XP_EHH/XP_EHH_2/chr${chr}.map \
+--out /home/jl430796/MaizePop/results/full/04_XP_EHHchr${chr}_Pv_Tr \
