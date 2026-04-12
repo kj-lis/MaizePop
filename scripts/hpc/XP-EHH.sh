@@ -20,3 +20,4 @@ chr=${SLURM_ARRAY_TASK_ID}
 --map /home/jl430796/MaizePop/data/processed/04_XP_EHH/XP_EHH_2/chr${chr}.map \
 --pmap \
 --out /home/jl430796/MaizePop/results/full/04_XP_EHH/chr${chr}_Pv_Tr \
+
