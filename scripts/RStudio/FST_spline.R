@@ -44,16 +44,31 @@ for (i in 1:10) {
 names(Pv_Tr_spline_list) <- paste0("chr", 1:10)
 
 Pv_Tr_results <- list()
+Pv_Tr_all_windows <- list()
+
 for (i in 1:10) {
   spline_obj_Pv_Tr <- Pv_Tr_spline_list[[i]]
-  candidates_Pv_Tr <- spline_obj_Pv_Tr[["windowData"]] %>%
+  window_data_Pv_Tr <- spline_obj_Pv_Tr[["windowData"]]
+  
+  all_data_Pv_Tr <- window_data_Pv_Tr %>%
+    mutate(chromosome = paste0("chr", i))
+  Pv_Tr_all_windows[[i]] <- all_data_Pv_Tr
+  
+  candidates_Pv_Tr <- window_data_Pv_Tr %>%
     filter(Wstat >= quantile(Wstat, 0.9, na.rm = TRUE)) %>%
     mutate(chromosome = paste0("chr", i))
+  
   Pv_Tr_results[[i]] <- candidates_Pv_Tr
 }
+
 names(Pv_Tr_results) <- paste0("chr", 1:10)
+names(Pv_Tr_all_windows) <- paste0("chr", 1:10)
+
 all_candidates_Pv_Tr <- bind_rows(Pv_Tr_results)
+all_windows_Pv_Tr <- bind_rows(Pv_Tr_all_windows)
+
 write.csv(all_candidates_Pv_Tr, "/home/kuba/Desktop/Pv_Tr_candidates.csv", row.names = FALSE)
+write.csv(all_windows_Pv_Tr, "/home/kuba/Desktop/Pv_Tr_all_windows.csv", row.names = FALSE)
 
 
 ################################
@@ -74,16 +89,31 @@ for (i in 1:10) {
 names(Tr_Idt_1_spline_list) <- paste0("chr", 1:10)
 
 Tr_Idt_1_results <- list()
+Tr_Idt_1_all_windows <- list()
+
 for (i in 1:10) {
   spline_obj_Tr_Idt_1 <- Tr_Idt_1_spline_list[[i]]
-  candidates_Tr_Idt_1 <- spline_obj_Tr_Idt_1[["windowData"]] %>%
+  window_data_Tr_Idt_1 <- spline_obj_Tr_Idt_1[["windowData"]]
+  
+  all_data_Tr_Idt_1 <- window_data_Tr_Idt_1 %>%
+    mutate(chromosome = paste0("chr", i))
+  Tr_Idt_1_all_windows[[i]] <- all_data_Tr_Idt_1
+  
+  candidates_Tr_Idt_1 <- window_data_Tr_Idt_1 %>%
     filter(Wstat >= quantile(Wstat, 0.9, na.rm = TRUE)) %>%
     mutate(chromosome = paste0("chr", i))
+  
   Tr_Idt_1_results[[i]] <- candidates_Tr_Idt_1
 }
+
 names(Tr_Idt_1_results) <- paste0("chr", 1:10)
+names(Tr_Idt_1_all_windows) <- paste0("chr", 1:10)
+
 all_candidates_Tr_Idt_1 <- bind_rows(Tr_Idt_1_results)
+all_windows_Tr_Idt_1 <- bind_rows(Tr_Idt_1_all_windows)
+
 write.csv(all_candidates_Tr_Idt_1, "/home/kuba/Desktop/Tr_Idt_1_candidates.csv", row.names = FALSE)
+write.csv(all_windows_Tr_Idt_1, "/home/kuba/Desktop/Tr_Idt_1_all_windows.csv", row.names = FALSE)
 
 
 ################################
@@ -104,16 +134,31 @@ for (i in 1:10) {
 names(Tr_SS_1_spline_list) <- paste0("chr", 1:10)
 
 Tr_SS_1_results <- list()
+Tr_SS_1_all_windows <- list()
+
 for (i in 1:10) {
   spline_obj_Tr_SS_1 <- Tr_SS_1_spline_list[[i]]
-  candidates_Tr_SS_1 <- spline_obj_Tr_SS_1[["windowData"]] %>%
+  window_data_Tr_SS_1 <- spline_obj_Tr_SS_1[["windowData"]]
+  
+  all_data_Tr_SS_1 <- window_data_Tr_SS_1 %>%
+    mutate(chromosome = paste0("chr", i))
+  Tr_SS_1_all_windows[[i]] <- all_data_Tr_SS_1
+  
+  candidates_Tr_SS_1 <- window_data_Tr_SS_1 %>%
     filter(Wstat >= quantile(Wstat, 0.9, na.rm = TRUE)) %>%
     mutate(chromosome = paste0("chr", i))
+  
   Tr_SS_1_results[[i]] <- candidates_Tr_SS_1
 }
+
 names(Tr_SS_1_results) <- paste0("chr", 1:10)
+names(Tr_SS_1_all_windows) <- paste0("chr", 1:10)
+
 all_candidates_Tr_SS_1 <- bind_rows(Tr_SS_1_results)
+all_windows_Tr_SS_1 <- bind_rows(Tr_SS_1_all_windows)
+
 write.csv(all_candidates_Tr_SS_1, "/home/kuba/Desktop/Tr_SS_1_candidates.csv", row.names = FALSE)
+write.csv(all_windows_Tr_SS_1, "/home/kuba/Desktop/Tr_SS_1_all_windows.csv", row.names = FALSE)
 
 
 ################################
@@ -134,16 +179,31 @@ for (i in 1:10) {
 names(Idt_1vs2_spline_list) <- paste0("chr", 1:10)
 
 Idt_1vs2_results <- list()
+Idt_1vs2_all_windows <- list()
+
 for (i in 1:10) {
   spline_obj_Idt_1vs2 <- Idt_1vs2_spline_list[[i]]
-  candidates_Idt_1vs2 <- spline_obj_Idt_1vs2[["windowData"]] %>%
+  window_data_Idt_1vs2 <- spline_obj_Idt_1vs2[["windowData"]]
+  
+  all_data_Idt_1vs2 <- window_data_Idt_1vs2 %>%
+    mutate(chromosome = paste0("chr", i))
+  Idt_1vs2_all_windows[[i]] <- all_data_Idt_1vs2
+  
+  candidates_Idt_1vs2<- window_data_Idt_1vs2 %>%
     filter(Wstat >= quantile(Wstat, 0.9, na.rm = TRUE)) %>%
     mutate(chromosome = paste0("chr", i))
+  
   Idt_1vs2_results[[i]] <- candidates_Idt_1vs2
 }
+
 names(Idt_1vs2_results) <- paste0("chr", 1:10)
+names(Idt_1vs2_all_windows) <- paste0("chr", 1:10)
+
 all_candidates_Idt_1vs2 <- bind_rows(Idt_1vs2_results)
+all_windows_Idt_1vs2 <- bind_rows(Idt_1vs2_all_windows)
+
 write.csv(all_candidates_Idt_1vs2, "/home/kuba/Desktop/Idt_1vs2_candidates.csv", row.names = FALSE)
+write.csv(all_windows_Idt_1vs2, "/home/kuba/Desktop/Idt_1vs2_all_windows.csv", row.names = FALSE)
 
 
 ################################
@@ -164,14 +224,28 @@ for (i in 1:10) {
 names(SS_1vs2_spline_list) <- paste0("chr", 1:10)
 
 SS_1vs2_results <- list()
+SS_1vs2_all_windows <- list()
+
 for (i in 1:10) {
   spline_obj_SS_1vs2 <- SS_1vs2_spline_list[[i]]
-  candidates_SS_1vs2 <- spline_obj_SS_1vs2[["windowData"]] %>%
+  window_data_SS_1vs2 <- spline_obj_SS_1vs2[["windowData"]]
+  
+  all_data_SS_1vs2 <- window_data_SS_1vs2 %>%
+    mutate(chromosome = paste0("chr", i))
+  SS_1vs2_all_windows[[i]] <- all_data_SS_1vs2
+  
+  candidates_SS_1vs2<- window_data_SS_1vs2 %>%
     filter(Wstat >= quantile(Wstat, 0.9, na.rm = TRUE)) %>%
     mutate(chromosome = paste0("chr", i))
+  
   SS_1vs2_results[[i]] <- candidates_SS_1vs2
 }
-names(SS_1vs2_results) <- paste0("chr", 1:10)
-all_candidates_SS_1vs2 <- bind_rows(SS_1vs2_results)
-write.csv(all_candidates_SS_1vs2, "/home/kuba/Desktop/SS_1vs2_candidates.csv", row.names = FALSE)
 
+names(SS_1vs2_results) <- paste0("chr", 1:10)
+names(SS_1vs2_all_windows) <- paste0("chr", 1:10)
+
+all_candidates_SS_1vs2 <- bind_rows(SS_1vs2_results)
+all_windows_SS_1vs2 <- bind_rows(SS_1vs2_all_windows)
+
+write.csv(all_candidates_SS_1vs2, "/home/kuba/Desktop/SS_1vs2_candidates.csv", row.names = FALSE)
+write.csv(all_windows_SS_1vs2, "/home/kuba/Desktop/SS_1vs2_all_windows.csv", row.names = FALSE)
