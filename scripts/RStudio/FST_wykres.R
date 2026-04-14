@@ -136,9 +136,9 @@ fst_all$Group <- factor(
 
 library(ggplot2)
 
-png(file="C:/Users/kjlis/Desktop/fst_all_3.png", width=1800, height=2000, res=250)
+png(file="C:/Users/kjlis/Desktop/fst_all_2.png", width=1800, height=2000, res=250)
 ggplot(fst_all, aes(x = Group, y = Fst)) +
-  geom_boxplot(fill = "cyan2") +
+  geom_boxplot(fill = "cyan3") +
   theme_classic() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 10),
         axis.title.x = element_text(size = 11, margin = margin(t = 12), face = "bold"),
