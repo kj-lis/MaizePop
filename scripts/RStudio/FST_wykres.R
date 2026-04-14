@@ -91,8 +91,8 @@ Tr_Idt_1 <- read.table("C:/Users/kjlis/Desktop/Tropical_Iodent_1.fst", header=TR
 Tr_SS_1 <- read.table("C:/Users/kjlis/Desktop/Tropical_SS_1.fst", header=TRUE)
 Idt_1vs2 <- read.table("C:/Users/kjlis/Desktop/Iodent_1vs2.fst", header=TRUE)
 SS_1vs2 <- read.table("C:/Users/kjlis/Desktop/SS_1vs2.fst", header=TRUE)
-Idt_1_SS_1 <- read.table("C:/Users/kjlis/Desktop/Idt_1_SS_1.fst", header=TRUE)
-Idt_2_SS_2 <- read.table("C:/Users/kjlis/Desktop/Idt_2_SS_2.fst", header=TRUE)
+Idt_1_SS_1 <- read.table("C:/Users/kjlis/Desktop/Iodent_1_SS_1.fst", header=TRUE)
+Idt_2_SS_2 <- read.table("C:/Users/kjlis/Desktop/Iodent_2_SS_2.fst", header=TRUE)
 
 Pv_Tr$Fst <- pmax(Pv_Tr$Fst, 0)
 Tr_Idt_1$Fst <- pmax(Tr_Idt_1$Fst, 0)
@@ -131,14 +131,14 @@ fst_all <- rbind(
 fst_all$Group <- factor(
   fst_all$Group,
   levels = c("Parviglumis vs. Tropical","Tropical vs. Iodent I","Tropical vs. SS I",
-             "Iodent I vs. Iodent II","SS I vs. SS II", "Iodent I vs. Iodent II", "SS I vs. SS II")
+             "Iodent I vs. Iodent II","SS I vs. SS II","Iodent I vs. SS I","Iodent II vs. SS II")
 )
 
 library(ggplot2)
 
-png(file="C:/Users/kjlis/Desktop/fst_all_3.png", width=1100, height=1300, res=200)
+png(file="C:/Users/kjlis/Desktop/fst_all_3.png", width=1800, height=2000, res=250)
 ggplot(fst_all, aes(x = Group, y = Fst)) +
-  geom_boxplot(fill = "aquamarine3") +
+  geom_boxplot(fill = "cyan2") +
   theme_classic() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 10),
         axis.title.x = element_text(size = 11, margin = margin(t = 12), face = "bold"),
