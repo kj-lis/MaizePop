@@ -249,3 +249,39 @@ all_windows_SS_1vs2 <- bind_rows(SS_1vs2_all_windows)
 
 write.csv(all_candidates_SS_1vs2, "/home/kuba/Desktop/SS_1vs2_candidates.csv", row.names = FALSE)
 write.csv(all_windows_SS_1vs2, "/home/kuba/Desktop/SS_1vs2_all_windows.csv", row.names = FALSE)
+
+
+
+################################
+
+
+Pv_Tr <- read.table("C:/Users/kjlis/Desktop/Spline/Pv_Tr_all_windows.csv", sep = ",", header=TRUE)
+Tr_Idt_1 <- read.table("C:/Users/kjlis/Desktop/Spline/Tr_Idt_1_all_windows.csv", sep = ",", header=TRUE)
+Tr_SS_1 <- read.table("C:/Users/kjlis/Desktop/Spline/Tr_SS_1_all_windows.csv", sep = ",", header=TRUE)
+Idt_1vs2 <- read.table("C:/Users/kjlis/Desktop/Spline/Idt_1vs2_all_windows.csv", sep = ",", header=TRUE)
+Idt_1vs2 <- read.table("C:/Users/kjlis/Desktop/Spline/SS_1vs2_all_windows.csv", sep = ",", header=TRUE)
+
+Pv_Tr <- Pv_Tr %>% filter(Wstat > 0)
+Pv_Tr <- Pv_Tr %>%filter(!is.na(Wstat))
+Pv_Tr <- Pv_Tr %>%mutate(chromosome = gsub("chr", "", chromosome))
+Pv_Tr <- Pv_Tr %>%mutate(chromosome = as.numeric(chromosome))
+
+Tr_Idt_1 <- Tr_Idt_1 %>% filter(Wstat > 0)
+Tr_Idt_1 <- Tr_Idt_1 %>%filter(!is.na(Wstat))
+Tr_Idt_1 <- Tr_Idt_1 %>%mutate(chromosome = gsub("chr", "", chromosome))
+Tr_Idt_1 <- Tr_Idt_1 %>%mutate(chromosome = as.numeric(chromosome))
+
+Tr_SS_1 <- Tr_SS_1 %>% filter(Wstat > 0)
+Tr_SS_1 <- Tr_SS_1 %>%filter(!is.na(Wstat))
+Tr_SS_1 <- Tr_SS_1 %>%mutate(chromosome = gsub("chr", "", chromosome))
+Tr_SS_1 <- Tr_SS_1 %>%mutate(chromosome = as.numeric(chromosome))
+
+Idt_1vs2 <- Idt_1vs2 %>% filter(Wstat > 0)
+Idt_1vs2 <- Idt_1vs2 %>%filter(!is.na(Wstat))
+Idt_1vs2 <- Idt_1vs2 %>%mutate(chromosome = gsub("chr", "", chromosome))
+Idt_1vs2 <- Idt_1vs2 %>%mutate(chromosome = as.numeric(chromosome))
+
+Idt_1vs2 <- Idt_1vs2 %>% filter(Wstat > 0)
+Idt_1vs2 <- Idt_1vs2 %>%filter(!is.na(Wstat))
+Idt_1vs2 <- Idt_1vs2 %>%mutate(chromosome = gsub("chr", "", chromosome))
+Idt_1vs2 <- Idt_1vs2 %>%mutate(chromosome = as.numeric(chromosome))
