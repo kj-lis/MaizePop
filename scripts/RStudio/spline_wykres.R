@@ -76,3 +76,4 @@ ggplot(Pv_Tr, aes(x = pos, y = Wstat, color = factor(chromosome))) +
     axis.text.y = element_text(size = axis_text_size)
   )
 dev.off()
+
