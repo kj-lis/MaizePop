@@ -1,14 +1,19 @@
-perl /home/jl430796/software/PopLDdecay/bin/Plot_OnePop.pl -inFile /home/jl430796/MaizePop/data/processed/03_LDdecay/zea_LD1.stat.gz -output   /home/jl430796/MaizePop/results/full/zea_LD1
+################################
 
 
+perl /home/jl430796/software/PopLDdecay/bin/Plot_OnePop.pl -inFile LD1.stat.gz -output ./LD1
 
-read.table("C:/Users/kjlis/Desktop/zea_LD1.bin")->data1
-read.table("C:/Users/kjlis/Desktop/zea_LD2.bin")->data2
-read.table("C:/Users/kjlis/Desktop/zea_LD3.bin")->data3
-read.table("C:/Users/kjlis/Desktop/zea_LD4.bin")->data4
-read.table("C:/Users/kjlis/Desktop/zea_LD5.bin")->data5
-read.table("C:/Users/kjlis/Desktop/zea_LD6.bin")->data6
-read.table("C:/Users/kjlis/Desktop/zea_LD7.bin")->data7
+
+################################
+
+
+read.table("C:/Users/kjlis/Desktop/LD/LD1.bin")->data1
+read.table("C:/Users/kjlis/Desktop/LD/LD2.bin")->data2
+read.table("C:/Users/kjlis/Desktop/LD/LD3.bin")->data3
+read.table("C:/Users/kjlis/Desktop/LD/LD4.bin")->data4
+read.table("C:/Users/kjlis/Desktop/LD/LD5.bin")->data5
+read.table("C:/Users/kjlis/Desktop/LD/LD6.bin")->data6
+read.table("C:/Users/kjlis/Desktop/LD/LD7.bin")->data7
 
 
 datasets <- list(data1, data2, data3, data4, data5, data6, data7)
@@ -43,9 +48,9 @@ dev.off()
 
 
 
-pdf("C:/Users/kjlis/Desktop/LD_all.pdf")
+pdf("C:/Users/kjlis/Desktop/LD.pdf")
 plot(1, type="n", xlim=c(0,1000), ylim=c(0,1),
-     xlab="Distance (Kb)", ylab=expression(r^2),
+     xlab="Distance (kb)", ylab=expression(r^2),
      main="LD decay", bty="n")
 
 for(i in seq_along(datasets)){
