@@ -21,8 +21,6 @@ legend_text_size <- 14
 legend_point_size <- 4
 point_size <- 2.8
 
-font_family <- "Helvetica"
-
 legend_order <- c(
   "Iodent",
   "SS",
@@ -41,8 +39,8 @@ group_colors <- c(
   "Parviglumis" = "cyan3",
   "Mexicana"    = "darkorange")
 
-png(file="C:/Users/kjlis/Desktop/PCA_1v2.png", width=2000, height=1800, res=250)
-ggplot(pca_metadane, aes(x = PC1, y = PC2, color = population)) +
+png(file="C:/Users/kjlis/Desktop/PCA_2v3.png", width=2000, height=1800, res=250)
+ggplot(pca_metadane, aes(x = PC2, y = PC3, color = heterotic.group)) +
   
   geom_point(size = point_size) +
   
@@ -52,13 +50,12 @@ ggplot(pca_metadane, aes(x = PC1, y = PC2, color = population)) +
     breaks = legend_order) +
   
   labs(
-    x = "PC1",
-    y = "PC2") +
+    x = "PC2",
+    y = "PC3") +
   
   theme_classic() +
   
   theme(
-    text = element_text(family = font_family),
     
     axis.title.x = element_text(
       size = axis_title_size,
