@@ -13,6 +13,6 @@
 
 LD=${SLURM_ARRAY_TASK_ID}
 
-bcftools view -S /home/jl430796/MaizePop/metadane/02_LD/LD2/LD${LD}_IDs.txt \
+bcftools view -S /home/jl430796/MaizePop/metadane/02_LD/2_LD/LD${LD}_IDs.txt \
 /home/jl430796/MaizePop/data/raw/imputed/chr_all_imputed.vcf.gz \
--O z -o /home/jl430796/MaizePop/data/processed/02_LD/LD2/LD${LD}.vcf.gz
+-O z -o /home/jl430796/MaizePop/data/processed/02_LD/2_LD/LD${LD}.vcf.gz
