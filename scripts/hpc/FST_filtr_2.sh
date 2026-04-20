@@ -9,9 +9,9 @@
 #SBATCH --partition=okeanos
 #SBATCH --output=/home/jl430796/MaizePop/logs/FST_filtr_2.%A_%a.out
 #SBATCH --error=/home/jl430796/MaizePop/logs/FST_filtr_2.%A_%a.err
-#SBATCH --array=0-6
+#SBATCH --array=0-5
 
-populations=("Mexicana_Parviglumis" "Tropical_NSS" "Iodent_1_SS_1" "Iodent_2_SS_2" "SS_NSS" "Tropical_Iodent" "Tropical_SS")
+populations=("Iodent_1_SS_1" "Iodent_2_SS_2" "Iodent_1_NSS" "Iodent_2_NSS" "SS_1_NSS" "SS_2_NSS")
 
 pop=${populations[$SLURM_ARRAY_TASK_ID]}
 
