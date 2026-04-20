@@ -10,6 +10,6 @@
 #SBATCH --output=/home/jl430796/MaizePop/logs/PCA.%A_%a.out
 #SBATCH --error=/home/jl430796/MaizePop/logs/PCA.%A_%a.err
 
-plink --bfile /home/jl430796/MaizePop/data/processed/00_SNP/chr_all_plink --pca 20 \
+plink --bfile /home/jl430796/MaizePop/data/processed/00_SNP/chr_all_plink --pca 10 \
 --out /home/jl430796/MaizePop/results/full/01_PCA/chr_all_PCA
 
