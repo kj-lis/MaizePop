@@ -1,5 +1,3 @@
-#nieaktualne
-
 order <- scan("C:/Users/kjlis/Desktop/admix_kolejnosc.txt", what="character")
 fam <- read.table("C:/Users/kjlis/Desktop/chr_all_zmays_plink_3.fam")
 tbl <- read.table("C:/Users/kjlis/Desktop/chr_all_zmays_plink_3.7.Q")
