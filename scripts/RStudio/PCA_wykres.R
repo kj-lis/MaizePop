@@ -3,7 +3,7 @@ library(ggplot2)
 library(dplyr)
 
 pca <- read.table("C:/Users/kjlis/Desktop/chr_all_PCA.eigenvec", header = FALSE)
-metadane <- read.csv("C:/Users/kjlis/Desktop/metadane_final.csv", stringsAsFactors = FALSE, sep = ";")
+metadane <- read.csv("C:/Users/kjlis/Desktop/metadane_all.csv", stringsAsFactors = FALSE, sep = ";")
 
 colnames(pca)[1:2] <- c("FID", "VCFname")
 colnames(pca)[3:ncol(pca)] <- paste0("PC", 1:(ncol(pca)-2))
