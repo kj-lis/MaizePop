@@ -35,7 +35,7 @@ for (i in 1:10) {
   Pv_Tr_spline_list[[i]] <- splineAnalyze(
     Y = chr_data_Pv_Tr$Fst,
     map = chr_data_Pv_Tr$bp,
-    smoothness = 200,
+    smoothness = 300,
     plotRaw = TRUE,
     plotWindows = TRUE,
     method = 4
@@ -80,7 +80,7 @@ for (i in 1:10) {
   Tr_Idt_1_spline_list[[i]] <- splineAnalyze(
     Y = chr_data_Tr_Idt_1$Fst,
     map = chr_data_Tr_Idt_1$bp,
-    smoothness = 200,
+    smoothness = 300,
     plotRaw = TRUE,
     plotWindows = TRUE,
     method = 4
@@ -125,7 +125,7 @@ for (i in 1:10) {
   Tr_SS_1_spline_list[[i]] <- splineAnalyze(
     Y = chr_data_Tr_SS_1$Fst,
     map = chr_data_Tr_SS_1$bp,
-    smoothness = 200,
+    smoothness = 300,
     plotRaw = TRUE,
     plotWindows = TRUE,
     method = 4
@@ -170,7 +170,7 @@ for (i in 1:10) {
   Idt_1vs2_spline_list[[i]] <- splineAnalyze(
     Y = chr_data_Idt_1vs2$Fst,
     map = chr_data_Idt_1vs2$bp,
-    smoothness = 200,
+    smoothness = 300,
     plotRaw = TRUE,
     plotWindows = TRUE,
     method = 4
@@ -215,7 +215,7 @@ for (i in 1:10) {
   SS_1vs2_spline_list[[i]] <- splineAnalyze(
     Y = chr_data_SS_1vs2$Fst,
     map = chr_data_SS_1vs2$bp,
-    smoothness = 200,
+    smoothness = 300,
     plotRaw = TRUE,
     plotWindows = TRUE,
     method = 4
