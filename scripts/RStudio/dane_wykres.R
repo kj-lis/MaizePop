@@ -68,8 +68,9 @@ ggplot() +
     
     axis.title.x = element_text(size = 14, face = "bold", margin = margin(t = 14), color = "black"),
     axis.title.y = element_text(size = 14, face = "bold", margin = margin(r = 14), color = "black"),
-    
     axis.text.x = element_text(size = 13, color = "black"),
-    axis.text.y = element_text(size = 13, color = "black")
+    axis.text.y = element_text(size = 13, color = "black"),
+    axis.line.x = element_line(color = "black"),
+    axis.line.y = element_line(color = "black")
   )
 dev.off()
