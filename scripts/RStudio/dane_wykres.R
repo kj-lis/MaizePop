@@ -20,7 +20,7 @@ dane_split <- dane %>%
   mutate(era = factor(era, levels = c("II", "I"))) %>%
   count(heterotic.group, era)
 
-png(file="C:/Users/kjlis/Desktop/dane_linie.png", width=2000, height=2000, res=250)
+png(file="C:/Users/kjlis/Desktop/dane_linie.png", width=2200, height=2000, res=250)
 ggplot() +
   geom_bar(
     data = dane,
@@ -53,7 +53,7 @@ ggplot() +
   ) +
   scale_fill_manual(values = c(
     "Iodent"      = "limegreen",
-    "SS"          = "royalblue3",
+    "SS"          = "royalblue1",
     "NSS"         = "firebrick2",
     "Tropical"    = "mediumorchid2",
     "Mix"         = "gold",

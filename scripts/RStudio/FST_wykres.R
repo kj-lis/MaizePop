@@ -41,19 +41,17 @@ fst_all$Group <- factor(
 
 library(ggplot2)
 
-png(file="C:/Users/kjlis/Desktop/fst_2.png", width=1800, height=2000, res=250)
+png(file="C:/Users/kjlis/Desktop/fst_1.png", width=1800, height=2000, res=250)
 ggplot(fst_all, aes(x = Group, y = Fst)) +
-  geom_boxplot(fill = "cyan3") +
+  geom_boxplot(fill = "mediumturquoise") +
   theme_classic() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 10),
-        axis.title.x = element_text(size = 11, margin = margin(t = 12), face = "bold"),
-        axis.title.y = element_text(size = 11, margin = margin(r = 12), face = "bold"),
-        axis.text.y = element_text(size = 10),
-        plot.title = element_text(size = 12, face = "bold", hjust = 0.5, margin = margin(b = 15)),
-        plot.margin = margin(10, 10, 10, 10)) +
-  labs(title = "fixation index between subpopulations",
-       x = "compared subpopulations",
-       y = "FST")
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 13, color = "black"),
+    axis.title.x = element_text(size = 14, margin = margin(t = 14), face = "bold", color = "black"),
+    axis.title.y = element_text(size = 14, margin = margin(r = 14), face = "bold", color = "black"),
+    axis.text.y = element_text(size = 13, color = "black")) +
+  labs(
+    x = "compared subpopulations",
+    y = expression(bold(F[ST])))
 dev.off()
 
 
@@ -105,17 +103,15 @@ fst_all$Group <- factor(
 
 library(ggplot2)
 
-png(file="C:/Users/kjlis/Desktop/fst_1.png", width=1800, height=2000, res=250)
+png(file="C:/Users/kjlis/Desktop/fst_2.png", width=1800, height=2000, res=250)
 ggplot(fst_all, aes(x = Group, y = Fst)) +
-  geom_boxplot(fill = "cyan3") +
+  geom_boxplot(fill = "mediumturquoise") +
   theme_classic() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 10),
-        axis.title.x = element_text(size = 11, margin = margin(t = 12), face = "bold"),
-        axis.title.y = element_text(size = 11, margin = margin(r = 12), face = "bold"),
-        axis.text.y = element_text(size = 10),
-        plot.title = element_text(size = 12, face = "bold", hjust = 0.5, margin = margin(b = 15)),
-        plot.margin = margin(10, 10, 10, 10)) +
-  labs(title = "fixation index between subpopulations",
-       x = "compared subpopulations",
-       y = "FST")
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 13, color = "black"),
+        axis.title.x = element_text(size = 14, margin = margin(t = 14), face = "bold", color = "black"),
+        axis.title.y = element_text(size = 14, margin = margin(r = 14), face = "bold", color = "black"),
+        axis.text.y = element_text(size = 13, color = "black")) +
+  labs(
+    x = "compared subpopulations",
+    y = expression(bold(F[ST])))
 dev.off()
