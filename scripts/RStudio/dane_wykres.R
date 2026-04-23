@@ -52,13 +52,13 @@ ggplot() +
     size = 5
   ) +
   scale_fill_manual(values = c(
-    "Iodent"      = "limegreen",
-    "SS"          = "royalblue1",
-    "NSS"         = "firebrick2",
-    "Tropical"    = "mediumorchid2",
-    "Mix"         = "gold",
-    "Parviglumis" = "deepskyblue",
-    "Mexicana"    = "orange2"
+    "Iodent"      = "springgreen",
+    "SS"          = "steelblue1",
+    "NSS"         = "indianred1",
+    "Tropical"    = "mediumorchid1",
+    "Mix"         = "#FFFF66",
+    "Parviglumis" = "cyan2",
+    "Mexicana"    = "sienna2"
   )) +
   labs(x = "subpopulation", y = "number of lines") +
   theme_minimal() +

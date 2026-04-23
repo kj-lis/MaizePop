@@ -1,8 +1,8 @@
-Pv_Tr <- read.table("C:/Users/kjlis/Desktop/Spline/Pv_Tr_all_windows.csv", sep = ",", header=TRUE)
-Tr_Idt_1 <- read.table("C:/Users/kjlis/Desktop/Spline/Tr_Idt_1_all_windows.csv", sep = ",", header=TRUE)
-Tr_SS_1 <- read.table("C:/Users/kjlis/Desktop/Spline/Tr_SS_1_all_windows.csv", sep = ",", header=TRUE)
-Idt_1vs2 <- read.table("C:/Users/kjlis/Desktop/Spline/Idt_1vs2_all_windows.csv", sep = ",", header=TRUE)
-SS_1vs2 <- read.table("C:/Users/kjlis/Desktop/Spline/SS_1vs2_all_windows.csv", sep = ",", header=TRUE)
+Pv_Tr <- read.table("C:/Users/kjlis/Desktop/Pv_Tr_all_windows.csv", sep = ",", header=TRUE)
+Tr_Idt_1 <- read.table("C:/Users/kjlis/Desktop/Tr_Idt_1_all_windows.csv", sep = ",", header=TRUE)
+Tr_SS_1 <- read.table("C:/Users/kjlis/Desktop/Tr_SS_1_all_windows.csv", sep = ",", header=TRUE)
+Idt_1vs2 <- read.table("C:/Users/kjlis/Desktop/Idt_1vs2_all_windows.csv", sep = ",", header=TRUE)
+SS_1vs2 <- read.table("C:/Users/kjlis/Desktop/SS_1vs2_all_windows.csv", sep = ",", header=TRUE)
 
 library(dplyr)
 library(ggplot2)
@@ -37,23 +37,23 @@ axis_df <- Pv_Tr %>%
   group_by(chromosome) %>%
   summarise(center = mean(pos), .groups = "drop")
 
-threshold <- quantile(Pv_Tr$Wstat, 0.9, na.rm = TRUE)
+threshold <- quantile(Pv_Tr$Wstat, 0.95, na.rm = TRUE)
 
 
 plot_title <- "Parviglumis vs. Tropical"
 
-title_size <- 12
-axis_title_size <- 11
-axis_text_size <- 10
+title_size <- 14
+axis_title_size <- 13
+axis_text_size <- 12
 
 threshold_linewidth <- 1.2
 
 
-png(file="C:/Users/kjlis/Desktop/FST_Pv_Tr.png", width=2200, height=1500, res=300)
+png(file="C:/Users/kjlis/Desktop/Wstat_Pv_Tr.png", width=3000, height=1000, res=300)
 ggplot(Pv_Tr, aes(x = pos, y = Wstat, color = factor(chromosome))) +
-  geom_point(size = 0.6, alpha = 0.7) +
+  geom_point(size = 1, alpha = 1) +
   geom_hline(yintercept = threshold,
-             color = "red",
+             color = "black",
              linetype = "dashed",
              linewidth = threshold_linewidth) +
   scale_color_viridis_d(option = "turbo") +
@@ -72,8 +72,8 @@ ggplot(Pv_Tr, aes(x = pos, y = Wstat, color = factor(chromosome))) +
   theme(
     legend.position = "none",
     plot.title = element_text(size = title_size, face = "bold", hjust = 0.5),
-    axis.title.x = element_text(size = axis_title_size, face = "bold", margin = margin(t = 12)),
-    axis.title.y = element_text(size = axis_title_size, face = "bold", margin = margin(r = 12)),
+    axis.title.x = element_text(size = axis_title_size, face = "bold", margin = margin(t = 13)),
+    axis.title.y = element_text(size = axis_title_size, face = "bold", margin = margin(r = 13)),
     axis.text.x = element_text(size = axis_text_size),
     axis.text.y = element_text(size = axis_text_size)
   )
@@ -109,23 +109,23 @@ axis_df <- Tr_Idt_1 %>%
   group_by(chromosome) %>%
   summarise(center = mean(pos), .groups = "drop")
 
-threshold <- quantile(Tr_Idt_1$Wstat, 0.9, na.rm = TRUE)
+threshold <- quantile(Tr_Idt_1$Wstat, 0.95, na.rm = TRUE)
 
 
 plot_title <- "Tropical vs. Iodent I"
 
-title_size <- 12
-axis_title_size <- 11
-axis_text_size <- 10
+title_size <- 14
+axis_title_size <- 13
+axis_text_size <- 12
 
 threshold_linewidth <- 1.2
 
 
-png(file="C:/Users/kjlis/Desktop/FST_Tr_Idt_1.png", width=2200, height=1500, res=300)
+png(file="C:/Users/kjlis/Desktop/Wstat_Tr_Idt_1.png", width=3000, height=1000, res=300)
 ggplot(Tr_Idt_1, aes(x = pos, y = Wstat, color = factor(chromosome))) +
-  geom_point(size = 0.6, alpha = 0.7) +
+  geom_point(size = 1, alpha = 1) +
   geom_hline(yintercept = threshold,
-             color = "red",
+             color = "black",
              linetype = "dashed",
              linewidth = threshold_linewidth) +
   scale_color_viridis_d(option = "turbo") +
@@ -144,8 +144,8 @@ ggplot(Tr_Idt_1, aes(x = pos, y = Wstat, color = factor(chromosome))) +
   theme(
     legend.position = "none",
     plot.title = element_text(size = title_size, face = "bold", hjust = 0.5),
-    axis.title.x = element_text(size = axis_title_size, face = "bold", margin = margin(t = 12)),
-    axis.title.y = element_text(size = axis_title_size, face = "bold", margin = margin(r = 12)),
+    axis.title.x = element_text(size = axis_title_size, face = "bold", margin = margin(t = 13)),
+    axis.title.y = element_text(size = axis_title_size, face = "bold", margin = margin(r = 13)),
     axis.text.x = element_text(size = axis_text_size),
     axis.text.y = element_text(size = axis_text_size)
   )
@@ -181,23 +181,23 @@ axis_df <- Tr_SS_1 %>%
   group_by(chromosome) %>%
   summarise(center = mean(pos), .groups = "drop")
 
-threshold <- quantile(Tr_SS_1$Wstat, 0.9, na.rm = TRUE)
+threshold <- quantile(Tr_SS_1$Wstat, 0.95, na.rm = TRUE)
 
 
 plot_title <- "Tropical vs. SS I"
 
-title_size <- 12
-axis_title_size <- 11
-axis_text_size <- 10
+title_size <- 14
+axis_title_size <- 13
+axis_text_size <- 12
 
-threshold_linewidth <- 1.2
+threshold_linewidth <- 1.3
 
 
-png(file="C:/Users/kjlis/Desktop/FST_Tr_SS_1.png", width=2200, height=1500, res=300)
+png(file="C:/Users/kjlis/Desktop/Wstat_Tr_SS_1.png", width=3000, height=1000, res=300)
 ggplot(Tr_SS_1, aes(x = pos, y = Wstat, color = factor(chromosome))) +
-  geom_point(size = 0.6, alpha = 0.7) +
+  geom_point(size = 1, alpha = 1) +
   geom_hline(yintercept = threshold,
-             color = "red",
+             color = "black",
              linetype = "dashed",
              linewidth = threshold_linewidth) +
   scale_color_viridis_d(option = "turbo") +
@@ -216,8 +216,8 @@ ggplot(Tr_SS_1, aes(x = pos, y = Wstat, color = factor(chromosome))) +
   theme(
     legend.position = "none",
     plot.title = element_text(size = title_size, face = "bold", hjust = 0.5),
-    axis.title.x = element_text(size = axis_title_size, face = "bold", margin = margin(t = 12)),
-    axis.title.y = element_text(size = axis_title_size, face = "bold", margin = margin(r = 12)),
+    axis.title.x = element_text(size = axis_title_size, face = "bold", margin = margin(t = 13)),
+    axis.title.y = element_text(size = axis_title_size, face = "bold", margin = margin(r = 13)),
     axis.text.x = element_text(size = axis_text_size),
     axis.text.y = element_text(size = axis_text_size)
   )
@@ -253,23 +253,23 @@ axis_df <- Idt_1vs2 %>%
   group_by(chromosome) %>%
   summarise(center = mean(pos), .groups = "drop")
 
-threshold <- quantile(Idt_1vs2$Wstat, 0.9, na.rm = TRUE)
+threshold <- quantile(Idt_1vs2$Wstat, 0.95, na.rm = TRUE)
 
 
 plot_title <- "Iodent I vs. Iodent II"
 
-title_size <- 12
-axis_title_size <- 11
-axis_text_size <- 10
+title_size <- 14
+axis_title_size <- 13
+axis_text_size <- 12
 
-threshold_linewidth <- 1.2
+threshold_linewidth <- 1.5
 
 
-png(file="C:/Users/kjlis/Desktop/FST_Idt_1vs2.png", width=2200, height=1500, res=300)
+png(file="C:/Users/kjlis/Desktop/Wstat_Idt_1vs2.png", width=3000, height=1000, res=300)
 ggplot(Idt_1vs2, aes(x = pos, y = Wstat, color = factor(chromosome))) +
-  geom_point(size = 0.6, alpha = 0.7) +
+  geom_point(size = 0.9, alpha = 0.9) +
   geom_hline(yintercept = threshold,
-             color = "red",
+             color = "black",
              linetype = "dashed",
              linewidth = threshold_linewidth) +
   scale_color_viridis_d(option = "turbo") +
@@ -288,8 +288,8 @@ ggplot(Idt_1vs2, aes(x = pos, y = Wstat, color = factor(chromosome))) +
   theme(
     legend.position = "none",
     plot.title = element_text(size = title_size, face = "bold", hjust = 0.5),
-    axis.title.x = element_text(size = axis_title_size, face = "bold", margin = margin(t = 12)),
-    axis.title.y = element_text(size = axis_title_size, face = "bold", margin = margin(r = 12)),
+    axis.title.x = element_text(size = axis_title_size, face = "bold", margin = margin(t = 13)),
+    axis.title.y = element_text(size = axis_title_size, face = "bold", margin = margin(r = 13)),
     axis.text.x = element_text(size = axis_text_size),
     axis.text.y = element_text(size = axis_text_size)
   )
@@ -325,23 +325,23 @@ axis_df <- SS_1vs2 %>%
   group_by(chromosome) %>%
   summarise(center = mean(pos), .groups = "drop")
 
-threshold <- quantile(SS_1vs2$Wstat, 0.9, na.rm = TRUE)
+threshold <- quantile(SS_1vs2$Wstat, 0.95, na.rm = TRUE)
 
 
 plot_title <- "SS I vs. SS II"
 
-title_size <- 12
-axis_title_size <- 11
-axis_text_size <- 10
+title_size <- 14
+axis_title_size <- 13
+axis_text_size <- 12
 
-threshold_linewidth <- 1.2
+threshold_linewidth <- 1.5
 
 
-png(file="C:/Users/kjlis/Desktop/FST_SS_1vs2.png", width=2200, height=1500, res=300)
+png(file="C:/Users/kjlis/Desktop/Wstat_SS_1vs2.png", width=3000, height=1000, res=300)
 ggplot(SS_1vs2, aes(x = pos, y = Wstat, color = factor(chromosome))) +
-  geom_point(size = 0.6, alpha = 0.7) +
+  geom_point(size = 1, alpha = 1) +
   geom_hline(yintercept = threshold,
-             color = "red",
+             color = "black",
              linetype = "dashed",
              linewidth = threshold_linewidth) +
   scale_color_viridis_d(option = "turbo") +
@@ -360,8 +360,8 @@ ggplot(SS_1vs2, aes(x = pos, y = Wstat, color = factor(chromosome))) +
   theme(
     legend.position = "none",
     plot.title = element_text(size = title_size, face = "bold", hjust = 0.5),
-    axis.title.x = element_text(size = axis_title_size, face = "bold", margin = margin(t = 12)),
-    axis.title.y = element_text(size = axis_title_size, face = "bold", margin = margin(r = 12)),
+    axis.title.x = element_text(size = axis_title_size, face = "bold", margin = margin(t = 13)),
+    axis.title.y = element_text(size = axis_title_size, face = "bold", margin = margin(r = 13)),
     axis.text.x = element_text(size = axis_text_size),
     axis.text.y = element_text(size = axis_text_size)
   )
