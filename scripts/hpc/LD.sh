@@ -15,5 +15,5 @@ LD=${SLURM_ARRAY_TASK_ID}
 
 /home/jl430796/software/PopLDdecay/bin/PopLDdecay \
 -InVCF /home/jl430796/MaizePop/data/processed/02_LD/1_LD/LD${LD}.vcf.gz \
--OutStat /home/jl430796/MaizePop/results/full/02_LD/1_LD/LD${LD}
+-OutStat /home/jl430796/MaizePop/results/full/02_LD/1_LD/LD${LD} -MaxDist 500 -OutType 2
 
