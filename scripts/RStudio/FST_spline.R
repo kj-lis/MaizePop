@@ -299,12 +299,12 @@ write.csv(SS_1vs2_top10, "C:/Users/kjlis/Desktop/SS_1vs2_top10.csv", row.names =
 ################################
 
 
-Idt_1_SS_1 <- read.table("/home/kuba/Desktop/Iodent_1_SS_1.fst", header=TRUE)
-Idt_2_SS_2 <- read.table("/home/kuba/Desktop/Iodent_2_SS_2.fst", header=TRUE)
-Idt_1_NSS <- read.table("/home/kuba/Desktop/Iodent_1_NSS.fst", header=TRUE)
-Idt_2_NSS <- read.table("/home/kuba/Desktop/Iodent_2_NSS.fst", header=TRUE)
-SS_1_NSS <- read.table("/home/kuba/Desktop/SS_1_NSS.fst", header=TRUE)
-SS_2_NSS <- read.table("/home/kuba/Desktop/SS_2_NSS.fst", header=TRUE)
+Idt_1_SS_1 <- read.table("C:/Users/kjlis/Desktop/Iodent_1_SS_1.fst", header=TRUE)
+Idt_2_SS_2 <- read.table("C:/Users/kjlis/Desktop/Iodent_2_SS_2.fst", header=TRUE)
+Idt_1_NSS <- read.table("C:/Users/kjlis/Desktop/Iodent_1_NSS.fst", header=TRUE)
+Idt_2_NSS <- read.table("C:/Users/kjlis/Desktop/Iodent_2_NSS.fst", header=TRUE)
+SS_1_NSS <- read.table("C:/Users/kjlis/Desktop/SS_1_NSS.fst", header=TRUE)
+SS_2_NSS <- read.table("C:/Users/kjlis/Desktop/SS_2_NSS.fst", header=TRUE)
 
 Idt_1_SS_1$Fst <- pmax(Idt_1_SS_1$Fst, 0)
 Idt_2_SS_2$Fst <- pmax(Idt_2_SS_2$Fst, 0)

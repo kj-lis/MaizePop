@@ -35,7 +35,9 @@ axis_df <- Pv_Tr %>%
   group_by(chromosome) %>%
   summarise(center = mean(pos), .groups = "drop")
 
-threshold <- quantile(Pv_Tr$Wstat, 0.95, na.rm = TRUE)
+
+Pv_Tr_clean <- Pv_Tr %>% filter(Wstat > 0)
+threshold_Pv_Tr <- quantile(Pv_Tr_clean$Wstat, 0.95, na.rm = TRUE)
 
 
 plot_title <- "Parviglumis vs. Tropical"
@@ -50,7 +52,7 @@ threshold_linewidth <- 1.2
 png(file="C:/Users/kjlis/Desktop/Wstat_Pv_Tr.png", width=3000, height=1000, res=300)
 ggplot(Pv_Tr, aes(x = pos, y = Wstat, color = factor(chromosome))) +
   geom_point(size = 1, alpha = 1) +
-  geom_hline(yintercept = threshold,
+  geom_hline(yintercept = threshold_Pv_Tr,
              color = "black",
              linetype = "dashed",
              linewidth = threshold_linewidth) +
@@ -105,7 +107,9 @@ axis_df <- Tr_Idt_1 %>%
   group_by(chromosome) %>%
   summarise(center = mean(pos), .groups = "drop")
 
-threshold <- quantile(Tr_Idt_1$Wstat, 0.95, na.rm = TRUE)
+
+Tr_Idt_1_clean <- Tr_Idt_1 %>% filter(Wstat > 0)
+threshold_Tr_Idt_1 <- quantile(Tr_Idt_1_clean$Wstat, 0.95, na.rm = TRUE)
 
 
 plot_title <- "Tropical vs. Iodent I"
@@ -120,7 +124,7 @@ threshold_linewidth <- 1.2
 png(file="C:/Users/kjlis/Desktop/Wstat_Tr_Idt_1.png", width=3000, height=1000, res=300)
 ggplot(Tr_Idt_1, aes(x = pos, y = Wstat, color = factor(chromosome))) +
   geom_point(size = 1, alpha = 1) +
-  geom_hline(yintercept = threshold,
+  geom_hline(yintercept = threshold_Tr_Idt_1,
              color = "black",
              linetype = "dashed",
              linewidth = threshold_linewidth) +
@@ -175,7 +179,9 @@ axis_df <- Tr_SS_1 %>%
   group_by(chromosome) %>%
   summarise(center = mean(pos), .groups = "drop")
 
-threshold <- quantile(Tr_SS_1$Wstat, 0.95, na.rm = TRUE)
+
+Tr_SS_1_clean <- Tr_SS_1 %>% filter(Wstat > 0)
+threshold_Tr_SS_1 <- quantile(Tr_SS_1_clean$Wstat, 0.95, na.rm = TRUE)
 
 
 plot_title <- "Tropical vs. SS I"
@@ -184,13 +190,13 @@ title_size <- 14
 axis_title_size <- 13
 axis_text_size <- 12
 
-threshold_linewidth <- 1.3
+threshold_linewidth <- 1.2
 
 
 png(file="C:/Users/kjlis/Desktop/Wstat_Tr_SS_1.png", width=3000, height=1000, res=300)
 ggplot(Tr_SS_1, aes(x = pos, y = Wstat, color = factor(chromosome))) +
   geom_point(size = 1, alpha = 1) +
-  geom_hline(yintercept = threshold,
+  geom_hline(yintercept = threshold_Tr_SS_1,
              color = "black",
              linetype = "dashed",
              linewidth = threshold_linewidth) +
@@ -245,7 +251,9 @@ axis_df <- Idt_1vs2 %>%
   group_by(chromosome) %>%
   summarise(center = mean(pos), .groups = "drop")
 
-threshold <- quantile(Idt_1vs2$Wstat, 0.95, na.rm = TRUE)
+
+Idt_1vs2_clean <- Idt_1vs2 %>% filter(Wstat > 0)
+threshold_Idt_1vs2 <- quantile(Idt_1vs2_clean$Wstat, 0.95, na.rm = TRUE)
 
 
 plot_title <- "Iodent I vs. Iodent II"
@@ -254,13 +262,13 @@ title_size <- 14
 axis_title_size <- 13
 axis_text_size <- 12
 
-threshold_linewidth <- 1.5
+threshold_linewidth <- 1.2
 
 
 png(file="C:/Users/kjlis/Desktop/Wstat_Idt_1vs2.png", width=3000, height=1000, res=300)
 ggplot(Idt_1vs2, aes(x = pos, y = Wstat, color = factor(chromosome))) +
   geom_point(size = 0.9, alpha = 0.9) +
-  geom_hline(yintercept = threshold,
+  geom_hline(yintercept = threshold_Idt_1vs2,
              color = "black",
              linetype = "dashed",
              linewidth = threshold_linewidth) +
@@ -315,7 +323,9 @@ axis_df <- SS_1vs2 %>%
   group_by(chromosome) %>%
   summarise(center = mean(pos), .groups = "drop")
 
-threshold <- quantile(SS_1vs2$Wstat, 0.95, na.rm = TRUE)
+
+SS_1vs2_clean <- SS_1vs2 %>% filter(Wstat > 0)
+threshold_SS_1vs2 <- quantile(SS_1vs2_clean$Wstat, 0.95, na.rm = TRUE)
 
 
 plot_title <- "SS I vs. SS II"
@@ -324,13 +334,13 @@ title_size <- 14
 axis_title_size <- 13
 axis_text_size <- 12
 
-threshold_linewidth <- 1.5
+threshold_linewidth <- 1.2
 
 
 png(file="C:/Users/kjlis/Desktop/Wstat_SS_1vs2.png", width=3000, height=1000, res=300)
 ggplot(SS_1vs2, aes(x = pos, y = Wstat, color = factor(chromosome))) +
   geom_point(size = 1, alpha = 1) +
-  geom_hline(yintercept = threshold,
+  geom_hline(yintercept = threshold_SS_1vs2,
              color = "black",
              linetype = "dashed",
              linewidth = threshold_linewidth) +
