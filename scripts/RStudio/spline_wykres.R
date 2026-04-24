@@ -11,8 +11,6 @@ library(ggplot2)
 ################################
 
 
-Pv_Tr <- Pv_Tr %>% filter(Wstat > 0)
-
 Pv_Tr <- Pv_Tr %>%
   filter(!is.na(Wstat))
 
@@ -82,8 +80,6 @@ dev.off()
 
 ################################
 
-
-Tr_Idt_1 <- Tr_Idt_1 %>% filter(Wstat > 0)
 
 Tr_Idt_1 <- Tr_Idt_1 %>%
   filter(!is.na(Wstat))
@@ -155,8 +151,6 @@ dev.off()
 ################################
 
 
-Tr_SS_1 <- Tr_SS_1 %>% filter(Wstat > 0)
-
 Tr_SS_1 <- Tr_SS_1 %>%
   filter(!is.na(Wstat))
 
@@ -227,8 +221,6 @@ dev.off()
 ################################
 
 
-Idt_1vs2 <- Idt_1vs2 %>% filter(Wstat > 0)
-
 Idt_1vs2 <- Idt_1vs2 %>%
   filter(!is.na(Wstat))
 
@@ -298,8 +290,6 @@ dev.off()
 
 ################################
 
-
-SS_1vs2 <- SS_1vs2 %>% filter(Wstat > 0)
 
 SS_1vs2 <- SS_1vs2 %>%
   filter(!is.na(Wstat))
