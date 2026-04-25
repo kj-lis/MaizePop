@@ -14,8 +14,8 @@ plink --bfile /home/jl430796/MaizePop/data/processed/00_SNP/chr_all \
 --indep-pairwise 50 5 0.2 \
 --out /home/jl430796/MaizePop/data/processed/01_admix/chr_all_admix_1
 
-plink --bfile /home/jl430796/MaizePop/data/processed/00_SNP/chr_all_plink \
---extract /home/jl430796/MaizePop/data/processed/01_admix/chr_all_admix.prune.in 
+plink --bfile /home/jl430796/MaizePop/data/processed/00_SNP/chr_all \
+--extract /home/jl430796/MaizePop/data/processed/01_admix/chr_all_admix_1.prune.in \
 --make-bed \
 --out /home/jl430796/MaizePop/data/processed/01_admix/chr_all_admix_2
 
