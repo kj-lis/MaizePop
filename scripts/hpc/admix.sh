@@ -11,6 +11,6 @@
 #SBATCH --error=/home/jl430796/MaizePop/logs/admix.%A_%a.err
 
 for K in {2..15}; do
-    admixture /home/jl430796/MaizePop/data/processed/01_admix/chr_all_admix_2 $K
+    admixture /home/jl430796/MaizePop/data/processed/01_admix/chr_all_admix_2.bed $K
 done
 
