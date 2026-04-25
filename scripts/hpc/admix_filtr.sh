@@ -10,7 +10,7 @@
 #SBATCH --output=/home/jl430796/MaizePop/logs/admix_filtr.%A_%a.out
 #SBATCH --error=/home/jl430796/MaizePop/logs/admix_filtr.%A_%a.err
 
-plink --bfile /home/jl430796/MaizePop/data/processed/00_SNP/chr_all \
+plink --bfile /home/jl430796/MaizePop/data/processed/00_SNP/chr_all_plink \
 --indep-pairwise 50 5 0.2 \
 --out /home/jl430796/MaizePop/data/processed/01_admix/chr_all_admix_1
 
