@@ -1,4 +1,4 @@
-log_files <- paste0("C:/Users/kjlis/Desktop/log", 2:10, ".out")
+log_files <- paste0("C:/Users/kjlis/Desktop/log", 2:15, ".out")
 
 get_cv <- function(file) {
   line <- grep("CV error", readLines(file), value = TRUE)
@@ -6,7 +6,7 @@ get_cv <- function(file) {
 }
 
 cv_values <- sapply(log_files, get_cv)
-K <- 2:10
+K <- 2:15
 cv_df <- data.frame(K = K, CV_error = cv_values)
 cv_df
 
