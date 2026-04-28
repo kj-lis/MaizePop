@@ -9,7 +9,7 @@
 #SBATCH --partition=okeanos
 #SBATCH --output=/home/jl430796/MaizePop/logs/LD.%A_%a.out
 #SBATCH --error=/home/jl430796/MaizePop/logs/LD.%A_%a.err
-#SBATCH --array=1-7
+#SBATCH --array=1-9
 
 LD=${SLURM_ARRAY_TASK_ID}
 
