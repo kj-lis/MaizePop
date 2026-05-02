@@ -41,7 +41,7 @@ ggplot(df, aes(x = Distance, y = r2, color = Population)) +
   labs(
     x = "distance (kb)",
     y = expression(bold(r^2)),
-    color = "Subpopulation"
+    color = "subpopulation"
   ) +
   theme_classic() +
   theme(
