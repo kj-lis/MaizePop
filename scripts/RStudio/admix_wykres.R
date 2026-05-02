@@ -1,61 +1,79 @@
-order <- scan("C:/Users/kjlis/Desktop/admix_kolejnosc.txt", what="character")
-fam <- read.table("C:/Users/kjlis/Desktop/chr_all_zmays_plink_3.fam")
-tbl <- read.table("C:/Users/kjlis/Desktop/chr_all_zmays_plink_3.7.Q")
+library(ggplot2)
+library(dplyr)
+library(tidyr)
 
-rownames(tbl) <- fam$V2
-tbl <- tbl[order, ]
+admix <- read.csv("C:/Users/kjlis/Desktop/admix_K9.csv", stringsAsFactors = FALSE)
 
-my_colors <- c(
-  V1 = "#00BF7D",
-  V2 = "#00B0F6",
-  V3 = "#F8766D",
-  V4 = "#F8766D",
-  V5 = "#00B0F6",
-  V6 = "#E76BF3",
-  V7 = "#00BF7D")
+Q_cols <- grep("^K", names(admix))
 
-cluster_labels <- c(
-  V1 = "Iodent",
-  V2 = "SS",
-  V3 = "NSS",
-  V4 = "NSS",
-  V5 = "SS",
-  V6 = "Tropical",
-  V7 = "Iodent")
+cluster_order <- c(1, 2, 5, 8, 3, 7, 4, 9, 6)
 
-axis_label_size <- 1.5
-axis_text_size  <- 1.3
-legend_text_size <- 1.2 
+admix$assigned_cluster <- factor(admix$assigned_cluster,
+                                 levels = cluster_order)
 
-barplot(
-  t(as.matrix(tbl)),
-  col = my_colors,
-  border = NA,
-  ylab = "Ancestry",
-  xaxt = "n",
-  cex.lab = axis_label_size,
-  cex.axis = axis_text_size)
+admix <- admix[order(admix$assigned_cluster,
+                     -apply(admix[, Q_cols], 1, max)), ]
 
-legend_colors <- my_colors[!names(my_colors) %in% c("V1","V4","V5")]
-legend_labels <- cluster_labels[!names(cluster_labels) %in% c("V1","V4","V5")]
+Q_long <- admix %>%
+  pivot_longer(cols = starts_with("K"),
+               names_to = "Cluster",
+               values_to = "Ancestry")
 
-legend(
-  "topright",
-  legend = legend_labels,
-  fill = legend_colors,
-  border = NA,
-  bty = "n",
-  title = "Heterotic group",
-  cex = legend_text_size)
+Q_long$Cluster <- factor(Q_long$Cluster,
+                         levels = c("K1","K2","K5","K8","K3","K7","K4","K9","K6"))
 
+Q_long$ID <- factor(Q_long$ID, levels = admix$ID)
 
-plot.new()
-legend(
-  "center",
-  legend = legend_labels,
-  fill = legend_colors,
-  border = NA,
-  bty = "n",
-  title = "Heterotic group",
-  ncol = length(legend_labels))
+boundaries <- which(diff(as.numeric(admix$assigned_cluster)) != 0)
+
+custom_colors <- c(
+  K1 = "sienna2",
+  K2 = "mediumorchid",
+  K5 = "springgreen",
+  K8 = "springgreen",
+  K3 = "steelblue1",
+  K7 = "steelblue1",
+  K4 = "firebrick1",
+  K9 = "firebrick1",
+  K6 = "palevioletred1"
+)
+
+custom_labels <- c(
+  K1 = "subspecies",
+  K2 = "Tropical",
+  K5 = "Iodent",
+  K8 = "Iodent",
+  K3 = "SS",
+  K7 = "SS",
+  K4 = "NSS (US)",
+  K9 = "NSS (US) + Mix",
+  K6 = "NSS (Poland)"
+)
+
+png(file="C:/Users/kjlis/Desktop/admix.png", width=3000, height=1800, res=250)
+ggplot(Q_long, aes(x = ID, y = Ancestry, fill = Cluster)) +
+  geom_bar(stat = "identity", width = 1) +
+  scale_fill_manual(
+    values = custom_colors,
+    breaks = c("K1","K2","K5","K3","K4","K6"),
+    labels = custom_labels[c("K1","K2","K5","K3","K4","K6")],
+    name = NULL) +
+  scale_x_discrete(expand = c(0, 0)) +
+  scale_y_continuous(expand = c(0, 0)) +
+  coord_cartesian(ylim = c(0, 1)) +
+  labs(x = NULL, y = "ancestry proportion") +
+  theme_classic(base_size = 14) +
+  theme(
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank(),
+    axis.title.y = element_text(size = 14, face = "bold", margin = margin(r = 13)),
+    axis.text.y  = element_text(size = 14),
+    legend.title = element_text(size = 14, face = "bold"),
+    legend.text  = element_text(size = 14),
+    axis.title.x = element_text(margin = margin(t = 13)),
+    plot.margin = margin(11, 11, 11, 11),
+    panel.grid = element_blank(),
+    axis.line = element_line(linewidth = 0.7),
+    legend.position = "bottom")
+dev.off()
 
