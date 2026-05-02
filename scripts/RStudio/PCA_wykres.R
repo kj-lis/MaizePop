@@ -12,7 +12,7 @@ colnames(pca)[3:ncol(pca)] <- paste0("PC", 1:(ncol(pca)-2))
 
 pca_metadane <- left_join(pca, metadane, by = "VCFname")
 
-legend_title <- "Subpopulation"
+legend_title <- "subpopulation"
 
 axis_title_size <- 14
 axis_text_size <- 14
@@ -41,8 +41,8 @@ group_colors <- c(
   "Parviglumis" = "cyan3",
   "Mexicana"    = "darkorange")
 
-png(file="C:/Users/kjlis/Desktop/PCA_1v2.png", width=2000, height=1800, res=250)
-ggplot(pca_metadane, aes(x = PC1, y = PC2, color = heterotic.group)) +
+png(file="C:/Users/kjlis/Desktop/PCA_2v3.png", width=2000, height=1800, res=250)
+ggplot(pca_metadane, aes(x = PC2, y = PC3, color = heterotic.group)) +
   
   geom_point(size = point_size) +
   
@@ -52,8 +52,8 @@ ggplot(pca_metadane, aes(x = PC1, y = PC2, color = heterotic.group)) +
     breaks = legend_order) +
   
   labs(
-    x = "PC1",
-    y = "PC2") +
+    x = "PC2",
+    y = "PC3") +
   
   theme_classic() +
   
@@ -104,7 +104,7 @@ colnames(pca)[3:ncol(pca)] <- paste0("PC", 1:(ncol(pca)-2))
 
 pca_metadane <- left_join(pca, metadane, by = "VCFname")
 
-legend_title <- "Subpopulation"
+legend_title <- "subpopulation"
 
 axis_title_size <- 14
 axis_text_size <- 14
