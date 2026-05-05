@@ -65,7 +65,7 @@ ggplot(Pv_Tr, aes(x = pos, y = Wstat, color = factor(chromosome))) +
   coord_cartesian(ylim = c(0, 60)) +
   labs(
     title = plot_title,
-    x = "Chromosome",
+    x = "chromosome",
     y = "Wstat"
   ) +
   theme_classic() +
@@ -137,7 +137,7 @@ ggplot(Tr_Idt_1, aes(x = pos, y = Wstat, color = factor(chromosome))) +
   coord_cartesian(ylim = c(0, 60)) +
   labs(
     title = plot_title,
-    x = "Chromosome",
+    x = "chromosome",
     y = "Wstat"
   ) +
   theme_classic() +
@@ -209,7 +209,7 @@ ggplot(Tr_SS_1, aes(x = pos, y = Wstat, color = factor(chromosome))) +
   coord_cartesian(ylim = c(0, 60)) +
   labs(
     title = plot_title,
-    x = "Chromosome",
+    x = "chromosome",
     y = "Wstat"
   ) +
   theme_classic() +
@@ -281,7 +281,7 @@ ggplot(Idt_1vs2, aes(x = pos, y = Wstat, color = factor(chromosome))) +
   coord_cartesian(ylim = c(0, 60)) +
   labs(
     title = plot_title,
-    x = "Chromosome",
+    x = "chromosome",
     y = "Wstat"
   ) +
   theme_classic() +
@@ -353,7 +353,7 @@ ggplot(SS_1vs2, aes(x = pos, y = Wstat, color = factor(chromosome))) +
   coord_cartesian(ylim = c(0, 60)) +
   labs(
     title = plot_title,
-    x = "Chromosome",
+    x = "chromosome",
     y = "Wstat"
   ) +
   theme_classic() +
