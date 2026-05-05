@@ -59,6 +59,7 @@ if [[ -n "${REF_FASTA}" ]]; then
   bcftools view \
     --samples-file "${INCLUDE_SAMPLES_FILE}" \
     --include 'MAF>0.05 && F_MISSING<0.25 && COUNT(GT="het") / COUNT(GT!="mis") <= 0.1' \
+    --force-samples \
     --min-alleles 2 \
     --max-alleles 2 \
     --output-type u \
