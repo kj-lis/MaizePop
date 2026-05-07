@@ -76,7 +76,7 @@ else
     --include 'MAF>0.05 && F_MISSING<0.25 && COUNT(GT="het") / COUNT(GT!="mis") <= 0.1' \
     --min-alleles 2 \
     --max-alleles 2 \
-    --force-samples
+    --force-samples \
     --output-type u \
     "${INPUT_VCF}" \
     | bcftools annotate -x INFO,^FORMAT/GT \
