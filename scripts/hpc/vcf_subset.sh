@@ -20,7 +20,7 @@ conda activate geno
 # Inputs --------------------------------------------------------------------
 INCLUDE_SAMPLES_FILE=/home/jl430796/MaizePop/metadane/00_subset/linie_Ania.txt
 VCF_DIR=/home/marcing/DATA/VCF
-OUTPUT_DIR=//home/jl430796/MaizePop/data/raw/vcf_Ania
+OUTPUT_DIR=/home/jl430796/MaizePop/data/raw/vcf_Ania
 
 # Optional reference FASTA for left-alignment/normalization.
 # Set REF_FASTA to the path of your reference (e.g., B73 v5) to enable
