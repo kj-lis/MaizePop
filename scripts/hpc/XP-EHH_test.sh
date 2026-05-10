@@ -14,5 +14,5 @@
   --xpehh \
   --vcf /home/jl430796/MaizePop/data/processed/04_XP_EHH/1_XP_EHH/chr1_Tropical.vcf.gz \
   --vcf-ref /home/jl430796/MaizePop/data/processed/04_XP_EHH/1_XP_EHH/chr1_Parviglumis.vcf.gz \
-  --map /home/jl430796/MaizePop/data/processed/04_XP_EHH/1_XP_EHH/chr1.map
+  --map /home/jl430796/MaizePop/data/processed/04_XP_EHH/1_XP_EHH/chr1.map \
   --out /home/jl430796/MaizePop/data/processed/04_XP_EHH/2_XP_EHH/chr1_Trop_vs_Parv
