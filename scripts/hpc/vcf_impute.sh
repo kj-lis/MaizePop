@@ -9,3 +9,6 @@ java -Xmx45g -jar /home/jl430796/software/beagle.27Feb25.75f.jar gt=chr8_maf005_
 java -Xmx45g -jar /home/jl430796/software/beagle.27Feb25.75f.jar gt=chr9_maf005_miss025.vcf.gz out=chr9_imputed nthreads=12
 java -Xmx45g -jar /home/jl430796/software/beagle.27Feb25.75f.jar gt=chr10_maf005_miss025.vcf.gz out=chr10_imputed nthreads=12
 
+
+echo '##contig=<ID=chr1>' > chr1.hdr
+bcftools annotate --header-lines chr10.hdr -Oz -o chr10_fixed.vcf.gz chr10_imputed.vcf.gz
