@@ -15,7 +15,7 @@ populations=("Parviglumis_Tropical" "Tropical_Iodent_1" "Tropical_SS_1" "Iodent_
 
 pop=${populations[$SLURM_ARRAY_TASK_ID]}
 
-plink --bfile /home/jl430796/MaizePop/data/processed/00_SNP/chr_all_plink \
+plink --bfile /home/jl430796/MaizePop/data/processed/00_SNPs/chr_all_plink \
 --keep /home/jl430796/MaizePop/metadane/03_FST/${pop}_IDs.txt \
 --make-bed --out /home/jl430796/MaizePop/data/processed/03_FST/${pop}_FST
 
