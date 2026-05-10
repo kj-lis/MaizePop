@@ -1,0 +1,16 @@
+selscan v3.0.0
+/home/jl430796/software/selscan/bin/linux/selscan --xpehh --vcf /home/jl430796/MaizePop/data/processed/04_XP_EHH/1_XP_EHH/chr1_Tropical.vcf.gz --vcf-ref /home/jl430796/MaizePop/data/processed/04_XP_EHH/1_XP_EHH/chr1_Parviglumis.vcf.gz --map /home/jl430796/MaizePop/data/processed/04_XP_EHH/1_XP_EHH/chr1.map 
+Opening /home/jl430796/MaizePop/data/processed/04_XP_EHH/1_XP_EHH/chr1_Tropical.vcf.gz to count number of haplotypes and loci...
+The two VCF files contain the same number of loci. Calculations are performed assuming they represent the same set of loci.
+After filtering, 1305280 loci remain in query VCF.
+After filtering, 1305280 loci remain in reference VCF.
+Loading 96 haplotypes and 1305280 loci.
+XP mode: MAF-based filtering is disabled.
+54867 loci will be skipped.
+Done removing 54867 loci due to duplicate positions.
+====
+Loading 24 haplotypes and 1305280 loci.
+XP mode: MAF-based filtering is disabled.
+54867 loci will be skipped.
+Done removing 54867 loci due to duplicate positions.
+====
