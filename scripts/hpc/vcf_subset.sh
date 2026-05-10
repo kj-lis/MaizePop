@@ -35,9 +35,9 @@ if [[ ! -s "${INCLUDE_SAMPLES_FILE}" ]]; then
   exit 1
 fi
 
-CHR=$(printf "chr_%d" "${SLURM_ARRAY_TASK_ID}")
+CHR=$(printf "chr%d" "${SLURM_ARRAY_TASK_ID}")
 INPUT_VCF="${VCF_DIR}/${CHR}_filtered_raw.vcf.gz"
-OUTPUT_VCF="${OUTPUT_DIR}/${CHR}_matched_maf05_miss025.vcf.gz"
+OUTPUT_VCF="${OUTPUT_DIR}/${CHR}_maf005_miss025.vcf.gz"
 
 if [[ ! -f "${INPUT_VCF}" ]]; then
   echo "Input VCF not found: ${INPUT_VCF}" >&2
