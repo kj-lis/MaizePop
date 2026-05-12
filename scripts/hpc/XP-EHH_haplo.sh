@@ -21,18 +21,18 @@ OUTPUT_DIR=/home/jl430796/MaizePop/data/processed/04_XP_EHH/2_XP_EHH
 ############################################
 
 bcftools query -f '%CHROM\t%POS\n' \
-${INPUT_DIR}/chr${chr}_Iodent_1.vcf.gz | \
+${INPUT_DIR}/chr${chr}_Parviglumis.vcf.gz | \
 awk '!seen[$1":"$2]++' > ${OUTPUT_DIR}/chr${chr}_unique_sites.txt
 
 bcftools view \
 -T ${OUTPUT_DIR}/chr${chr}_unique_sites.txt \
-${INPUT_DIR}/chr${chr}_Iodent_1.vcf.gz \
--Oz -o ${OUTPUT_DIR}/chr${chr}_Iodent_1.clean.vcf.gz
+${INPUT_DIR}/chr${chr}_Parviglumis.vcf.gz \
+-Oz -o ${OUTPUT_DIR}/chr${chr}_Parviglumis.clean.vcf.gz
 
 bcftools view \
 -T ${OUTPUT_DIR}/chr${chr}_unique_sites.txt \
-${INPUT_DIR}/chr${chr}_Iodent_2.vcf.gz \
--Oz -o ${OUTPUT_DIR}/chr${chr}_Iodent_2.clean.vcf.gz
+${INPUT_DIR}/chr${chr}_Tropical.vcf.gz \
+-Oz -o ${OUTPUT_DIR}/chr${chr}_Tropical.clean.vcf.gz
 
 ############################################
 # 2. Create HAP files
@@ -41,7 +41,7 @@ ${INPUT_DIR}/chr${chr}_Iodent_2.vcf.gz \
 # Subpopulation 2
 
 bcftools query -f '[%GT\t]\n' \
-${OUTPUT_DIR}/chr${chr}_Iodent_1.clean.vcf.gz | \
+${OUTPUT_DIR}/chr${chr}_Parviglumis.clean.vcf.gz | \
 awk '
 {
     for(i=1; i<=NF; i++) {
@@ -55,12 +55,12 @@ END {
         print substr(h1[i],2);
         print substr(h2[i],2);
     }
-}' > ${OUTPUT_DIR}/chr${chr}_Iodent_1.hap
+}' > ${OUTPUT_DIR}/chr${chr}_Parviglumis.hap
 
 # Subopulation 2
 
 bcftools query -f '[%GT\t]\n' \
-${OUTPUT_DIR}/chr${chr}_Iodent_2.clean.vcf.gz | \
+${OUTPUT_DIR}/chr${chr}_Tropical.clean.vcf.gz | \
 awk '
 {
     for(i=1; i<=NF; i++) {
@@ -74,14 +74,14 @@ END {
         print substr(h1[i],2);
         print substr(h2[i],2);
     }
-}' > ${OUTPUT_DIR}/chr${chr}_Iodent_2.hap
+}' > ${OUTPUT_DIR}/chr${chr}_Tropical.hap
 
 ############################################
 # 3. Create MAP file
 ############################################
 
 bcftools query -f '%CHROM\t%ID\t%POS\n' \
-${OUTPUT_DIR}/chr${chr}_Iodent_1.clean.vcf.gz | \
+${OUTPUT_DIR}/chr${chr}_Parviglumis.clean.vcf.gz | \
 awk '{print $1, $2, $3/1000000, $3}' \
 > ${OUTPUT_DIR}/chr${chr}.map
 
