@@ -18,5 +18,5 @@ chr=${SLURM_ARRAY_TASK_ID}
   --hap /home/jl430796/MaizePop/data/processed/04_XP_EHH/2_XP_EHH/chr${chr}_Tropical.hap \
   --ref /home/jl430796/MaizePop/data/processed/04_XP_EHH/2_XP_EHH/chr${chr}_Parviglumis.hap \
   --map /home/jl430796/MaizePop/data/processed/04_XP_EHH/2_XP_EHH/chr${chr}.map \
-  --out /home/jl430796/MaizePop/results/full/04_XP_EHH/chr${chr}_Pv_Tr
+  --out /home/jl430796/MaizePop/results/full/04_XP_EHH/1_XP_EHH/chr${chr}_Pv_Tr
 
