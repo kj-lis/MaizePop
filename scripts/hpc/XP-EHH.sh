@@ -15,8 +15,8 @@ chr=${SLURM_ARRAY_TASK_ID}
 
 /home/jl430796/software/selscan/bin/linux/selscan \
   --xpehh \
-  --hap ${OUTPUT_DIR}/chr${chr}_Tropical.hap \
-  --ref ${OUTPUT_DIR}/chr${chr}_Parviglumis.hap \
-  --map ${OUTPUT_DIR}/chr${chr}.map \
-  --out ${OUTPUT_DIR}/chr${chr}_Pv_Tr
+  --hap /home/jl430796/MaizePop/data/processed/04_XP_EHH/2_XP_EHH/chr${chr}_Tropical.hap \
+  --ref /home/jl430796/MaizePop/data/processed/04_XP_EHH/2_XP_EHH/chr${chr}_Parviglumis.hap \
+  --map /home/jl430796/MaizePop/data/processed/04_XP_EHH/2_XP_EHH/chr${chr}.map \
+  --out /home/jl430796/MaizePop/results/full/04_XP_EHH/chr${chr}_Pv_Tr
 
