@@ -14,7 +14,7 @@
 chr=${SLURM_ARRAY_TASK_ID}
 
 /home/jl430796/software/selscan/bin/linux/selscan \
-  norm 
-  --xpehh 
-  --files /home/jl430796/MaizePop/results/full/04_XP_EHH/1_XP_EHH/chr${chr}_Pv_Tr.xpehh.out 
+  norm \
+  --xpehh \ 
+  --files /home/jl430796/MaizePop/results/full/04_XP_EHH/1_XP_EHH/chr${chr}_Pv_Tr.xpehh.out \
   --bins 100
