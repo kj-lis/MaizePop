@@ -2,8 +2,8 @@
 
 /home/jl430796/software/selscan/bin/linux/selscan norm --xpehh --files chr1_Tr_Idt_1.xpehh.out chr2_Tr_Idt_1.xpehh.out chr3_Tr_Idt_1.xpehh.out chr4_Tr_Idt_1.xpehh.out chr5_Tr_Idt_1.xpehh.out chr6_Tr_Idt_1.xpehh.out chr7_Tr_Idt_1.xpehh.out chr8_Tr_Idt_1.xpehh.out chr9_Tr_Idt_1.xpehh.out chr10_Tr_Idt_1.xpehh.out
 
-
-
-
+/home/jl430796/software/selscan/bin/linux/selscan norm --xpehh --files chr1_Tr_SS_1.xpehh.out chr2_Tr_SS_1.xpehh.out chr3_Tr_SS_1.xpehh.out chr4_Tr_SS_1.xpehh.out chr5_Tr_SS_1.xpehh.out chr6_Tr_SS_1.xpehh.out chr7_Tr_SS_1.xpehh.out chr8_Tr_SS_1.xpehh.out chr9_Tr_SS_1.xpehh.out chr10_Tr_SS_1.xpehh.out
 
 /home/jl430796/software/selscan/bin/linux/selscan norm --xpehh --files chr1_Idt_1vs2.xpehh.out chr2_Idt_1vs2.xpehh.out chr3_Idt_1vs2.xpehh.out chr4_Idt_1vs2.xpehh.out chr5_Idt_1vs2.xpehh.out chr6_Idt_1vs2.xpehh.out chr7_Idt_1vs2.xpehh.out chr8_Idt_1vs2.xpehh.out chr9_Idt_1vs2.xpehh.out chr10_Idt_1vs2.xpehh.out
+
+/home/jl430796/software/selscan/bin/linux/selscan norm --xpehh --files chr1_SS_1vs2.xpehh.out chr2_SS_1vs2.xpehh.out chr3_SS_1vs2.xpehh.out chr4_SS_1vs2.xpehh.out chr5_SS_1vs2.xpehh.out chr6_SS_1vs2.xpehh.out chr7_SS_1vs2.xpehh.out chr8_SS_1vs2.xpehh.out chr9_SS_1vs2.xpehh.out chr10_SS_1vs2.xpehh.out
