@@ -35,9 +35,13 @@ ggplot(SS_1vs2, aes(x=norm_xpehh)) +
 
 
 
-install.packages("ggrastr")
 library(ggrastr)
 
+
+library(data.table)
+library(ggplot2)
+
+Pv_Tr <- fread("genomewide.norm", colClasses="character")
 
 Pv_Tr$norm_xpehh[
   Pv_Tr$norm_xpehh %in% c("nan","-nan","inf","-inf","NA","")
@@ -56,25 +60,41 @@ Pv_Tr$CHR <- as.numeric(Pv_Tr$CHR)
 
 setorder(Pv_Tr, CHR, pos)
 
-chr_sizes <- Pv_Tr[, .(chr_len=max(pos)), by=CHR]
+# 50 kb windows
+Pv_Tr$window <- floor(Pv_Tr$pos / 50000)
+
+# median XP-EHH per window
+window_df <- Pv_Tr[
+  ,
+  .(
+    median_xpehh = median(norm_xpehh, na.rm=TRUE),
+    pos = mean(pos)
+  ),
+  by=.(CHR, window)
+]
+
+chr_sizes <- window_df[, .(chr_len=max(pos)), by=CHR]
 
 chr_sizes$cumlen <- cumsum(chr_sizes$chr_len) - chr_sizes$chr_len
 
-Pv_Tr <- merge(Pv_Tr, chr_sizes[, .(CHR, cumlen)], by="CHR")
+window_df <- merge(
+  window_df,
+  chr_sizes[, .(CHR, cumlen)],
+  by="CHR"
+)
 
-Pv_Tr$cumpos <- Pv_Tr$pos + Pv_Tr$cumlen
+window_df$cumpos <- window_df$pos + window_df$cumlen
 
-axisdf <- Pv_Tr[, .(
+axisdf <- window_df[, .(
   center=(max(cumpos)+min(cumpos))/2
 ), by=CHR]
 
-set.seed(123)
-
-Pv_Tr_small <- Pv_Tr[sample(.N, 1000000)]
-
-ggplot(Pv_Tr_small, aes(x=cumpos, y=norm_xpehh, color=as.factor(CHR))) +
-  geom_point_rast(size=0.1) +
-  scale_color_manual(values=rep(c("steelblue","grey40"),5)) +
+p <- ggplot(
+  window_df,
+  aes(x=cumpos, y=median_xpehh, color=as.factor(CHR))
+) +
+  geom_point(size=0.8) +
+  scale_color_viridis_d(option = "turbo") +
   scale_x_continuous(
     labels=axisdf$CHR,
     breaks=axisdf$center
@@ -94,12 +114,6 @@ ggplot(Pv_Tr_small, aes(x=cumpos, y=norm_xpehh, color=as.factor(CHR))) +
   ) +
   labs(
     x="Chromosome",
-    y="Normalized XP-EHH",
-    title="Genome-wide XP-EHH"
+    y="Median XP-EHH",
+    title="Sliding-window XP-EHH (50 kb)"
   )
-
-
-
-
-
-
