@@ -19,7 +19,7 @@ Tr_SS_1 <- Tr_SS_1[!is.na(norm_xpehh)]
 Idt_1vs2 <- Idt_1vs2[!is.na(norm_xpehh)]
 SS_1vs2 <- SS_1vs2[!is.na(norm_xpehh)]
 
-ggplot(Pv_Tr, aes(x=norm_xpehh)) +
+ggplot(SS_1vs2, aes(x=norm_xpehh)) +
   geom_histogram(
     bins=100,
     color="black",
@@ -29,5 +29,5 @@ ggplot(Pv_Tr, aes(x=norm_xpehh)) +
   labs(
     x="Normalized XP-EHH",
     y="Count",
-    title="Distribution of XP-EHH scores (Parviglumis vs. Tropical"
+    title="Distribution of XP-EHH scores (SS I vs. SS II)"
   )
