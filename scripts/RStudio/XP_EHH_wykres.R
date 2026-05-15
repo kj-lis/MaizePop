@@ -31,3 +31,75 @@ ggplot(SS_1vs2, aes(x=norm_xpehh)) +
     y="Count",
     title="Distribution of XP-EHH scores (SS I vs. SS II)"
   )
+
+
+
+
+install.packages("ggrastr")
+library(ggrastr)
+
+
+Pv_Tr$norm_xpehh[
+  Pv_Tr$norm_xpehh %in% c("nan","-nan","inf","-inf","NA","")
+] <- NA
+
+Pv_Tr$norm_xpehh <- as.numeric(Pv_Tr$norm_xpehh)
+Pv_Tr$pos <- as.numeric(Pv_Tr$pos)
+
+Pv_Tr <- Pv_Tr[
+  !is.na(norm_xpehh) &
+    !is.na(pos)
+]
+
+Pv_Tr$CHR <- gsub("chr","",Pv_Tr$chr)
+Pv_Tr$CHR <- as.numeric(Pv_Tr$CHR)
+
+setorder(Pv_Tr, CHR, pos)
+
+chr_sizes <- Pv_Tr[, .(chr_len=max(pos)), by=CHR]
+
+chr_sizes$cumlen <- cumsum(chr_sizes$chr_len) - chr_sizes$chr_len
+
+Pv_Tr <- merge(Pv_Tr, chr_sizes[, .(CHR, cumlen)], by="CHR")
+
+Pv_Tr$cumpos <- Pv_Tr$pos + Pv_Tr$cumlen
+
+axisdf <- Pv_Tr[, .(
+  center=(max(cumpos)+min(cumpos))/2
+), by=CHR]
+
+set.seed(123)
+
+Pv_Tr_small <- Pv_Tr[sample(.N, 1000000)]
+
+ggplot(Pv_Tr_small, aes(x=cumpos, y=norm_xpehh, color=as.factor(CHR))) +
+  geom_point_rast(size=0.1) +
+  scale_color_manual(values=rep(c("steelblue","grey40"),5)) +
+  scale_x_continuous(
+    labels=axisdf$CHR,
+    breaks=axisdf$center
+  ) +
+  geom_hline(
+    yintercept=c(-2,2),
+    color="red",
+    linetype="dashed"
+  ) +
+  theme_bw() +
+  theme(
+    legend.position="none",
+    panel.grid.major.x=element_blank(),
+    panel.grid.minor.x=element_blank(),
+    panel.border=element_blank(),
+    axis.line=element_line(color="black")
+  ) +
+  labs(
+    x="Chromosome",
+    y="Normalized XP-EHH",
+    title="Genome-wide XP-EHH"
+  )
+
+
+
+
+
+
