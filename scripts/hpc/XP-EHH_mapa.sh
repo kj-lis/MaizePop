@@ -9,9 +9,6 @@
 #SBATCH --partition=okeanos
 #SBATCH --output=/home/jl430796/MaizePop/logs/XP_EHH_mapa.%A_%a.out
 #SBATCH --error=/home/jl430796/MaizePop/logs/XP_EHH_mapa.%A_%a.err
-#SBATCH --array=1-10
-
-chr=${SLURM_ARRAY_TASK_ID}
 
 for chr in {1..10}; do
 
