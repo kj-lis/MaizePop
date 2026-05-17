@@ -18,3 +18,4 @@ for chr in {1..10}; do
     > /home/jl430796/MaizePop/data/processed/04_XP_EHH/2_XP_EHH/chr${chr}.map
 
 done
+
