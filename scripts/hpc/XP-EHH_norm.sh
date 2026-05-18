@@ -7,3 +7,9 @@
 /home/jl430796/software/selscan/bin/linux/selscan norm --xpehh --files chr1_Idt_1vs2.xpehh.out chr2_Idt_1vs2.xpehh.out chr3_Idt_1vs2.xpehh.out chr4_Idt_1vs2.xpehh.out chr5_Idt_1vs2.xpehh.out chr6_Idt_1vs2.xpehh.out chr7_Idt_1vs2.xpehh.out chr8_Idt_1vs2.xpehh.out chr9_Idt_1vs2.xpehh.out chr10_Idt_1vs2.xpehh.out
 
 /home/jl430796/software/selscan/bin/linux/selscan norm --xpehh --files chr1_SS_1vs2.xpehh.out chr2_SS_1vs2.xpehh.out chr3_SS_1vs2.xpehh.out chr4_SS_1vs2.xpehh.out chr5_SS_1vs2.xpehh.out chr6_SS_1vs2.xpehh.out chr7_SS_1vs2.xpehh.out chr8_SS_1vs2.xpehh.out chr9_SS_1vs2.xpehh.out chr10_SS_1vs2.xpehh.out
+
+cat chr*_Pv_Tr.xpehh.out.norm > Pv_Tr.norm
+cat chr*_Tr_Idt_1.xpehh.out.norm > Tr_Idt_1.norm
+cat chr*_Tr_SS_1.xpehh.out.norm > Tr_SS_1.norm
+cat chr*_Idt_1vs2.xpehh.out.norm > Idt_1vs2.norm
+cat chr*_SS_1vs2.xpehh.out.norm > SS_1vs2.norm
