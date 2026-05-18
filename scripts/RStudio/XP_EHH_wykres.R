@@ -89,31 +89,27 @@ axisdf <- window_df[, .(
   center=(max(cumpos)+min(cumpos))/2
 ), by=CHR]
 
-p <- ggplot(
-  window_df,
-  aes(x=cumpos, y=median_xpehh, color=as.factor(CHR))
-) +
+
+png(file="C:/Users/kjlis/Desktop/XP-EHH_Pv_Tr.png", width=3000, height=1000, res=300)
+ggplot(window_df, aes(x=cumpos, y=median_xpehh, color=as.factor(CHR))) +
   geom_point(size=0.8) +
   scale_color_viridis_d(option = "turbo") +
   scale_x_continuous(
     labels=axisdf$CHR,
-    breaks=axisdf$center
-  ) +
+    breaks=axisdf$center) +
   geom_hline(
     yintercept=c(-2,2),
     color="red",
-    linetype="dashed"
-  ) +
+    linetype="dashed") +
   theme_bw() +
   theme(
     legend.position="none",
     panel.grid.major.x=element_blank(),
     panel.grid.minor.x=element_blank(),
     panel.border=element_blank(),
-    axis.line=element_line(color="black")
-  ) +
+    axis.line=element_line(color="black")) +
   labs(
-    x="Chromosome",
-    y="Median XP-EHH",
-    title="Sliding-window XP-EHH (50 kb)"
-  )
+    x="chromosome",
+    y="XP-EHH",
+    title="Parviglumis vs. Tropical")
+dev.off()
