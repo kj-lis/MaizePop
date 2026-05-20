@@ -56,7 +56,7 @@ ggplot(Pv_Tr, aes(x = pos, y = Wstat, color = factor(chromosome))) +
              color = "black",
              linetype = "dashed",
              linewidth = threshold_linewidth) +
-  scale_color_viridis_d(option = "turbo") +
+  scale_color_viridis_d(option = "viridis") +
   scale_x_continuous(
     breaks = axis_df$center,
     labels = axis_df$chromosome
@@ -128,7 +128,7 @@ ggplot(Tr_Idt_1, aes(x = pos, y = Wstat, color = factor(chromosome))) +
              color = "black",
              linetype = "dashed",
              linewidth = threshold_linewidth) +
-  scale_color_viridis_d(option = "turbo") +
+  scale_color_viridis_d(option = "viridis") +
   scale_x_continuous(
     breaks = axis_df$center,
     labels = axis_df$chromosome
@@ -200,7 +200,7 @@ ggplot(Tr_SS_1, aes(x = pos, y = Wstat, color = factor(chromosome))) +
              color = "black",
              linetype = "dashed",
              linewidth = threshold_linewidth) +
-  scale_color_viridis_d(option = "turbo") +
+  scale_color_viridis_d(option = "viridis") +
   scale_x_continuous(
     breaks = axis_df$center,
     labels = axis_df$chromosome
@@ -272,7 +272,7 @@ ggplot(Idt_1vs2, aes(x = pos, y = Wstat, color = factor(chromosome))) +
              color = "black",
              linetype = "dashed",
              linewidth = threshold_linewidth) +
-  scale_color_viridis_d(option = "turbo") +
+  scale_color_viridis_d(option = "viridis") +
   scale_x_continuous(
     breaks = axis_df$center,
     labels = axis_df$chromosome
@@ -344,7 +344,7 @@ ggplot(SS_1vs2, aes(x = pos, y = Wstat, color = factor(chromosome))) +
              color = "black",
              linetype = "dashed",
              linewidth = threshold_linewidth) +
-  scale_color_viridis_d(option = "turbo") +
+  scale_color_viridis_d(option = "viridis") +
   scale_x_continuous(
     breaks = axis_df$center,
     labels = axis_df$chromosome
