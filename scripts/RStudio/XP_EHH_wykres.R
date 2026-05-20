@@ -116,7 +116,7 @@ ggplot(window_df, aes(x=cumpos, y=median_xpehh, color=as.factor(CHR))) +
       color = "black"),
     axis.ticks.length = unit(0.2, "cm")) +
   labs(
-    x="Chromosome",
+    x="chromosome",
     y="XP-EHH",
     title="Parviglumis vs. Tropical")
 dev.off()
@@ -228,7 +228,7 @@ ggplot(window_df, aes(x=cumpos, y=median_xpehh, color=as.factor(CHR))) +
       color = "black"),
     axis.ticks.length = unit(0.2, "cm")) +
   labs(
-    x="Chromosome",
+    x="chromosome",
     y="XP-EHH",
     title="Tropical vs. Iodent I")
 dev.off()
@@ -340,7 +340,7 @@ ggplot(window_df, aes(x=cumpos, y=median_xpehh, color=as.factor(CHR))) +
       color = "black"),
     axis.ticks.length = unit(0.2, "cm")) +
   labs(
-    x="Chromosome",
+    x="chromosome",
     y="XP-EHH",
     title="Tropical vs. SS I")
 dev.off()
@@ -452,7 +452,7 @@ ggplot(window_df, aes(x=cumpos, y=median_xpehh, color=as.factor(CHR))) +
       color = "black"),
     axis.ticks.length = unit(0.2, "cm")) +
   labs(
-    x="Chromosome",
+    x="chromosome",
     y="XP-EHH",
     title="Iodent I vs. Iodent II")
 dev.off()
@@ -564,7 +564,7 @@ ggplot(window_df, aes(x=cumpos, y=median_xpehh, color=as.factor(CHR))) +
       color = "black"),
     axis.ticks.length = unit(0.2, "cm")) +
   labs(
-    x="Chromosome",
+    x="chromosome",
     y="XP-EHH",
     title="SS I vs. SS II")
 dev.off()
