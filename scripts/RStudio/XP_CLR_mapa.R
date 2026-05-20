@@ -8,15 +8,13 @@ normalize_chr <- function(x) {
 }
 
 genetic_map <- fread(
-  "data/raw/geneticMap/finemap_v5.bed",
+  "C:/Users/kjlis/Desktop/chr_all_plink.bed",
   col.names = c(
     "chrom_raw", "start_bp", "end_bp",
     "start_morgan", "end_morgan", "recomb_rate"
   )
 )
 
-# finemap_v5.bed is reported as Morgan, but values are often on a cM scale.
-# Auto-convert to Morgan when the chromosome span is implausibly large.
 if (max(genetic_map$end_morgan, na.rm = TRUE) > 10) {
   genetic_map[, `:=`(
     start_morgan = start_morgan / 100,
@@ -25,7 +23,7 @@ if (max(genetic_map$end_morgan, na.rm = TRUE) > 10) {
   message("Converted genetic map distances from cM to Morgan (divided by 100).")
 }
 
-bim_file <- Sys.getenv("BIM_FILE", "data/processed/Plink_262/imputed.bim")
+bim_file <- Sys.getenv("BIM_FILE", "C:/Users/kjlis/Desktop/chr_all_plink.bim")
 
 snp_map <- fread(
   bim_file,
@@ -42,7 +40,7 @@ snp_map <- snp_map[!is.na(chr)]
 setorder(genetic_map, chr, start_bp, end_bp)
 setorder(snp_map, chr, bp)
 
-output_dir <- "data/processed/GenetiMap"
+output_dir <- "C:/Users/kjlis/Desktop/XP_CLR_mapa"
 dir.create(output_dir, recursive = TRUE, showWarnings = FALSE)
 
 chromosomes <- unique(snp_map$chr)
@@ -57,7 +55,6 @@ for (chr_id in chromosomes) {
     next
   }
 
-  # Piecewise linear interpolation: use interval boundaries as breakpoints.
   x <- c(map_chr$start_bp[1], map_chr$end_bp)
   y <- c(map_chr$start_morgan[1], map_chr$end_morgan)
 
