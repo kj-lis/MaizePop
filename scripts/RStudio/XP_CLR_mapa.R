@@ -8,7 +8,7 @@ normalize_chr <- function(x) {
 }
 
 genetic_map <- fread(
-  "/home/kuba/Desktop/finemap_v5.bed",
+  "data/raw/geneticMap/finemap_v5.bed",
   col.names = c(
     "chrom_raw", "start_bp", "end_bp",
     "start_morgan", "end_morgan", "recomb_rate"
