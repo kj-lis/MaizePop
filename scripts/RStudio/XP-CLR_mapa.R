@@ -8,7 +8,7 @@ normalize_chr <- function(x) {
 }
 
 genetic_map <- fread(
-  "C:/Users/kjlis/Desktop/chr_all_plink.bed",
+  "/home/kuba/Desktop/finemap_v5.bed",
   col.names = c(
     "chrom_raw", "start_bp", "end_bp",
     "start_morgan", "end_morgan", "recomb_rate"
@@ -23,7 +23,7 @@ if (max(genetic_map$end_morgan, na.rm = TRUE) > 10) {
   message("Converted genetic map distances from cM to Morgan (divided by 100).")
 }
 
-bim_file <- Sys.getenv("BIM_FILE", "C:/Users/kjlis/Desktop/chr_all_plink.bim")
+bim_file <- Sys.getenv("BIM_FILE", "/home/kuba/Desktop/chr_all_plink.bim")
 
 snp_map <- fread(
   bim_file,
@@ -40,7 +40,7 @@ snp_map <- snp_map[!is.na(chr)]
 setorder(genetic_map, chr, start_bp, end_bp)
 setorder(snp_map, chr, bp)
 
-output_dir <- "C:/Users/kjlis/Desktop/XP_CLR_mapa"
+output_dir <- "/home/kuba/Desktop/XP_CLR_mapa"
 dir.create(output_dir, recursive = TRUE, showWarnings = FALSE)
 
 chromosomes <- unique(snp_map$chr)

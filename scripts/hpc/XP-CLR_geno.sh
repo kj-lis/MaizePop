@@ -14,7 +14,7 @@
 chr=${SLURM_ARRAY_TASK_ID}
 
 INPUT_DIR=/home/jl430796/MaizePop/data/processed/04_XP_EHH/1_XP_EHH
-OUTPUT_DIR=/home/jl430796/MaizePop/data/processed/05_XP_CLR/2_XP_CLR
+OUTPUT_DIR=/home/jl430796/MaizePop/data/processed/05_XP_CLR
 
 populations=("Parviglumis" "Tropical" "Iodent_1" "Iodent_2" "SS_1" "SS_2")
 
