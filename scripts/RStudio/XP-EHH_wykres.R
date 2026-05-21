@@ -70,7 +70,7 @@ axis_text_size <- 12
 
 threshold_linewidth <- 1.2
 
-png(file="C:/Users/kjlis/Desktop/XP-EHH_Pv_Tr.png",width=3100,height=1200,res=300)
+png(file="C:/Users/kjlis/Desktop/XP-EHH_Pv_Tr.png", width=3000, height=1000, res=300)
 ggplot(window_df, aes(x=cumpos, y=median_xpehh, color=as.factor(CHR))) +
   geom_point(size=1, alpha=1) +
   scale_color_viridis_d(option="plasma") +
@@ -83,7 +83,7 @@ ggplot(window_df, aes(x=cumpos, y=median_xpehh, color=as.factor(CHR))) +
     ylim=c(-4,4)) +
   geom_hline(
     yintercept=c(lower_thr, upper_thr),
-    color="black",
+    color="red",
     linetype="dashed",
     linewidth=threshold_linewidth) +
   theme_classic() +
@@ -110,8 +110,7 @@ ggplot(window_df, aes(x=cumpos, y=median_xpehh, color=as.factor(CHR))) +
     panel.grid = element_blank(),
     panel.border = element_blank(),
     axis.line = element_line(
-      color = "black",
-      linewidth = 0.8),
+      color = "black"),
     axis.ticks = element_line(
       color = "black"),
     axis.ticks.length = unit(0.2, "cm")) +
@@ -182,7 +181,7 @@ axis_text_size <- 12
 
 threshold_linewidth <- 1.2
 
-png(file="C:/Users/kjlis/Desktop/XP-EHH_Tr_Idt_1.png",width=3100,height=1200,res=300)
+png(file="C:/Users/kjlis/Desktop/XP-EHH_Tr_Idt_1.png", width=3000, height=1000, res=300)
 ggplot(window_df, aes(x=cumpos, y=median_xpehh, color=as.factor(CHR))) +
   geom_point(size=1, alpha=1) +
   scale_color_viridis_d(option="plasma") +
@@ -195,7 +194,7 @@ ggplot(window_df, aes(x=cumpos, y=median_xpehh, color=as.factor(CHR))) +
     ylim=c(-4,4)) +
   geom_hline(
     yintercept=c(lower_thr, upper_thr),
-    color="black",
+    color="red",
     linetype="dashed",
     linewidth=threshold_linewidth) +
   theme_classic() +
@@ -222,8 +221,7 @@ ggplot(window_df, aes(x=cumpos, y=median_xpehh, color=as.factor(CHR))) +
     panel.grid = element_blank(),
     panel.border = element_blank(),
     axis.line = element_line(
-      color = "black",
-      linewidth = 0.8),
+      color = "black"),
     axis.ticks = element_line(
       color = "black"),
     axis.ticks.length = unit(0.2, "cm")) +
@@ -294,7 +292,7 @@ axis_text_size <- 12
 
 threshold_linewidth <- 1.2
 
-png(file="C:/Users/kjlis/Desktop/XP-EHH_Tr_SS_1.png",width=3100,height=1200,res=300)
+png(file="C:/Users/kjlis/Desktop/XP-EHH_Tr_SS_1.png", width=3000, height=1000, res=300)
 ggplot(window_df, aes(x=cumpos, y=median_xpehh, color=as.factor(CHR))) +
   geom_point(size=1, alpha=1) +
   scale_color_viridis_d(option="plasma") +
@@ -307,7 +305,7 @@ ggplot(window_df, aes(x=cumpos, y=median_xpehh, color=as.factor(CHR))) +
     ylim=c(-4,4)) +
   geom_hline(
     yintercept=c(lower_thr, upper_thr),
-    color="black",
+    color="red",
     linetype="dashed",
     linewidth=threshold_linewidth) +
   theme_classic() +
@@ -334,8 +332,7 @@ ggplot(window_df, aes(x=cumpos, y=median_xpehh, color=as.factor(CHR))) +
     panel.grid = element_blank(),
     panel.border = element_blank(),
     axis.line = element_line(
-      color = "black",
-      linewidth = 0.8),
+      color = "black"),
     axis.ticks = element_line(
       color = "black"),
     axis.ticks.length = unit(0.2, "cm")) +
@@ -406,7 +403,7 @@ axis_text_size <- 12
 
 threshold_linewidth <- 1.2
 
-png(file="C:/Users/kjlis/Desktop/XP-EHH_Idt_1vs2.png",width=3100,height=1200,res=300)
+png(file="C:/Users/kjlis/Desktop/XP-EHH_Idt_1vs2.png", width=3000, height=1000, res=300)
 ggplot(window_df, aes(x=cumpos, y=median_xpehh, color=as.factor(CHR))) +
   geom_point(size=1, alpha=1) +
   scale_color_viridis_d(option="plasma") +
@@ -419,7 +416,7 @@ ggplot(window_df, aes(x=cumpos, y=median_xpehh, color=as.factor(CHR))) +
     ylim=c(-4,4)) +
   geom_hline(
     yintercept=c(lower_thr, upper_thr),
-    color="black",
+    color="red",
     linetype="dashed",
     linewidth=threshold_linewidth) +
   theme_classic() +
@@ -446,8 +443,7 @@ ggplot(window_df, aes(x=cumpos, y=median_xpehh, color=as.factor(CHR))) +
     panel.grid = element_blank(),
     panel.border = element_blank(),
     axis.line = element_line(
-      color = "black",
-      linewidth = 0.8),
+      color = "black"),
     axis.ticks = element_line(
       color = "black"),
     axis.ticks.length = unit(0.2, "cm")) +
@@ -518,7 +514,7 @@ axis_text_size <- 12
 
 threshold_linewidth <- 1.2
 
-png(file="C:/Users/kjlis/Desktop/XP-EHH_SS_1vs2.png",width=3100,height=1200,res=300)
+png(file="C:/Users/kjlis/Desktop/XP-EHH_SS_1vs2.png", width=3000, height=1000, res=300)
 ggplot(window_df, aes(x=cumpos, y=median_xpehh, color=as.factor(CHR))) +
   geom_point(size=1, alpha=1) +
   scale_color_viridis_d(option="plasma") +
@@ -531,7 +527,7 @@ ggplot(window_df, aes(x=cumpos, y=median_xpehh, color=as.factor(CHR))) +
     ylim=c(-4,4)) +
   geom_hline(
     yintercept=c(lower_thr, upper_thr),
-    color="black",
+    color="red",
     linetype="dashed",
     linewidth=threshold_linewidth) +
   theme_classic() +
@@ -558,8 +554,7 @@ ggplot(window_df, aes(x=cumpos, y=median_xpehh, color=as.factor(CHR))) +
     panel.grid = element_blank(),
     panel.border = element_blank(),
     axis.line = element_line(
-      color = "black",
-      linewidth = 0.8),
+      color = "black"),
     axis.ticks = element_line(
       color = "black"),
     axis.ticks.length = unit(0.2, "cm")) +

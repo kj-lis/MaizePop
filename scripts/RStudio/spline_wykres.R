@@ -53,7 +53,7 @@ png(file="C:/Users/kjlis/Desktop/Wstat_Pv_Tr.png", width=3000, height=1000, res=
 ggplot(Pv_Tr, aes(x = pos, y = Wstat, color = factor(chromosome))) +
   geom_point(size = 1, alpha = 1) +
   geom_hline(yintercept = threshold_Pv_Tr,
-             color = "black",
+             color = "red",
              linetype = "dashed",
              linewidth = threshold_linewidth) +
   scale_color_viridis_d(option = "viridis") +
@@ -125,7 +125,7 @@ png(file="C:/Users/kjlis/Desktop/Wstat_Tr_Idt_1.png", width=3000, height=1000, r
 ggplot(Tr_Idt_1, aes(x = pos, y = Wstat, color = factor(chromosome))) +
   geom_point(size = 1, alpha = 1) +
   geom_hline(yintercept = threshold_Tr_Idt_1,
-             color = "black",
+             color = "red",
              linetype = "dashed",
              linewidth = threshold_linewidth) +
   scale_color_viridis_d(option = "viridis") +
@@ -197,7 +197,7 @@ png(file="C:/Users/kjlis/Desktop/Wstat_Tr_SS_1.png", width=3000, height=1000, re
 ggplot(Tr_SS_1, aes(x = pos, y = Wstat, color = factor(chromosome))) +
   geom_point(size = 1, alpha = 1) +
   geom_hline(yintercept = threshold_Tr_SS_1,
-             color = "black",
+             color = "red",
              linetype = "dashed",
              linewidth = threshold_linewidth) +
   scale_color_viridis_d(option = "viridis") +
@@ -269,7 +269,7 @@ png(file="C:/Users/kjlis/Desktop/Wstat_Idt_1vs2.png", width=3000, height=1000, r
 ggplot(Idt_1vs2, aes(x = pos, y = Wstat, color = factor(chromosome))) +
   geom_point(size = 0.9, alpha = 0.9) +
   geom_hline(yintercept = threshold_Idt_1vs2,
-             color = "black",
+             color = "red",
              linetype = "dashed",
              linewidth = threshold_linewidth) +
   scale_color_viridis_d(option = "viridis") +
@@ -341,7 +341,7 @@ png(file="C:/Users/kjlis/Desktop/Wstat_SS_1vs2.png", width=3000, height=1000, re
 ggplot(SS_1vs2, aes(x = pos, y = Wstat, color = factor(chromosome))) +
   geom_point(size = 1, alpha = 1) +
   geom_hline(yintercept = threshold_SS_1vs2,
-             color = "black",
+             color = "red",
              linetype = "dashed",
              linewidth = threshold_linewidth) +
   scale_color_viridis_d(option = "viridis") +
