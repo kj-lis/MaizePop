@@ -98,9 +98,6 @@ ggplot(
     labels=axisdf$CHR,
     breaks=axisdf$center
   ) +
-  scale_y_continuous(
-    labels=label_number(scale=100)
-  ) +
   geom_hline(
     yintercept=upper_thr,
     color="red",
@@ -110,7 +107,7 @@ ggplot(
   coord_cartesian(
     ylim=c(
       0,
-      quantile(window_df$xpclr,0.999)
+      quantile(window_df$xpclr,0.99999)
     )
   ) +
   theme_classic() +
@@ -259,9 +256,6 @@ ggplot(
     labels=axisdf$CHR,
     breaks=axisdf$center
   ) +
-  scale_y_continuous(
-    labels=label_number(scale=100)
-  ) +
   geom_hline(
     yintercept=upper_thr,
     color="red",
@@ -271,7 +265,7 @@ ggplot(
   coord_cartesian(
     ylim=c(
       0,
-      quantile(window_df$xpclr,0.999)
+      quantile(window_df$xpclr,0.99999)
     )
   ) +
   theme_classic() +
@@ -420,9 +414,6 @@ ggplot(
     labels=axisdf$CHR,
     breaks=axisdf$center
   ) +
-  scale_y_continuous(
-    labels=label_number(scale=100)
-  ) +
   geom_hline(
     yintercept=upper_thr,
     color="red",
@@ -432,7 +423,7 @@ ggplot(
   coord_cartesian(
     ylim=c(
       0,
-      quantile(window_df$xpclr,0.999)
+      quantile(window_df$xpclr,0.99999)
     )
   ) +
   theme_classic() +
@@ -581,9 +572,6 @@ ggplot(
     labels=axisdf$CHR,
     breaks=axisdf$center
   ) +
-  scale_y_continuous(
-    labels=label_number(scale=100)
-  ) +
   geom_hline(
     yintercept=upper_thr,
     color="red",
@@ -593,7 +581,7 @@ ggplot(
   coord_cartesian(
     ylim=c(
       0,
-      quantile(window_df$xpclr,0.999)
+      quantile(window_df$xpclr,0.99999)
     )
   ) +
   theme_classic() +
@@ -742,9 +730,6 @@ ggplot(
     labels=axisdf$CHR,
     breaks=axisdf$center
   ) +
-  scale_y_continuous(
-    labels=label_number(scale=100)
-  ) +
   geom_hline(
     yintercept=upper_thr,
     color="red",
@@ -754,7 +739,7 @@ ggplot(
   coord_cartesian(
     ylim=c(
       0,
-      quantile(window_df$xpclr,0.999)
+      quantile(window_df$xpclr,0.99999)
     )
   ) +
   theme_classic() +

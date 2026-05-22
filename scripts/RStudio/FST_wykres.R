@@ -43,7 +43,7 @@ library(ggplot2)
 
 png(file="C:/Users/kjlis/Desktop/fst_1.png", width=1850, height=2000, res=250)
 ggplot(fst_all, aes(x = Group, y = Fst)) +
-  geom_boxplot(fill = "mediumturquoise") +
+  geom_boxplot(fill = "springgreen2") +
   theme_classic() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 13, color = "black"),
     axis.title.x = element_text(size = 14, margin = margin(t = 14), face = "bold", color = "black"),
@@ -105,7 +105,7 @@ library(ggplot2)
 
 png(file="C:/Users/kjlis/Desktop/fst_2.png", width=1850, height=2000, res=250)
 ggplot(fst_all, aes(x = Group, y = Fst)) +
-  geom_boxplot(fill = "mediumturquoise") +
+  geom_boxplot(fill = "springgreen2") +
   theme_classic() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 13, color = "black"),
         axis.title.x = element_text(size = 14, margin = margin(t = 14), face = "bold", color = "black"),
@@ -157,7 +157,7 @@ library(ggplot2)
 
 png(file="C:/Users/kjlis/Desktop/MeanY_1.png", width=1850, height=2000, res=250)
 ggplot(MeanY_all, aes(x = Group, y = MeanY)) +
-  geom_boxplot(fill = "orchid2") +
+  geom_boxplot(fill = "slateblue2") +
   theme_classic() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 13, color = "black"),
         axis.title.x = element_text(size = 14, margin = margin(t = 14), face = "bold", color = "black"),
@@ -214,7 +214,7 @@ library(ggplot2)
 
 png(file="C:/Users/kjlis/Desktop/MeanY_2.png", width=1850, height=2000, res=250)
 ggplot(MeanY_all, aes(x = Group, y = MeanY)) +
-  geom_boxplot(fill = "orchid2") +
+  geom_boxplot(fill = "slateblue2") +
   theme_classic() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 13, color = "black"),
         axis.title.x = element_text(size = 14, margin = margin(t = 14), face = "bold", color = "black"),
