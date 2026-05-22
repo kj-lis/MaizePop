@@ -4,6 +4,7 @@ Tr_SS_1 <- read.table("C:/Users/kjlis/Desktop/Tr_SS_1_all_windows.csv", sep = ",
 Idt_1vs2 <- read.table("C:/Users/kjlis/Desktop/Idt_1vs2_all_windows.csv", sep = ",", header=TRUE)
 SS_1vs2 <- read.table("C:/Users/kjlis/Desktop/SS_1vs2_all_windows.csv", sep = ",", header=TRUE)
 
+library(scico)
 library(dplyr)
 library(ggplot2)
 
@@ -56,7 +57,7 @@ ggplot(Pv_Tr, aes(x = pos, y = Wstat, color = factor(chromosome))) +
              color = "red",
              linetype = "dashed",
              linewidth = threshold_linewidth) +
-  scale_color_viridis_d(option = "viridis") +
+  scale_color_scico_d(palette = "managua") +
   scale_x_continuous(
     breaks = axis_df$center,
     labels = axis_df$chromosome
@@ -128,7 +129,7 @@ ggplot(Tr_Idt_1, aes(x = pos, y = Wstat, color = factor(chromosome))) +
              color = "red",
              linetype = "dashed",
              linewidth = threshold_linewidth) +
-  scale_color_viridis_d(option = "viridis") +
+  scale_color_scico_d(palette = "managua") +
   scale_x_continuous(
     breaks = axis_df$center,
     labels = axis_df$chromosome
@@ -200,7 +201,7 @@ ggplot(Tr_SS_1, aes(x = pos, y = Wstat, color = factor(chromosome))) +
              color = "red",
              linetype = "dashed",
              linewidth = threshold_linewidth) +
-  scale_color_viridis_d(option = "viridis") +
+  scale_color_scico_d(palette = "managua") +
   scale_x_continuous(
     breaks = axis_df$center,
     labels = axis_df$chromosome
@@ -272,7 +273,7 @@ ggplot(Idt_1vs2, aes(x = pos, y = Wstat, color = factor(chromosome))) +
              color = "red",
              linetype = "dashed",
              linewidth = threshold_linewidth) +
-  scale_color_viridis_d(option = "viridis") +
+  scale_color_scico_d(palette = "managua") +
   scale_x_continuous(
     breaks = axis_df$center,
     labels = axis_df$chromosome
@@ -344,7 +345,7 @@ ggplot(SS_1vs2, aes(x = pos, y = Wstat, color = factor(chromosome))) +
              color = "red",
              linetype = "dashed",
              linewidth = threshold_linewidth) +
-  scale_color_viridis_d(option = "viridis") +
+  scale_color_scico_d(palette = "managua") +
   scale_x_continuous(
     breaks = axis_df$center,
     labels = axis_df$chromosome

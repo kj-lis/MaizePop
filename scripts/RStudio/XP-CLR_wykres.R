@@ -65,7 +65,7 @@ png(file = "C:/Users/kjlis/Desktop/XP_CLR_Pv_Tr.png", width = 3000, height = 100
 
 ggplot(window_df,aes(x = cumpos,y = xpclr,color = as.factor(CHR))) +
   geom_point(size = 1,alpha = 1) +
-  scale_color_viridis_d(option = "turbo") +
+  scale_color_viridis_d(option="plasma") +
   scale_x_continuous(labels = axisdf$CHR,breaks = axisdf$center) +
   geom_hline(yintercept = upper_thr,color = "red",linetype = "dashed",linewidth = threshold_linewidth) +
   theme_classic() +
@@ -102,4 +102,5 @@ ggplot(window_df,aes(x = cumpos,y = xpclr,color = as.factor(CHR))) +
     y = "XP-CLR",
     title = "Parviglumis vs. Tropical")
 dev.off()
+
 

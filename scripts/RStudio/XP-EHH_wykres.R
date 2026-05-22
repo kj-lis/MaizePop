@@ -73,7 +73,7 @@ threshold_linewidth <- 1.2
 png(file="C:/Users/kjlis/Desktop/XP-EHH_Pv_Tr.png", width=3000, height=1000, res=300)
 ggplot(window_df, aes(x=cumpos, y=median_xpehh, color=as.factor(CHR))) +
   geom_point(size=1, alpha=1) +
-  scale_color_viridis_d(option="plasma") +
+  scale_color_viridis_d(option="viridis") +
   scale_x_continuous(
     labels=axisdf$CHR,
     breaks=axisdf$center) +
@@ -184,7 +184,7 @@ threshold_linewidth <- 1.2
 png(file="C:/Users/kjlis/Desktop/XP-EHH_Tr_Idt_1.png", width=3000, height=1000, res=300)
 ggplot(window_df, aes(x=cumpos, y=median_xpehh, color=as.factor(CHR))) +
   geom_point(size=1, alpha=1) +
-  scale_color_viridis_d(option="plasma") +
+  scale_color_viridis_d(option="viridis") +
   scale_x_continuous(
     labels=axisdf$CHR,
     breaks=axisdf$center) +
@@ -295,7 +295,7 @@ threshold_linewidth <- 1.2
 png(file="C:/Users/kjlis/Desktop/XP-EHH_Tr_SS_1.png", width=3000, height=1000, res=300)
 ggplot(window_df, aes(x=cumpos, y=median_xpehh, color=as.factor(CHR))) +
   geom_point(size=1, alpha=1) +
-  scale_color_viridis_d(option="plasma") +
+  scale_color_viridis_d(option="viridis") +
   scale_x_continuous(
     labels=axisdf$CHR,
     breaks=axisdf$center) +
@@ -406,7 +406,7 @@ threshold_linewidth <- 1.2
 png(file="C:/Users/kjlis/Desktop/XP-EHH_Idt_1vs2.png", width=3000, height=1000, res=300)
 ggplot(window_df, aes(x=cumpos, y=median_xpehh, color=as.factor(CHR))) +
   geom_point(size=1, alpha=1) +
-  scale_color_viridis_d(option="plasma") +
+  scale_color_viridis_d(option="viridis") +
   scale_x_continuous(
     labels=axisdf$CHR,
     breaks=axisdf$center) +
@@ -517,7 +517,7 @@ threshold_linewidth <- 1.2
 png(file="C:/Users/kjlis/Desktop/XP-EHH_SS_1vs2.png", width=3000, height=1000, res=300)
 ggplot(window_df, aes(x=cumpos, y=median_xpehh, color=as.factor(CHR))) +
   geom_point(size=1, alpha=1) +
-  scale_color_viridis_d(option="plasma") +
+  scale_color_viridis_d(option="viridis") +
   scale_x_continuous(
     labels=axisdf$CHR,
     breaks=axisdf$center) +
@@ -565,30 +565,4 @@ ggplot(window_df, aes(x=cumpos, y=median_xpehh, color=as.factor(CHR))) +
 dev.off()
 
 
-################################
 
-
-Pv_Tr$norm_xpehh <- as.numeric(Pv_Tr$norm_xpehh)
-Tr_Idt_1$norm_xpehh <- as.numeric(Tr_Idt_1$norm_xpehh)
-Tr_SS_1$norm_xpehh <- as.numeric(Tr_SS_1$norm_xpehh)
-Idt_1vs2$norm_xpehh <- as.numeric(Idt_1vs2$norm_xpehh)
-SS_1vs2$norm_xpehh <- as.numeric(SS_1vs2$norm_xpehh)
-
-Pv_Tr <- Pv_Tr[!is.na(norm_xpehh)]
-Tr_Idt_1 <- Tr_Idt_1[!is.na(norm_xpehh)]
-Tr_SS_1 <- Tr_SS_1[!is.na(norm_xpehh)]
-Idt_1vs2 <- Idt_1vs2[!is.na(norm_xpehh)]
-SS_1vs2 <- SS_1vs2[!is.na(norm_xpehh)]
-
-ggplot(SS_1vs2, aes(x=norm_xpehh)) +
-  geom_histogram(
-    bins=100,
-    color="black",
-    fill="mediumturquoise"
-  ) +
-  theme_bw() +
-  labs(
-    x="Normalized XP-EHH",
-    y="Count",
-    title="Distribution of XP-EHH scores (SS I vs. SS II)"
-  )
