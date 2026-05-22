@@ -13,6 +13,7 @@ nohup bash -c 'for i in {1..10}; do (/home/kuba/Desktop/xp./xp/XPCLR -xpclr /hom
 
 ps aux | grep XPCLR
 tail -f /home/kuba/Desktop/XP_CLR_out/xpclr_batch.log
+pkill -f XPCLR
 
 grep -H "Segmentation" xpclr_batch.log
 wc -l *.wtclr.txt
