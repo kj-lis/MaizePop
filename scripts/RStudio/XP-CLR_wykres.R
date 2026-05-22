@@ -5,7 +5,7 @@ library(data.table)
 library(ggplot2)
 library(scales)
 
-path <- "C:/Users/kjlis/Desktop/XP_CLR_out/Pv_Tr"
+path <- "C:/Users/kjlis/Desktop/Pv_Tr"
 
 xpclr_list <- lapply(1:10, function(i){
   
@@ -166,7 +166,7 @@ library(data.table)
 library(ggplot2)
 library(scales)
 
-path <- "C:/Users/kjlis/Desktop/XP_CLR_out/Tr_Idt_1"
+path <- "C:/Users/kjlis/Desktop/Tr_Idt_1"
 
 xpclr_list <- lapply(1:10, function(i){
   
@@ -327,7 +327,7 @@ library(data.table)
 library(ggplot2)
 library(scales)
 
-path <- "C:/Users/kjlis/Desktop/XP_CLR_out/Tr_SS_1"
+path <- "C:/Users/kjlis/Desktop/Tr_SS_1"
 
 xpclr_list <- lapply(1:10, function(i){
   
@@ -488,7 +488,7 @@ library(data.table)
 library(ggplot2)
 library(scales)
 
-path <- "C:/Users/kjlis/Desktop/XP_CLR_out/Idt_1vs2"
+path <- "C:/Users/kjlis/Desktop/Idt_1vs2"
 
 xpclr_list <- lapply(1:10, function(i){
   
@@ -649,7 +649,7 @@ library(data.table)
 library(ggplot2)
 library(scales)
 
-path <- "C:/Users/kjlis/Desktop/XP_CLR_out/SS_1vs2"
+path <- "C:/Users/kjlis/Desktop/SS_1vs2"
 
 xpclr_list <- lapply(1:10, function(i){
   
