@@ -564,5 +564,3 @@ ggplot(window_df, aes(x=cumpos, y=median_xpehh, color=as.factor(CHR))) +
     title="SS I vs. SS II")
 dev.off()
 
-
-
