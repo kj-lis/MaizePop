@@ -5,33 +5,41 @@ library(data.table)
 library(ggplot2)
 library(dplyr)
 
-path <- "C:/Users/kjlis/Desktop/Pv_Tr/XP_CLR_out/Pv_Tr"
+path <- "C:/Users/kjlis/Desktop/XP_CLR_out/Pv_Tr"
 
 xpclr_list <- lapply(1:10, function(i){
-file <- paste0(path, "/chr", i, "_Pv_Tr")
+file <- paste0(path, "/chr", i, "_Pv_Tr.wtclr.txt")
 df <- fread(file, header = FALSE)
-
 colnames(df) <- c(
-    "CHR",
-    "pos",
-    "genetic_pos",
-    "nSNP",
-    "xpclr"
-  )
-  
+  "CHR",
+  "grid",
+  "nSNP_window",
+  "pos",
+  "genetic_pos",
+  "xpclr",
+  "pval_like",
+  "left_bound",
+  "right_bound",
+  "nSNP_total",
+  "fst",
+  "nSNP_effective")
   df$CHR <- i
-  
   return(df)
 })
 
 window_df <- rbindlist(xpclr_list)
+
+setorder(window_df, CHR, pos)
+
 window_df <- window_df[
-  is.finite(xpclr) & !is.na(xpclr)
+  is.finite(xpclr) &
+    !is.na(xpclr) &
+    xpclr >= 0
 ]
 
 upper_thr <- quantile(
   window_df$xpclr,
-  0.99,
+  0.95,
   na.rm = TRUE
 )
 
@@ -63,11 +71,35 @@ threshold_linewidth <- 1.2
 
 png(file = "C:/Users/kjlis/Desktop/XP_CLR_Pv_Tr.png", width = 3000, height = 1000, res = 300)
 
-ggplot(window_df,aes(x = cumpos,y = xpclr,color = as.factor(CHR))) +
-  geom_point(size = 1,alpha = 1) +
-  scale_color_viridis_d(option="plasma") +
-  scale_x_continuous(labels = axisdf$CHR,breaks = axisdf$center) +
-  geom_hline(yintercept = upper_thr,color = "red",linetype = "dashed",linewidth = threshold_linewidth) +
+ggplot(
+  window_df,
+  aes(
+    x = cumpos,
+    y = xpclr,
+    color = as.factor(CHR)
+  )
+) +
+  
+  geom_point(
+    size = 0.6,
+    alpha = 0.9
+  ) +
+  
+  scale_color_viridis_d(
+    option = "plasma"
+  ) +
+  
+  scale_x_continuous(
+    labels = axisdf$CHR,
+    breaks = axisdf$center
+  ) +
+  
+  geom_hline(
+    yintercept = upper_thr,
+    color = "red",
+    linetype = "dashed",
+    linewidth = threshold_linewidth) +
+  coord_cartesian(ylim = c(0,quantile(window_df$xpclr, 0.999))) +
   theme_classic() +
   theme(
     legend.position = "none",
