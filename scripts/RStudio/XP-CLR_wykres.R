@@ -1,87 +1,105 @@
+################################
+
+
 library(data.table)
-library(dplyr)
 library(ggplot2)
+library(dplyr)
 
-path <- "C:/Users/kjlis/Desktop/XP_CLR_out"
-files <- paste0(path, "/XP_CLR_chr", 1:10, "_Pv_Tr")
+path <- "C:/Users/kjlis/Desktop/Pv_Tr/XP_CLR_out/Pv_Tr"
 
-# wczytanie wszystkich chromosomów
 xpclr_list <- lapply(1:10, function(i){
-  
-  df <- fread(files[i], header = FALSE)
-  
-  # dostosuj nazwy kolumn jeśli output wygląda inaczej
-  colnames(df) <- c(
-    "chr",
+file <- paste0(path, "/chr", i, "_Pv_Tr")
+df <- fread(file, header = FALSE)
+
+colnames(df) <- c(
+    "CHR",
     "pos",
     "genetic_pos",
+    "nSNP",
     "xpclr"
   )
   
-  df$chr <- i
+  df$CHR <- i
   
   return(df)
 })
 
-# połączenie
-xpclr <- bind_rows(xpclr_list)
+window_df <- rbindlist(xpclr_list)
+window_df <- window_df[
+  is.finite(xpclr) & !is.na(xpclr)
+]
 
-# usunięcie NA / inf
-xpclr <- xpclr %>%
-  filter(!is.na(xpclr)) %>%
-  filter(is.finite(xpclr))
+upper_thr <- quantile(
+  window_df$xpclr,
+  0.99,
+  na.rm = TRUE
+)
 
-# cumulative position
-chr_sizes <- xpclr %>%
-  group_by(chr) %>%
-  summarise(chr_len = max(pos)) %>%
-  mutate(tot = cumsum(chr_len) - chr_len)
+chr_sizes <- window_df[, .(
+  chr_len = max(pos)
+), by = CHR]
 
-xpclr <- xpclr %>%
-  left_join(chr_sizes, by = "chr") %>%
-  mutate(bp_cum = pos + tot)
+chr_sizes$cumlen <- cumsum(
+  chr_sizes$chr_len
+) - chr_sizes$chr_len
 
-# pozycje etykiet chromosomów
-axisdf <- xpclr %>%
-  group_by(chr) %>%
-  summarise(center = (max(bp_cum) + min(bp_cum)) / 2)
+window_df <- merge(
+  window_df,
+  chr_sizes[, .(CHR, cumlen)],
+  by = "CHR"
+)
 
-# Manhattan plot
-p <- ggplot(xpclr, aes(x = bp_cum, y = xpclr, color = as.factor(chr))) +
-  geom_point(size = 0.8, alpha = 0.8) +
-  
-  scale_x_continuous(
-    label = axisdf$chr,
-    breaks = axisdf$center
-  ) +
-  
-  scale_color_manual(values = rep(c("steelblue4", "orange3"), 5)) +
-  
-  labs(
-    x = "Chromosome",
-    y = "XP-CLR score",
-    title = "XP-CLR Manhattan Plot"
-  ) +
-  
-  theme_bw() +
-  
+window_df$cumpos <- window_df$pos + window_df$cumlen
+
+axisdf <- window_df[, .(
+  center = (max(cumpos) + min(cumpos)) / 2
+), by = CHR]
+
+title_size <- 14
+axis_title_size <- 13
+axis_text_size <- 12
+
+threshold_linewidth <- 1.2
+
+png(file = "C:/Users/kjlis/Desktop/XP_CLR_Pv_Tr.png", width = 3000, height = 1000, res = 300)
+
+ggplot(window_df,aes(x = cumpos,y = xpclr,color = as.factor(CHR))) +
+  geom_point(size = 1,alpha = 1) +
+  scale_color_viridis_d(option = "turbo") +
+  scale_x_continuous(labels = axisdf$CHR,breaks = axisdf$center) +
+  geom_hline(yintercept = upper_thr,color = "red",linetype = "dashed",linewidth = threshold_linewidth) +
+  theme_classic() +
   theme(
     legend.position = "none",
-    panel.grid.major.x = element_blank(),
-    panel.grid.minor.x = element_blank(),
-    axis.text.x = element_text(size = 12),
-    axis.text.y = element_text(size = 12),
-    axis.title = element_text(size = 14)
-  )
+    plot.title = element_text(
+      size = title_size,
+      face = "bold",
+      hjust = 0.5,
+      color = "black"),
+    axis.title.x = element_text(
+      size = axis_title_size,
+      face = "bold",
+      margin = margin(t = 13),
+      color = "black"),
+    axis.title.y = element_text(
+      size = axis_title_size,
+      face = "bold",
+      margin = margin(r = 13),
+      color = "black"),
+    axis.text = element_text(
+      size = axis_text_size,
+      color = "black"),
+    panel.grid = element_blank(),
+    panel.border = element_blank(),
+    axis.line = element_line(
+      color = "black"),
+    axis.ticks = element_line(
+      color = "black"),
+    axis.ticks.length = unit(
+      0.2,"cm")) +
+  labs(
+    x = "chromosome",
+    y = "XP-CLR",
+    title = "Parviglumis vs. Tropical")
+dev.off()
 
-print(p)
-
-# zapis
-ggsave(
-  "XPCLR_manhattan.png",
-  p,
-  width = 14,
-  height = 6,
-  dpi = 300
-)
-```
