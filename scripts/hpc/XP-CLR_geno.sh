@@ -48,3 +48,4 @@ for pop in "${populations[@]}"; do
     }' > ${OUTPUT_DIR}/chr${chr}_${pop}.geno
 
 done
+

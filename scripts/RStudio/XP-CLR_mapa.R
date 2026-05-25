@@ -80,3 +80,4 @@ for (chr_id in chromosomes) {
   fwrite(out_chr, out_file, sep = "\t", col.names = FALSE, quote = FALSE)
   message(sprintf("Saved %s (%d SNPs)", out_file, nrow(out_chr)))
 }
+

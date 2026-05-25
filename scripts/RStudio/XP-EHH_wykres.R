@@ -1,13 +1,10 @@
-################################
-
-
-library(data.table)
-
 Pv_Tr <- fread("C:/Users/kjlis/Desktop/Pv_Tr.norm")
 Tr_Idt_1 <- fread("C:/Users/kjlis/Desktop/Tr_Idt_1.norm")
 Tr_SS_1 <- fread("C:/Users/kjlis/Desktop/Tr_SS_1.norm")
 Idt_1vs2 <- fread("C:/Users/kjlis/Desktop/Idt_1vs2.norm")
 SS_1vs2 <- fread("C:/Users/kjlis/Desktop/SS_1vs2.norm")
+
+library(data.table)
 
 
 ################################

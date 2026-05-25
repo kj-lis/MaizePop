@@ -142,3 +142,4 @@ sed -i '$d' chr1_Tr_Idt_1.wtclr.txt
 sed -i '$d' chr1_Tr_SS_1.wtclr.txt
 sed -i '$d' chr1_Idt_1vs2.wtclr.txt
 sed -i '$d' chr1_SS_1vs2.wtclr.txt
+
