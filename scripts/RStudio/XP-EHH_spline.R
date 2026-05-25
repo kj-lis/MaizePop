@@ -2,17 +2,17 @@ library(GenWin)
 library(dplyr)
 
 input_files <- list(
-  Pv_Tr    = "/home/kuba/Desktop/Pv_Tr.norm",
-  Tr_Idt_1 = "/home/kuba/Desktop/Tr_Idt_1.norm",
-  Tr_SS_1  = "/home/kuba/Desktop/Tr_SS_1.norm",
-  Idt_1vs2 = "/home/kuba/Desktop/Idt_1vs2.norm",
-  SS_1vs2  = "/home/kuba/Desktop/SS_1vs2.norm"
+  Pv_Tr    = "/home/kuba/Desktop/XP_EHH/Pv_Tr.norm",
+  Tr_Idt_1 = "/home/kuba/Desktop/XP_EHH/Tr_Idt_1.norm",
+  Tr_SS_1  = "/home/kuba/Desktop/XP_EHH/Tr_SS_1.norm",
+  Idt_1vs2 = "/home/kuba/Desktop/XP_EHH/Idt_1vs2.norm",
+  SS_1vs2  = "/home/kuba/Desktop/XP_EHH/SS_1vs2.norm"
 )
 
 out_dir <- "/home/kuba/Desktop"
 
-chr_col <- "Chr"
-pos_col <- "bp"
+chr_col <- "chr"
+pos_col <- "pos"
 
 stat_col <- "norm_xpehh"
 
