@@ -56,6 +56,11 @@ analyze_xpehh <- function(file_path, dataset_name) {
     
     chr_data <- data_clean %>%
       filter(.data[[chr_col]] == i) %>%
+      group_by(.data[[pos_col]]) %>%
+      summarise(
+        value = mean(.data[[stat_col]], na.rm = TRUE),
+        .groups = "drop"
+      ) %>%
       arrange(.data[[pos_col]])
     
     if (nrow(chr_data) < 5) {
@@ -63,14 +68,8 @@ analyze_xpehh <- function(file_path, dataset_name) {
       next
     }
     
-    y_values <- chr_data[[stat_col]]
-    
-    if (use_absolute_xpehh) {
-      y_values <- abs(y_values)
-    }
-    
     spline_obj <- splineAnalyze(
-      Y = y_values,
+      Y = chr_data$value,
       map = chr_data[[pos_col]],
       smoothness = smoothness_value,
       plotRaw = TRUE,
@@ -86,9 +85,7 @@ analyze_xpehh <- function(file_path, dataset_name) {
       mutate(
         chromosome = paste0("chr", i),
         dataset = dataset_name,
-        statistic = ifelse(use_absolute_xpehh,
-                           paste0("abs_", stat_col),
-                           stat_col)
+        statistic = stat_col
       )
   }
   
