@@ -3,6 +3,8 @@
 #wyciągnąć top %5 z każdego
 
 
+#top 5% z XP-EHH --> pamiętać o znaku!
+
 ################################
 
 
