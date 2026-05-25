@@ -1,8 +1,8 @@
-Pv_Tr <- read.table("C:/Users/kjlis/Desktop/Pv_Tr_all_windows.csv", sep = ",", header=TRUE)
-Tr_Idt_1 <- read.table("C:/Users/kjlis/Desktop/Tr_Idt_1_all_windows.csv", sep = ",", header=TRUE)
-Tr_SS_1 <- read.table("C:/Users/kjlis/Desktop/Tr_SS_1_all_windows.csv", sep = ",", header=TRUE)
-Idt_1vs2 <- read.table("C:/Users/kjlis/Desktop/Idt_1vs2_all_windows.csv", sep = ",", header=TRUE)
-SS_1vs2 <- read.table("C:/Users/kjlis/Desktop/SS_1vs2_all_windows.csv", sep = ",", header=TRUE)
+Pv_Tr <- read.table("C:/Users/kjlis/Desktop/FST_Pv_Tr_smoothed.csv", sep = ",", header=TRUE)
+Tr_Idt_1 <- read.table("C:/Users/kjlis/Desktop/FST_Tr_Idt_1_smoothed.csv", sep = ",", header=TRUE)
+Tr_SS_1 <- read.table("C:/Users/kjlis/Desktop/FST_Tr_SS_1_all_smoothed.csv", sep = ",", header=TRUE)
+Idt_1vs2 <- read.table("C:/Users/kjlis/Desktop/FST_Idt_1vs2_smoothed.csv", sep = ",", header=TRUE)
+SS_1vs2 <- read.table("C:/Users/kjlis/Desktop/FST_SS_1vs2_smoothed.csv", sep = ",", header=TRUE)
 
 library(scico)
 library(dplyr)
