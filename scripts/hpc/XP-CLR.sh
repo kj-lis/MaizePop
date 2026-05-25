@@ -1,6 +1,6 @@
-/home/kuba/Desktop/xp./xp/XPCLR -xpclr /home/kuba/Desktop/05_XP_CLR/chr1_Tropical.geno /home/kuba/Desktop/05_XP_CLR/chr1_Parviglumis.geno /home/kuba/Desktop/XP_CLR_mapa/chr1.snp /home/kuba/Desktop/XP_CLR_out/Pv_Tr/chr1_Pv_Tr -w1 0.02 200 10000 1 -p0 0.95
+/home/kuba/Desktop/xp./xp/XPCLR -xpclr /home/kuba/Desktop/05_XP_CLR/chr1_Tropical.geno /home/kuba/Desktop/05_XP_CLR/chr1_Parviglumis.geno /home/kuba/Desktop/XP_CLR_mapa/chr1.snp /home/kuba/Desktop/XP_CLR_out/Pv_Tr/chr1_Pv_Tr -w1 0.02 200 10000 1 -p0 0.95 #CORE DUMPED
 
-/home/kuba/Desktop/xp./xp/XPCLR -xpclr /home/kuba/Desktop/05_XP_CLR/chr2_Tropical.geno /home/kuba/Desktop/05_XP_CLR/chr2_Parviglumis.geno /home/kuba/Desktop/XP_CLR_mapa/chr2.snp /home/kuba/Desktop/XP_CLR_out/Pv_Tr/chr2_Pv_Tr -w1 0.02 200 10000 2 -p0 0.95
+/home/kuba/Desktop/xp./xp/XPCLR -xpclr /home/kuba/Desktop/05_XP_CLR/chr2_Tropical.geno /home/kuba/Desktop/05_XP_CLR/chr2_Parviglumis.geno /home/kuba/Desktop/XP_CLR_mapa/chr2.snp /home/kuba/Desktop/XP_CLR_out/Pv_Tr/chr2_Pv_Tr -w1 0.02 200 10000 2 -p0 0.95 #OK
 
 /home/kuba/Desktop/xp./xp/XPCLR -xpclr /home/kuba/Desktop/05_XP_CLR/chr3_Tropical.geno /home/kuba/Desktop/05_XP_CLR/chr3_Parviglumis.geno /home/kuba/Desktop/XP_CLR_mapa/chr3.snp /home/kuba/Desktop/XP_CLR_out/Pv_Tr/chr3_Pv_Tr -w1 0.02 200 10000 3 -p0 0.95
 
