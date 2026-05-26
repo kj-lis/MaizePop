@@ -42,7 +42,7 @@ s
 
 ################################
 
-/home/kuba/Desktop/xp./xp/XPCLR -xpclr /home/kuba/Desktop/05_XP_CLR/chr1_SS_1.geno /home/kuba/Desktop/05_XP_CLR/chr1_Tropical.geno /home/kuba/Desktop/XP_CLR_mapa/chr1.snp /home/kuba/Desktop/XP_CLR_out/Tr_SS_1/chr1_Tr_SS_1 -w1 0.02 200 10000 1 -p0 0.95
+/home/kuba/Desktop/xp./xp/XPCLR -xpclr /home/kuba/Desktop/05_XP_CLR/chr1_SS_1.geno /home/kuba/Desktop/05_XP_CLR/chr1_Tropical.geno /home/kuba/Desktop/XP_CLR_mapa/chr1.snp /home/kuba/Desktop/XP_CLR_out/Tr_SS_1/chr1_Tr_SS_1 -w1 0.02 200 10000 1 -p0 0.95 #puszczone
 
 /home/kuba/Desktop/xp./xp/XPCLR -xpclr /home/kuba/Desktop/05_XP_CLR/chr2_SS_1.geno /home/kuba/Desktop/05_XP_CLR/chr2_Tropical.geno /home/kuba/Desktop/XP_CLR_mapa/chr2.snp /home/kuba/Desktop/XP_CLR_out/Tr_SS_1/chr2_Tr_SS_1 -w1 0.02 200 10000 2 -p0 0.95
 
