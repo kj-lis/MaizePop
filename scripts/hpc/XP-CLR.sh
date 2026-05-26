@@ -24,9 +24,9 @@
 
 /home/kuba/Desktop/xp./xp/XPCLR -xpclr /home/kuba/Desktop/05_XP_CLR/chr2_Iodent_1.geno /home/kuba/Desktop/05_XP_CLR/chr2_Tropical.geno /home/kuba/Desktop/XP_CLR_mapa/chr2.snp /home/kuba/Desktop/XP_CLR_out/Tr_Idt_1/chr2_Tr_Idt_1 -w1 0.02 200 10000 2 -p0 0.95 #CORE DUMPED
 
-/home/kuba/Desktop/xp./xp/XPCLR -xpclr /home/kuba/Desktop/05_XP_CLR/chr3_Iodent_1.geno /home/kuba/Desktop/05_XP_CLR/chr3_Tropical.geno /home/kuba/Desktop/XP_CLR_mapa/chr3.snp /home/kuba/Desktop/XP_CLR_out/Tr_Idt_1/chr3_Tr_Idt_1 -w1 0.02 200 10000 3 -p0 0.95
+/home/kuba/Desktop/xp./xp/XPCLR -xpclr /home/kuba/Desktop/05_XP_CLR/chr3_Iodent_1.geno /home/kuba/Desktop/05_XP_CLR/chr3_Tropical.geno /home/kuba/Desktop/XP_CLR_mapa/chr3.snp /home/kuba/Desktop/XP_CLR_out/Tr_Idt_1/chr3_Tr_Idt_1 -w1 0.02 200 10000 3 -p0 0.95 #CORE DUMPED
 
-/home/kuba/Desktop/xp./xp/XPCLR -xpclr /home/kuba/Desktop/05_XP_CLR/chr4_Iodent_1.geno /home/kuba/Desktop/05_XP_CLR/chr4_Tropical.geno /home/kuba/Desktop/XP_CLR_mapa/chr4.snp /home/kuba/Desktop/XP_CLR_out/Tr_Idt_1/chr4_Tr_Idt_1 -w1 0.02 200 10000 4 -p0 0.95
+/home/kuba/Desktop/xp./xp/XPCLR -xpclr /home/kuba/Desktop/05_XP_CLR/chr4_Iodent_1.geno /home/kuba/Desktop/05_XP_CLR/chr4_Tropical.geno /home/kuba/Desktop/XP_CLR_mapa/chr4.snp /home/kuba/Desktop/XP_CLR_out/Tr_Idt_1/chr4_Tr_Idt_1 -w1 0.02 200 10000 4 -p0 0.95 #CORE DUMPED
 
 /home/kuba/Desktop/xp./xp/XPCLR -xpclr /home/kuba/Desktop/05_XP_CLR/chr5_Iodent_1.geno /home/kuba/Desktop/05_XP_CLR/chr5_Tropical.geno /home/kuba/Desktop/XP_CLR_mapa/chr5.snp /home/kuba/Desktop/XP_CLR_out/Tr_Idt_1/chr5_Tr_Idt_1 -w1 0.02 200 10000 5 -p0 0.95
 
@@ -142,4 +142,12 @@ sed -i '$d' chr1_Tr_Idt_1.wtclr.txt
 sed -i '$d' chr1_Tr_SS_1.wtclr.txt
 sed -i '$d' chr1_Idt_1vs2.wtclr.txt
 sed -i '$d' chr1_SS_1vs2.wtclr.txt
+
+################################
+
+(head -n 1 chr1_Pv_Tr.wtclr.txt && for i in {1..10}; do tail -n +2 chr${i}_Pv_Tr.wtclr.txt; done) > Pv_Tr.wtclr.txt
+(head -n 1 chr1_Tr_Idt_1.wtclr.txt && for i in {1..10}; do tail -n +2 chr${i}_Tr_Idt_1.wtclr.txt; done) > Tr_Idt_1.wtclr.txt
+(head -n 1 chr1_Tr_SS_1.wtclr.txt && for i in {1..10}; do tail -n +2 chr${i}_Tr_SS_1.wtclr.txt; done) > Tr_SS_1.wtclr.txt
+(head -n 1 chr1_Idt_1vs2.wtclr.txt && for i in {1..10}; do tail -n +2 chr${i}_Idt_1vs2.wtclr.txt; done) > Idt_1vs2.wtclr.txt
+(head -n 1 chr1_SS_1vs2.wtclr.txt && for i in {1..10}; do tail -n +2 chr${i}_SS_1vs2.wtclr.txt; done) > SS_1vs2.wtclr.txt
 

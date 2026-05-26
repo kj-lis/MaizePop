@@ -9,23 +9,28 @@ input_files <- list(
   SS_1vs2  = "/home/kuba/Desktop/XP_EHH/SS_1vs2.norm"
 )
 
-out_dir <- "/home/kuba/Desktop"
+out_dir <- "/home/kuba/Desktop/XP_EHH"
 
 chr_col <- "chr"
 pos_col <- "pos"
-
 stat_col <- "norm_xpehh"
 
 smoothness_value <- 300
 chromosomes <- 1:10
 
-use_absolute_xpehh <- FALSE
-
-analyze_xpehh <- function(file_path, dataset_name) {
+analyze_xpehh <- function(file_path, dataset_name, dataset_index, total_datasets) {
   
-  message("Analizuję: ", dataset_name)
+  message("\n==============================")
+  message("Dataset ", dataset_index, "/", total_datasets, ": ", dataset_name)
+  message("==============================")
   
-  data <- read.table(file_path, header = TRUE)
+  message("Wczytuję plik: ", file_path)
+  
+  data <- read.table(
+    file_path,
+    header = TRUE,
+    stringsAsFactors = FALSE
+  )
   
   if (!chr_col %in% colnames(data)) {
     stop("Brakuje kolumny: ", chr_col, " w pliku ", file_path)
@@ -39,6 +44,10 @@ analyze_xpehh <- function(file_path, dataset_name) {
     stop("Brakuje kolumny: ", stat_col, " w pliku ", file_path)
   }
   
+  data[[chr_col]] <- as.integer(data[[chr_col]])
+  data[[pos_col]] <- as.numeric(data[[pos_col]])
+  data[[stat_col]] <- as.numeric(data[[stat_col]])
+  
   data_clean <- data %>%
     filter(
       !is.na(.data[[chr_col]]),
@@ -46,13 +55,22 @@ analyze_xpehh <- function(file_path, dataset_name) {
       !is.na(.data[[stat_col]])
     )
   
-  message("Podsumowanie ", stat_col, " dla ", dataset_name, ":")
+  message("Liczba wierszy po czyszczeniu: ", nrow(data_clean))
+  message("Podsumowanie ", stat_col, ":")
   print(summary(data_clean[[stat_col]]))
   
   spline_list <- list()
   all_windows <- list()
   
+  total_chr <- length(chromosomes)
+  chr_counter <- 1
+  
   for (i in chromosomes) {
+    
+    percent_done <- round((chr_counter - 1) / total_chr * 100, 1)
+    
+    message("\n  Chromosom ", i, " [", chr_counter, "/", total_chr,
+            "] — postęp datasetu: ", percent_done, "%")
     
     chr_data <- data_clean %>%
       filter(.data[[chr_col]] == i) %>%
@@ -63,8 +81,11 @@ analyze_xpehh <- function(file_path, dataset_name) {
       ) %>%
       arrange(.data[[pos_col]])
     
+    message("  Liczba pozycji po usunięciu duplikatów: ", nrow(chr_data))
+    
     if (nrow(chr_data) < 5) {
       warning("Za mało danych dla ", dataset_name, " chr", i, " — pomijam.")
+      chr_counter <- chr_counter + 1
       next
     }
     
@@ -87,6 +108,10 @@ analyze_xpehh <- function(file_path, dataset_name) {
         dataset = dataset_name,
         statistic = stat_col
       )
+    
+    message("  Zakończono chr", i)
+    
+    chr_counter <- chr_counter + 1
   }
   
   all_windows_df <- bind_rows(all_windows)
@@ -102,7 +127,9 @@ analyze_xpehh <- function(file_path, dataset_name) {
     row.names = FALSE
   )
   
-  message("Zapisano: ", output_file)
+  message("\nZapisano plik:")
+  message(output_file)
+  message("Liczba okien w output: ", nrow(all_windows_df))
   
   return(list(
     splines = spline_list,
@@ -112,11 +139,22 @@ analyze_xpehh <- function(file_path, dataset_name) {
 
 xpehh_results <- list()
 
+total_datasets <- length(input_files)
+dataset_counter <- 1
+
 for (dataset_name in names(input_files)) {
   
   xpehh_results[[dataset_name]] <- analyze_xpehh(
     file_path = input_files[[dataset_name]],
-    dataset_name = dataset_name
+    dataset_name = dataset_name,
+    dataset_index = dataset_counter,
+    total_datasets = total_datasets
   )
+  
+  dataset_counter <- dataset_counter + 1
 }
+
+message("\n==============================")
+message("ZAKOŃCZONO ANALIZĘ WSZYSTKICH DATASETÓW")
+message("==============================")
 
