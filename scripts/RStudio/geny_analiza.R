@@ -265,7 +265,7 @@ for(comp in comparisons) {
     xpclr_dir,
     "/",
     comp,
-    "_all_windows.csv"
+    "_smoothed.csv"
   )
   
   XPCLR_results[[comp]] <- analyze_selection_scan(
@@ -293,7 +293,7 @@ for(comp in comparisons) {
     fst_dir,
     "/",
     comp,
-    "_all_windows.csv"
+    "_smoothed.csv"
   )
   
   FST_results[[comp]] <- analyze_selection_scan(
@@ -321,7 +321,7 @@ for(comp in comparisons) {
     xpehh_dir,
     "/",
     comp,
-    "_all_windows.csv"
+    "_smoothed.csv"
   )
   
   XPEHH_results[[comp]] <- analyze_selection_scan(
@@ -431,7 +431,7 @@ for(comp in comparisons) {
       comparison_output,
       "/",
       comp,
-      "_method_overlap_summary.csv"
+      "_overlap_summary.csv"
     ),
     
     row.names = FALSE
@@ -451,7 +451,7 @@ for(comp in comparisons) {
       comparison_output,
       "/",
       comp,
-      "_shared_all_methods.csv"
+      "_shared_all.csv"
     ),
     
     row.names = FALSE
@@ -498,7 +498,7 @@ save(
   
   file = paste0(
     output_dir,
-    "/All_selection_results.RData"
+    "/all_selection_results.RData"
   )
 )
 

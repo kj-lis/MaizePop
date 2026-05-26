@@ -34,11 +34,11 @@ s
 
 /home/kuba/Desktop/xp./xp/XPCLR -xpclr /home/kuba/Desktop/05_XP_CLR/chr7_Iodent_1.geno /home/kuba/Desktop/05_XP_CLR/chr7_Tropical.geno /home/kuba/Desktop/XP_CLR_mapa/chr7.snp /home/kuba/Desktop/XP_CLR_out/Tr_Idt_1/chr7_Tr_Idt_1 -w1 0.02 200 10000 7 -p0 0.95 #CORE DUMPED
 
-/home/kuba/Desktop/xp./xp/XPCLR -xpclr /home/kuba/Desktop/05_XP_CLR/chr8_Iodent_1.geno /home/kuba/Desktop/05_XP_CLR/chr8_Tropical.geno /home/kuba/Desktop/XP_CLR_mapa/chr8.snp /home/kuba/Desktop/XP_CLR_out/Tr_Idt_1/chr8_Tr_Idt_1 -w1 0.02 200 10000 8 -p0 0.95
+/home/kuba/Desktop/xp./xp/XPCLR -xpclr /home/kuba/Desktop/05_XP_CLR/chr8_Iodent_1.geno /home/kuba/Desktop/05_XP_CLR/chr8_Tropical.geno /home/kuba/Desktop/XP_CLR_mapa/chr8.snp /home/kuba/Desktop/XP_CLR_out/Tr_Idt_1/chr8_Tr_Idt_1 -w1 0.02 200 10000 8 -p0 0.95 #CORE DUMPED
 
-/home/kuba/Desktop/xp./xp/XPCLR -xpclr /home/kuba/Desktop/05_XP_CLR/chr9_Iodent_1.geno /home/kuba/Desktop/05_XP_CLR/chr9_Tropical.geno /home/kuba/Desktop/XP_CLR_mapa/chr9.snp /home/kuba/Desktop/XP_CLR_out/Tr_Idt_1/chr9_Tr_Idt_1 -w1 0.02 200 10000 9 -p0 0.95
+/home/kuba/Desktop/xp./xp/XPCLR -xpclr /home/kuba/Desktop/05_XP_CLR/chr9_Iodent_1.geno /home/kuba/Desktop/05_XP_CLR/chr9_Tropical.geno /home/kuba/Desktop/XP_CLR_mapa/chr9.snp /home/kuba/Desktop/XP_CLR_out/Tr_Idt_1/chr9_Tr_Idt_1 -w1 0.02 200 10000 9 -p0 0.95 #puszczone
 
-/home/kuba/Desktop/xp./xp/XPCLR -xpclr /home/kuba/Desktop/05_XP_CLR/chr10_Iodent_1.geno /home/kuba/Desktop/05_XP_CLR/chr10_Tropical.geno /home/kuba/Desktop/XP_CLR_mapa/chr10.snp /home/kuba/Desktop/XP_CLR_out/Tr_Idt_1/chr10_Tr_Idt_1 -w1 0.02 200 10000 10 -p0 0.95
+/home/kuba/Desktop/xp./xp/XPCLR -xpclr /home/kuba/Desktop/05_XP_CLR/chr10_Iodent_1.geno /home/kuba/Desktop/05_XP_CLR/chr10_Tropical.geno /home/kuba/Desktop/XP_CLR_mapa/chr10.snp /home/kuba/Desktop/XP_CLR_out/Tr_Idt_1/chr10_Tr_Idt_1 -w1 0.02 200 10000 10 -p0 0.95 #puszczone
 
 ################################
 
