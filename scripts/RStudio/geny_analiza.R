@@ -18,22 +18,22 @@ library(rtracklayer)
 # =========================================================
 
 # Main project directory
-project_dir <- "C:/Users/kjlis/Desktop/Selection_pipeline"
+project_dir <- "/home/kuba/Desktop/maize_selection"
 
 # Method-specific folders
-fst_dir <- paste0(project_dir, "/FST/")
-xpehh_dir <- paste0(project_dir, "/XP-EHH/")
-xpclr_dir <- paste0(project_dir, "/XP-CLR/")
+fst_dir <- paste0(project_dir, "/FST_data/")
+xpehh_dir <- paste0(project_dir, "/XP-EHH_data/")
+xpclr_dir <- paste0(project_dir, "/XP-CLR_data/")
 
 # Output directory
-output_dir <- paste0(project_dir, "/Results/")
+output_dir <- paste0(project_dir, "/selection_results/")
 
 dir.create(output_dir, showWarnings = FALSE)
 
 # Genome annotation
 gff_file <- paste0(
   project_dir,
-  "/Genome/Zm-B73-REFERENCE-NAM-5.0_Zm00001eb.1.gff3"
+  "/ref_genome/Zm-B73-REFERENCE-NAM-5.0_Zm00001eb.1.gff3"
 )
 
 # =========================================================
