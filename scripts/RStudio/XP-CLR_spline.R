@@ -2,14 +2,10 @@ library(GenWin)
 library(dplyr)
 
 input_files <- list(
-  Pv_Tr    = "/home/kuba/Desktop/Pv_Tr.wtclr.txt",
-  Tr_Idt_1 = "/home/kuba/Desktop/Tr_Idt_1.wtclr.txt",
-  Tr_SS_1  = "/home/kuba/Desktop/Tr_SS_1.wtclr.txt",
-  Idt_1vs2 = "/home/kuba/Desktop/Idt_1vs2.wtclr.txt",
-  SS_1vs2  = "/home/kuba/Desktop/SS_1vs2.wtclr.txt"
-)
+  Pv_Tr    = "/home/kuba/Desktop/XP_CLR_out/Pv_Tr/Pv_Tr.wtclr.txt",
+  Tr_Idt_1 = "/home/kuba/Desktop/XP_CLR_out/Tr_Idt_1/Tr_Idt_1.wtclr.txt",)
 
-out_dir <- "/home/kuba/Desktop"
+out_dir <- "/home/kuba/Desktop/XP_CLR_out"
 
 chr_col <- "Chr"
 pos_col <- "bp"
