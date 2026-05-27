@@ -59,6 +59,11 @@ analyze_xpehh <- function(file_path, dataset_name, dataset_index, total_datasets
   message("Podsumowanie ", stat_col, ":")
   print(summary(data_clean[[stat_col]]))
   
+  data_clean$abs_xpehh <- abs(data_clean[[stat_col]])
+  
+  message("Podsumowanie abs_", stat_col, ":")
+  print(summary(data_clean$abs_xpehh))
+  
   spline_list <- list()
   all_windows <- list()
   
@@ -76,7 +81,7 @@ analyze_xpehh <- function(file_path, dataset_name, dataset_index, total_datasets
       filter(.data[[chr_col]] == i) %>%
       group_by(.data[[pos_col]]) %>%
       summarise(
-        value = mean(.data[[stat_col]], na.rm = TRUE),
+        value = mean(abs_xpehh, na.rm = TRUE),
         .groups = "drop"
       ) %>%
       arrange(.data[[pos_col]])
@@ -106,7 +111,7 @@ analyze_xpehh <- function(file_path, dataset_name, dataset_index, total_datasets
       mutate(
         chromosome = paste0("chr", i),
         dataset = dataset_name,
-        statistic = stat_col
+        statistic = paste0("abs_", stat_col)
       )
     
     message("  Zakończono chr", i)
@@ -118,7 +123,7 @@ analyze_xpehh <- function(file_path, dataset_name, dataset_index, total_datasets
   
   output_file <- file.path(
     out_dir,
-    paste0("XP_EHH_", dataset_name, "_smoothed.csv")
+    paste0("XP_EHH_magnitude_", dataset_name, "_smoothed.csv")
   )
   
   write.csv(

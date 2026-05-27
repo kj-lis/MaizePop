@@ -1,6 +1,6 @@
 Pv_Tr <- read.table("C:/Users/kjlis/Desktop/FST_Pv_Tr_smoothed.csv", sep = ",", header=TRUE)
 Tr_Idt_1 <- read.table("C:/Users/kjlis/Desktop/FST_Tr_Idt_1_smoothed.csv", sep = ",", header=TRUE)
-Tr_SS_1 <- read.table("C:/Users/kjlis/Desktop/FST_Tr_SS_1_all_smoothed.csv", sep = ",", header=TRUE)
+Tr_SS_1 <- read.table("C:/Users/kjlis/Desktop/FST_Tr_SS_1_smoothed.csv", sep = ",", header=TRUE)
 Idt_1vs2 <- read.table("C:/Users/kjlis/Desktop/FST_Idt_1vs2_smoothed.csv", sep = ",", header=TRUE)
 SS_1vs2 <- read.table("C:/Users/kjlis/Desktop/FST_SS_1vs2_smoothed.csv", sep = ",", header=TRUE)
 
@@ -67,7 +67,7 @@ ggplot(Pv_Tr, aes(x = pos, y = Wstat, color = factor(chromosome))) +
   labs(
     title = plot_title,
     x = "chromosome",
-    y = "Wstat"
+    y = expression(bold("smoothed " * F[ST]))
   ) +
   theme_classic() +
   theme(
@@ -139,7 +139,7 @@ ggplot(Tr_Idt_1, aes(x = pos, y = Wstat, color = factor(chromosome))) +
   labs(
     title = plot_title,
     x = "chromosome",
-    y = "Wstat"
+    y = expression(bold("smoothed " * F[ST]))
   ) +
   theme_classic() +
   theme(
@@ -211,7 +211,7 @@ ggplot(Tr_SS_1, aes(x = pos, y = Wstat, color = factor(chromosome))) +
   labs(
     title = plot_title,
     x = "chromosome",
-    y = "Wstat"
+    y = expression(bold("smoothed " * F[ST]))
   ) +
   theme_classic() +
   theme(
@@ -283,7 +283,7 @@ ggplot(Idt_1vs2, aes(x = pos, y = Wstat, color = factor(chromosome))) +
   labs(
     title = plot_title,
     x = "chromosome",
-    y = "Wstat"
+    y = expression(bold("smoothed " * F[ST]))
   ) +
   theme_classic() +
   theme(
@@ -355,7 +355,7 @@ ggplot(SS_1vs2, aes(x = pos, y = Wstat, color = factor(chromosome))) +
   labs(
     title = plot_title,
     x = "chromosome",
-    y = "Wstat"
+    y = expression(bold("smoothed " * F[ST]))
   ) +
   theme_classic() +
   theme(
