@@ -3,13 +3,14 @@ library(dplyr)
 
 input_files <- list(
   Pv_Tr    = "/home/kuba/Desktop/XP_CLR_out/Pv_Tr/Pv_Tr.wtclr.txt",
-  Tr_Idt_1 = "/home/kuba/Desktop/XP_CLR_out/Tr_Idt_1/Tr_Idt_1.wtclr.txt",)
+  Tr_Idt_1 = "/home/kuba/Desktop/XP_CLR_out/Tr_Idt_1/Tr_Idt_1.wtclr.txt"
+)
 
 out_dir <- "/home/kuba/Desktop/XP_CLR_out"
 
-chr_col <- "Chr"
-pos_col <- "bp"
-stat_col <- "xpclr"
+chr_col <- "V1"
+pos_col <- "V4"
+stat_col <- "V6"
 
 smoothness_value <- 300
 chromosomes <- 1:10
@@ -24,9 +25,11 @@ analyze_xpclr <- function(file_path, dataset_name, dataset_index, total_datasets
   
   data <- read.table(
     file_path,
-    header = TRUE,
+    header = FALSE,
     stringsAsFactors = FALSE
   )
+  
+  colnames(data) <- paste0("V", seq_len(ncol(data)))
   
   if (!chr_col %in% colnames(data)) {
     stop("Brakuje kolumny: ", chr_col, " w pliku ", file_path)
@@ -52,7 +55,7 @@ analyze_xpclr <- function(file_path, dataset_name, dataset_index, total_datasets
     )
   
   message("Liczba wierszy po czyszczeniu: ", nrow(data_clean))
-  message("Podsumowanie ", stat_col, ":")
+  message("Podsumowanie XP-CLR:")
   print(summary(data_clean[[stat_col]]))
   
   spline_list <- list()
@@ -102,7 +105,7 @@ analyze_xpclr <- function(file_path, dataset_name, dataset_index, total_datasets
       mutate(
         chromosome = paste0("chr", i),
         dataset = dataset_name,
-        statistic = stat_col
+        statistic = "xpclr"
       )
     
     message("  Zakończono chr", i)
