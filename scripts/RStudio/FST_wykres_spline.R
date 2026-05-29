@@ -1,8 +1,8 @@
-Pv_Tr <- read.table("C:/Users/kjlis/Desktop/FST_Pv_Tr_smoothed.csv", sep = ",", header=TRUE)
-Tr_Idt_1 <- read.table("C:/Users/kjlis/Desktop/FST_Tr_Idt_1_smoothed.csv", sep = ",", header=TRUE)
-Tr_SS_1 <- read.table("C:/Users/kjlis/Desktop/FST_Tr_SS_1_smoothed.csv", sep = ",", header=TRUE)
-Idt_1vs2 <- read.table("C:/Users/kjlis/Desktop/FST_Idt_1vs2_smoothed.csv", sep = ",", header=TRUE)
-SS_1vs2 <- read.table("C:/Users/kjlis/Desktop/FST_SS_1vs2_smoothed.csv", sep = ",", header=TRUE)
+Pv_Tr <- read.table("C:/Users/kjlis/Desktop/Projekt ZEMR/Wyniki/04_FST/raw_data/FST_Pv_Tr_smoothed.csv", sep = ",", header=TRUE)
+Tr_Idt_1 <- read.table("C:/Users/kjlis/Desktop/Projekt ZEMR/Wyniki/04_FST/raw_data/FST_Tr_Idt_1_smoothed.csv", sep = ",", header=TRUE)
+Tr_SS_1 <- read.table("C:/Users/kjlis/Desktop/Projekt ZEMR/Wyniki/04_FST/raw_data/FST_Tr_SS_1_smoothed.csv", sep = ",", header=TRUE)
+Idt_1vs2 <- read.table("C:/Users/kjlis/Desktop/Projekt ZEMR/Wyniki/04_FST/raw_data/FST_Idt_1vs2_smoothed.csv", sep = ",", header=TRUE)
+SS_1vs2 <- read.table("C:/Users/kjlis/Desktop/Projekt ZEMR/Wyniki/04_FST/raw_data/FST_SS_1vs2_smoothed.csv", sep = ",", header=TRUE)
 
 library(scico)
 library(dplyr)
@@ -37,8 +37,8 @@ axis_df <- Pv_Tr %>%
   summarise(center = mean(pos), .groups = "drop")
 
 
-#Pv_Tr_clean <- Pv_Tr %>% filter(Wstat > 0)
-threshold_Pv_Tr <- quantile(Pv_Tr_clean$Wstat, 0.95, na.rm = TRUE)
+Pv_Tr_clean <- Pv_Tr %>% filter(Wstat > 0)
+threshold_Pv_Tr <- quantile(Pv_Tr_clean$Wstat, 0.99, na.rm = TRUE)
 
 
 plot_title <- "Parviglumis vs. Tropical"
@@ -51,7 +51,7 @@ threshold_linewidth <- 1.2
 
 
 png(file="C:/Users/kjlis/Desktop/FST_Pv_Tr_spline.png", width=3000, height=1000, res=300)
-ggplot(Pv_Tr, aes(x = pos, y = Wstat, color = factor(chromosome))) +
+ggplot(Pv_Tr_clean, aes(x = pos, y = Wstat, color = factor(chromosome))) +
   geom_point(size = 1, alpha = 1) +
   geom_hline(yintercept = threshold_Pv_Tr,
              color = "red",
@@ -109,8 +109,8 @@ axis_df <- Tr_Idt_1 %>%
   summarise(center = mean(pos), .groups = "drop")
 
 
-#Tr_Idt_1_clean <- Tr_Idt_1 %>% filter(Wstat > 0)
-threshold_Tr_Idt_1 <- quantile(Tr_Idt_1_clean$Wstat, 0.95, na.rm = TRUE)
+Tr_Idt_1_clean <- Tr_Idt_1 %>% filter(Wstat > 0)
+threshold_Tr_Idt_1 <- quantile(Tr_Idt_1_clean$Wstat, 0.99, na.rm = TRUE)
 
 
 plot_title <- "Tropical vs. Iodent I"
@@ -123,7 +123,7 @@ threshold_linewidth <- 1.2
 
 
 png(file="C:/Users/kjlis/Desktop/FST_Tr_Idt_1_spline.png", width=3000, height=1000, res=300)
-ggplot(Tr_Idt_1, aes(x = pos, y = Wstat, color = factor(chromosome))) +
+ggplot(Tr_Idt_1_clean, aes(x = pos, y = Wstat, color = factor(chromosome))) +
   geom_point(size = 1, alpha = 1) +
   geom_hline(yintercept = threshold_Tr_Idt_1,
              color = "red",
@@ -181,8 +181,8 @@ axis_df <- Tr_SS_1 %>%
   summarise(center = mean(pos), .groups = "drop")
 
 
-#Tr_SS_1_clean <- Tr_SS_1 %>% filter(Wstat > 0)
-threshold_Tr_SS_1 <- quantile(Tr_SS_1_clean$Wstat, 0.95, na.rm = TRUE)
+Tr_SS_1_clean <- Tr_SS_1 %>% filter(Wstat > 0)
+threshold_Tr_SS_1 <- quantile(Tr_SS_1_clean$Wstat, 0.99, na.rm = TRUE)
 
 
 plot_title <- "Tropical vs. SS I"
@@ -195,7 +195,7 @@ threshold_linewidth <- 1.2
 
 
 png(file="C:/Users/kjlis/Desktop/FST_Tr_SS_1_spline.png", width=3000, height=1000, res=300)
-ggplot(Tr_SS_1, aes(x = pos, y = Wstat, color = factor(chromosome))) +
+ggplot(Tr_SS_1_clean, aes(x = pos, y = Wstat, color = factor(chromosome))) +
   geom_point(size = 1, alpha = 1) +
   geom_hline(yintercept = threshold_Tr_SS_1,
              color = "red",
@@ -253,8 +253,8 @@ axis_df <- Idt_1vs2 %>%
   summarise(center = mean(pos), .groups = "drop")
 
 
-#Idt_1vs2_clean <- Idt_1vs2 %>% filter(Wstat > 0)
-threshold_Idt_1vs2 <- quantile(Idt_1vs2_clean$Wstat, 0.95, na.rm = TRUE)
+Idt_1vs2_clean <- Idt_1vs2 %>% filter(Wstat > 0)
+threshold_Idt_1vs2 <- quantile(Idt_1vs2_clean$Wstat, 0.99, na.rm = TRUE)
 
 
 plot_title <- "Iodent I vs. Iodent II"
@@ -267,7 +267,7 @@ threshold_linewidth <- 1.2
 
 
 png(file="C:/Users/kjlis/Desktop/FST_Idt_1vs2_spline.png", width=3000, height=1000, res=300)
-ggplot(Idt_1vs2, aes(x = pos, y = Wstat, color = factor(chromosome))) +
+ggplot(Idt_1vs2_clean, aes(x = pos, y = Wstat, color = factor(chromosome))) +
   geom_point(size = 0.9, alpha = 0.9) +
   geom_hline(yintercept = threshold_Idt_1vs2,
              color = "red",
@@ -325,8 +325,8 @@ axis_df <- SS_1vs2 %>%
   summarise(center = mean(pos), .groups = "drop")
 
 
-#SS_1vs2_clean <- SS_1vs2 %>% filter(Wstat > 0)
-threshold_SS_1vs2 <- quantile(SS_1vs2_clean$Wstat, 0.95, na.rm = TRUE)
+SS_1vs2_clean <- SS_1vs2 %>% filter(Wstat > 0)
+threshold_SS_1vs2 <- quantile(SS_1vs2_clean$Wstat, 0.99, na.rm = TRUE)
 
 
 plot_title <- "SS I vs. SS II"
@@ -339,7 +339,7 @@ threshold_linewidth <- 1.2
 
 
 png(file="C:/Users/kjlis/Desktop/FST_SS_1vs2_spline.png", width=3000, height=1000, res=300)
-ggplot(SS_1vs2, aes(x = pos, y = Wstat, color = factor(chromosome))) +
+ggplot(SS_1vs2_clean, aes(x = pos, y = Wstat, color = factor(chromosome))) +
   geom_point(size = 1, alpha = 1) +
   geom_hline(yintercept = threshold_SS_1vs2,
              color = "red",

@@ -50,7 +50,7 @@ threshold_linewidth <- 1.2
 
 
 png(file="C:/Users/kjlis/Desktop/XP_CLR_Pv_Tr_spline.png", width=3000, height=1000, res=300)
-ggplot(Pv_Tr, aes(x = pos, y = Wstat, color = factor(chromosome))) +
+ggplot(Pv_Tr_clean, aes(x = pos, y = Wstat, color = factor(chromosome))) +
   geom_point(size = 1, alpha = 1) +
   geom_hline(yintercept = threshold_Pv_Tr,
              color = "red",
@@ -122,7 +122,7 @@ threshold_linewidth <- 1.2
 
 
 png(file="C:/Users/kjlis/Desktop/XP_CLR_Tr_Idt_1_spline.png", width=3000, height=1000, res=300)
-ggplot(Tr_Idt_1, aes(x = pos, y = Wstat, color = factor(chromosome))) +
+ggplot(Tr_Idt_1_clean, aes(x = pos, y = Wstat, color = factor(chromosome))) +
   geom_point(size = 1, alpha = 1) +
   geom_hline(yintercept = threshold_Tr_Idt_1,
              color = "red",
@@ -194,7 +194,7 @@ threshold_linewidth <- 1.2
 
 
 png(file="C:/Users/kjlis/Desktop/XP_CLR_Tr_SS_1_spline.png", width=3000, height=1000, res=300)
-ggplot(Tr_SS_1, aes(x = pos, y = Wstat, color = factor(chromosome))) +
+ggplot(Tr_SS_1_clean, aes(x = pos, y = Wstat, color = factor(chromosome))) +
   geom_point(size = 1, alpha = 1) +
   geom_hline(yintercept = threshold_Tr_SS_1,
              color = "red",
@@ -266,7 +266,7 @@ threshold_linewidth <- 1.2
 
 
 png(file="C:/Users/kjlis/Desktop/XP_CLR_Idt_1vs2_spline.png", width=3000, height=1000, res=300)
-ggplot(Idt_1vs2, aes(x = pos, y = Wstat, color = factor(chromosome))) +
+ggplot(Idt_1vs2_clean, aes(x = pos, y = Wstat, color = factor(chromosome))) +
   geom_point(size = 0.9, alpha = 0.9) +
   geom_hline(yintercept = threshold_Idt_1vs2,
              color = "red",
@@ -338,7 +338,7 @@ threshold_linewidth <- 1.2
 
 
 png(file="C:/Users/kjlis/Desktop/XP_CLR_SS_1vs2_spline.png", width=3000, height=1000, res=300)
-ggplot(SS_1vs2, aes(x = pos, y = Wstat, color = factor(chromosome))) +
+ggplot(SS_1vs2_clean, aes(x = pos, y = Wstat, color = factor(chromosome))) +
   geom_point(size = 1, alpha = 1) +
   geom_hline(yintercept = threshold_SS_1vs2,
              color = "red",

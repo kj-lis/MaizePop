@@ -1,8 +1,8 @@
-Pv_Tr <- fread("C:/Users/kjlis/Desktop/Pv_Tr.norm")
-Tr_Idt_1 <- fread("C:/Users/kjlis/Desktop/Tr_Idt_1.norm")
-Tr_SS_1 <- fread("C:/Users/kjlis/Desktop/Tr_SS_1.norm")
-Idt_1vs2 <- fread("C:/Users/kjlis/Desktop/Idt_1vs2.norm")
-SS_1vs2 <- fread("C:/Users/kjlis/Desktop/SS_1vs2.norm")
+Pv_Tr <- fread("C:/Users/kjlis/Desktop/Projekt ZEMR/Wyniki/05_XP-EHH/raw_data/Pv_Tr.norm")
+Tr_Idt_1 <- fread("C:/Users/kjlis/Desktop/Projekt ZEMR/Wyniki/05_XP-EHH/raw_data/Tr_Idt_1.norm")
+Tr_SS_1 <- fread("C:/Users/kjlis/Desktop/Projekt ZEMR/Wyniki/05_XP-EHH/raw_data/Tr_SS_1.norm")
+Idt_1vs2 <- fread("C:/Users/kjlis/Desktop/Projekt ZEMR/Wyniki/05_XP-EHH/raw_data/Idt_1vs2.norm")
+SS_1vs2 <- fread("C:/Users/kjlis/Desktop/Projekt ZEMR/Wyniki/05_XP-EHH/raw_data/SS_1vs2.norm")
 
 library(data.table)
 
@@ -42,8 +42,8 @@ window_df <- Pv_Tr[
   by=.(CHR, window)
 ]
 
-upper_thr <- quantile(window_df$median_xpehh, 0.95, na.rm=TRUE)
-lower_thr <- quantile(window_df$median_xpehh, 0.05, na.rm=TRUE)
+upper_thr <- quantile(window_df$median_xpehh, 0.99, na.rm=TRUE)
+lower_thr <- quantile(window_df$median_xpehh, 0.01, na.rm=TRUE)
 
 chr_sizes <- window_df[, .(chr_len=max(pos)), by=CHR]
 
@@ -153,8 +153,8 @@ window_df <- Tr_Idt_1[
   by=.(CHR, window)
 ]
 
-upper_thr <- quantile(window_df$median_xpehh, 0.95, na.rm=TRUE)
-lower_thr <- quantile(window_df$median_xpehh, 0.05, na.rm=TRUE)
+upper_thr <- quantile(window_df$median_xpehh, 0.99, na.rm=TRUE)
+lower_thr <- quantile(window_df$median_xpehh, 0.01, na.rm=TRUE)
 
 chr_sizes <- window_df[, .(chr_len=max(pos)), by=CHR]
 
@@ -264,8 +264,8 @@ window_df <- Tr_SS_1[
   by=.(CHR, window)
 ]
 
-upper_thr <- quantile(window_df$median_xpehh, 0.95, na.rm=TRUE)
-lower_thr <- quantile(window_df$median_xpehh, 0.05, na.rm=TRUE)
+upper_thr <- quantile(window_df$median_xpehh, 0.99, na.rm=TRUE)
+lower_thr <- quantile(window_df$median_xpehh, 0.01, na.rm=TRUE)
 
 chr_sizes <- window_df[, .(chr_len=max(pos)), by=CHR]
 
@@ -375,8 +375,8 @@ window_df <- Idt_1vs2[
   by=.(CHR, window)
 ]
 
-upper_thr <- quantile(window_df$median_xpehh, 0.95, na.rm=TRUE)
-lower_thr <- quantile(window_df$median_xpehh, 0.05, na.rm=TRUE)
+upper_thr <- quantile(window_df$median_xpehh, 0.99, na.rm=TRUE)
+lower_thr <- quantile(window_df$median_xpehh, 0.01, na.rm=TRUE)
 
 chr_sizes <- window_df[, .(chr_len=max(pos)), by=CHR]
 
@@ -486,8 +486,8 @@ window_df <- SS_1vs2[
   by=.(CHR, window)
 ]
 
-upper_thr <- quantile(window_df$median_xpehh, 0.95, na.rm=TRUE)
-lower_thr <- quantile(window_df$median_xpehh, 0.05, na.rm=TRUE)
+upper_thr <- quantile(window_df$median_xpehh, 0.99, na.rm=TRUE)
+lower_thr <- quantile(window_df$median_xpehh, 0.01, na.rm=TRUE)
 
 chr_sizes <- window_df[, .(chr_len=max(pos)), by=CHR]
 

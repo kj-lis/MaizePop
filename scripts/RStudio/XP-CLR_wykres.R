@@ -104,12 +104,6 @@ ggplot(
     linetype="dashed",
     linewidth=threshold_linewidth
   ) +
-  coord_cartesian(
-    ylim=c(
-      0,
-      quantile(window_df$xpclr,0.99999)
-    )
-  ) +
   theme_classic() +
   theme(
     legend.position="none",
@@ -261,12 +255,6 @@ ggplot(
     color="red",
     linetype="dashed",
     linewidth=threshold_linewidth
-  ) +
-  coord_cartesian(
-    ylim=c(
-      0,
-      quantile(window_df$xpclr,0.99999)
-    )
   ) +
   theme_classic() +
   theme(
@@ -420,12 +408,6 @@ ggplot(
     linetype="dashed",
     linewidth=threshold_linewidth
   ) +
-  coord_cartesian(
-    ylim=c(
-      0,
-      quantile(window_df$xpclr,0.99999)
-    )
-  ) +
   theme_classic() +
   theme(
     legend.position="none",
@@ -578,12 +560,6 @@ ggplot(
     linetype="dashed",
     linewidth=threshold_linewidth
   ) +
-  coord_cartesian(
-    ylim=c(
-      0,
-      quantile(window_df$xpclr,0.99999)
-    )
-  ) +
   theme_classic() +
   theme(
     legend.position="none",
@@ -735,12 +711,6 @@ ggplot(
     color="red",
     linetype="dashed",
     linewidth=threshold_linewidth
-  ) +
-  coord_cartesian(
-    ylim=c(
-      0,
-      quantile(window_df$xpclr,0.99999)
-    )
   ) +
   theme_classic() +
   theme(

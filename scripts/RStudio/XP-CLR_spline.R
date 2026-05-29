@@ -2,11 +2,13 @@ library(GenWin)
 library(dplyr)
 
 input_files <- list(
-  Pv_Tr    = "/home/kuba/Desktop/XP_CLR_out/Pv_Tr/Pv_Tr.wtclr.txt",
-  Tr_Idt_1 = "/home/kuba/Desktop/XP_CLR_out/Tr_Idt_1/Tr_Idt_1.wtclr.txt"
-)
+  Pv_Tr    = "C:/Users/kjlis/Desktop/Pv_Tr/Pv_Tr.wtclr.txt",
+  Tr_Idt_1 = "C:/Users/kjlis/Desktop/Tr_Idt_1/Tr_Idt_1.wtclr.txt",
+  Tr_SS_1 = "C:/Users/kjlis/Desktop/Tr_SS_1/Tr_SS_1.wtclr.txt",
+  Idt_1vs2 = "C:/Users/kjlis/Desktop/Idt_1vs2/Idt_1vs2.wtclr.txt",
+  SS_1vs2 = "C:/Users/kjlis/Desktop/SS_1vs2/SS_1vs2.wtclr.txt")
 
-out_dir <- "/home/kuba/Desktop/XP_CLR_out"
+out_dir <- "C:/Users/kjlis/Desktop/"
 
 chr_col <- "V1"
 pos_col <- "V4"
@@ -92,8 +94,8 @@ analyze_xpclr <- function(file_path, dataset_name, dataset_index, total_datasets
       Y = chr_data$value,
       map = chr_data[[pos_col]],
       smoothness = smoothness_value,
-      plotRaw = TRUE,
-      plotWindows = TRUE,
+      plotRaw = FALSE,
+      plotWindows = FALSE,
       method = 4
     )
     
