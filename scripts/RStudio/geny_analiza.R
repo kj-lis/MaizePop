@@ -22,8 +22,8 @@ project_dir <- "/home/kuba/Desktop/maize_selection"
 
 # Method-specific folders
 fst_dir <- paste0(project_dir, "/FST_data/")
-xpehh_dir <- paste0(project_dir, "/XP-EHH_data/")
-xpclr_dir <- paste0(project_dir, "/XP-CLR_data/")
+xpehh_dir <- paste0(project_dir, "/XP_EHH_data/")
+xpclr_dir <- paste0(project_dir, "/XP_CLR_data/")
 
 # Output directory
 output_dir <- paste0(project_dir, "/selection_results/")
@@ -43,12 +43,6 @@ gff_file <- paste0(
 gff <- import(gff_file)
 
 genes <- gff[gff$type == "gene"]
-
-# Check metadata columns
-mcols(genes)
-
-# Usually:
-gene_column <- "ID"
 
 # =========================================================
 # 4. DEFINE COMPARISONS
@@ -138,8 +132,8 @@ analyze_selection_scan <- function(
     seqnames = top_df$chromosome,
     
     ranges = IRanges(
-      start = top_df$BIN_START,
-      end = top_df$BIN_END
+      start = top_df$WindowStart,
+      end = top_df$WindowStop
     ),
     
     score = top_df[[score_column]]
@@ -164,8 +158,20 @@ analyze_selection_scan <- function(
     genes
   )
   
+  cat(
+    "Overlaps:",
+    length(hits),
+    "\n"
+  )
+  
   candidate_genes <- unique(
-    mcols(genes)[[gene_column]][subjectHits(hits)]
+    mcols(genes)$ID[subjectHits(hits)]
+  )
+  
+  cat(
+    "Genes:",
+    length(candidate_genes),
+    "\n"
   )
   
   # -------------------------------------------------------
@@ -263,20 +269,16 @@ for(comp in comparisons) {
   
   file <- paste0(
     xpclr_dir,
-    "/",
+    "/XP_CLR_",
     comp,
     "_smoothed.csv"
   )
   
   XPCLR_results[[comp]] <- analyze_selection_scan(
     file_path = file,
-    
     method_name = "XPCLR",
-    
     comparison_name = comp,
-    
     score_column = "Wstat",
-    
     use_absolute = FALSE
   )
 }
@@ -291,6 +293,7 @@ for(comp in comparisons) {
   
   file <- paste0(
     fst_dir,
+    "/FST_",
     "/",
     comp,
     "_smoothed.csv"
@@ -319,6 +322,7 @@ for(comp in comparisons) {
   
   file <- paste0(
     xpehh_dir,
+    "/XP_EHH_",
     "/",
     comp,
     "_smoothed.csv"
