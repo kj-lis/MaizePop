@@ -45,7 +45,7 @@ window_df <- window_df[
 
 upper_thr <- quantile(
   window_df$xpclr,
-  0.95,
+  0.99,
   na.rm=TRUE
 )
 
@@ -197,7 +197,7 @@ window_df <- window_df[
 
 upper_thr <- quantile(
   window_df$xpclr,
-  0.95,
+  0.99,
   na.rm=TRUE
 )
 
@@ -349,7 +349,7 @@ window_df <- window_df[
 
 upper_thr <- quantile(
   window_df$xpclr,
-  0.95,
+  0.99,
   na.rm=TRUE
 )
 
@@ -501,7 +501,7 @@ window_df <- window_df[
 
 upper_thr <- quantile(
   window_df$xpclr,
-  0.95,
+  0.99,
   na.rm=TRUE
 )
 
@@ -653,7 +653,7 @@ window_df <- window_df[
 
 upper_thr <- quantile(
   window_df$xpclr,
-  0.95,
+  0.99,
   na.rm=TRUE
 )
 

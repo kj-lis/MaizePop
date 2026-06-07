@@ -1,10 +1,10 @@
+library(data.table)
+
 Pv_Tr <- fread("C:/Users/kjlis/Desktop/Projekt ZEMR/Wyniki/05_XP-EHH/raw_data/Pv_Tr.norm")
 Tr_Idt_1 <- fread("C:/Users/kjlis/Desktop/Projekt ZEMR/Wyniki/05_XP-EHH/raw_data/Tr_Idt_1.norm")
 Tr_SS_1 <- fread("C:/Users/kjlis/Desktop/Projekt ZEMR/Wyniki/05_XP-EHH/raw_data/Tr_SS_1.norm")
 Idt_1vs2 <- fread("C:/Users/kjlis/Desktop/Projekt ZEMR/Wyniki/05_XP-EHH/raw_data/Idt_1vs2.norm")
 SS_1vs2 <- fread("C:/Users/kjlis/Desktop/Projekt ZEMR/Wyniki/05_XP-EHH/raw_data/SS_1vs2.norm")
-
-library(data.table)
 
 
 ################################
@@ -67,7 +67,7 @@ axis_text_size <- 12
 
 threshold_linewidth <- 1.2
 
-png(file="C:/Users/kjlis/Desktop/XP-EHH_Pv_Tr.png", width=3000, height=1000, res=300)
+png(file="C:/Users/kjlis/Desktop/XP_EHH_Pv_Tr.png", width=3000, height=1000, res=300)
 ggplot(window_df, aes(x=cumpos, y=median_xpehh, color=as.factor(CHR))) +
   geom_point(size=1, alpha=1) +
   scale_color_viridis_d(option="viridis") +
@@ -178,7 +178,7 @@ axis_text_size <- 12
 
 threshold_linewidth <- 1.2
 
-png(file="C:/Users/kjlis/Desktop/XP-EHH_Tr_Idt_1.png", width=3000, height=1000, res=300)
+png(file="C:/Users/kjlis/Desktop/XP_EHH_Tr_Idt_1.png", width=3000, height=1000, res=300)
 ggplot(window_df, aes(x=cumpos, y=median_xpehh, color=as.factor(CHR))) +
   geom_point(size=1, alpha=1) +
   scale_color_viridis_d(option="viridis") +
@@ -289,7 +289,7 @@ axis_text_size <- 12
 
 threshold_linewidth <- 1.2
 
-png(file="C:/Users/kjlis/Desktop/XP-EHH_Tr_SS_1.png", width=3000, height=1000, res=300)
+png(file="C:/Users/kjlis/Desktop/XP_EHH_Tr_SS_1.png", width=3000, height=1000, res=300)
 ggplot(window_df, aes(x=cumpos, y=median_xpehh, color=as.factor(CHR))) +
   geom_point(size=1, alpha=1) +
   scale_color_viridis_d(option="viridis") +
@@ -400,7 +400,7 @@ axis_text_size <- 12
 
 threshold_linewidth <- 1.2
 
-png(file="C:/Users/kjlis/Desktop/XP-EHH_Idt_1vs2.png", width=3000, height=1000, res=300)
+png(file="C:/Users/kjlis/Desktop/XP_EHH_Idt_1vs2.png", width=3000, height=1000, res=300)
 ggplot(window_df, aes(x=cumpos, y=median_xpehh, color=as.factor(CHR))) +
   geom_point(size=1, alpha=1) +
   scale_color_viridis_d(option="viridis") +
@@ -511,7 +511,7 @@ axis_text_size <- 12
 
 threshold_linewidth <- 1.2
 
-png(file="C:/Users/kjlis/Desktop/XP-EHH_SS_1vs2.png", width=3000, height=1000, res=300)
+png(file="C:/Users/kjlis/Desktop/XP_EHH_SS_1vs2.png", width=3000, height=1000, res=300)
 ggplot(window_df, aes(x=cumpos, y=median_xpehh, color=as.factor(CHR))) +
   geom_point(size=1, alpha=1) +
   scale_color_viridis_d(option="viridis") +

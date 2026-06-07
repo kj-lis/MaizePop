@@ -1,8 +1,8 @@
-Pv_Tr <- read.table("C:/Users/kjlis/Desktop/Projekt ZEMR/Wyniki/05_XP-EHH/spline_smoothing/XP_EHH_Pv_Tr_smoothed.csv", sep = ",", header=TRUE)
-Tr_Idt_1 <- read.table("C:/Users/kjlis/Desktop/Projekt ZEMR/Wyniki/05_XP-EHH/spline_smoothing/XP_EHH_Tr_Idt_1_smoothed.csv", sep = ",", header=TRUE)
-Tr_SS_1 <- read.table("C:/Users/kjlis/Desktop/XP_EHH_Tr_SS_1_smoothed.csv", sep = ",", header=TRUE)
-Idt_1vs2 <- read.table("C:/Users/kjlis/Desktop/XP_EHH_Idt_1vs2_smoothed.csv", sep = ",", header=TRUE)
-SS_1vs2 <- read.table("C:/Users/kjlis/Desktop/XP_EHH_SS_1vs2_smoothed.csv", sep = ",", header=TRUE)
+Pv_Tr <- read.table("C:/Users/kjlis/Desktop/maize_selection/XP_EHH_data/XP_EHH_Pv_Tr_smoothed.csv", sep = ",", header=TRUE)
+Tr_Idt_1 <- read.table("C:/Users/kjlis/Desktop/maize_selection/XP_EHH_data/XP_EHH_Tr_Idt_1_smoothed.csv", sep = ",", header=TRUE)
+Tr_SS_1 <- read.table("C:/Users/kjlis/Desktop/maize_selection/XP_EHH_data/XP_EHH_Tr_SS_1_smoothed.csv", sep = ",", header=TRUE)
+Idt_1vs2 <- read.table("C:/Users/kjlis/Desktop/maize_selection/XP_EHH_data/XP_EHH_Idt_1vs2_smoothed.csv", sep = ",", header=TRUE)
+SS_1vs2 <- read.table("C:/Users/kjlis/Desktop/maize_selection/XP_EHH_data/XP_EHH_SS_1vs2_smoothed.csv", sep = ",", header=TRUE)
 
 library(dplyr)
 library(ggplot2)
@@ -37,7 +37,7 @@ axis_df <- Pv_Tr %>%
 
 
 Pv_Tr_clean <- Pv_Tr %>% filter(Wstat > 0)
-threshold_Pv_Tr <- quantile(Pv_Tr_clean$Wstat, 0.95, na.rm = TRUE)
+threshold_Pv_Tr <- quantile(Pv_Tr_clean$Wstat, 0.99, na.rm = TRUE)
 
 
 plot_title <- "Parviglumis vs. Tropical"
@@ -109,7 +109,7 @@ axis_df <- Tr_Idt_1 %>%
 
 
 Tr_Idt_1_clean <- Tr_Idt_1 %>% filter(Wstat > 0)
-threshold_Tr_Idt_1 <- quantile(Tr_Idt_1_clean$Wstat, 0.95, na.rm = TRUE)
+threshold_Tr_Idt_1 <- quantile(Tr_Idt_1_clean$Wstat, 0.99, na.rm = TRUE)
 
 
 plot_title <- "Tropical vs. Iodent I"
@@ -181,7 +181,7 @@ axis_df <- Tr_SS_1 %>%
 
 
 Tr_SS_1_clean <- Tr_SS_1 %>% filter(Wstat > 0)
-threshold_Tr_SS_1 <- quantile(Tr_SS_1_clean$Wstat, 0.95, na.rm = TRUE)
+threshold_Tr_SS_1 <- quantile(Tr_SS_1_clean$Wstat, 0.99, na.rm = TRUE)
 
 
 plot_title <- "Tropical vs. SS I"
@@ -253,7 +253,7 @@ axis_df <- Idt_1vs2 %>%
 
 
 Idt_1vs2_clean <- Idt_1vs2 %>% filter(Wstat > 0)
-threshold_Idt_1vs2 <- quantile(Idt_1vs2_clean$Wstat, 0.95, na.rm = TRUE)
+threshold_Idt_1vs2 <- quantile(Idt_1vs2_clean$Wstat, 0.99, na.rm = TRUE)
 
 
 plot_title <- "Iodent I vs. Iodent II"
@@ -325,7 +325,7 @@ axis_df <- SS_1vs2 %>%
 
 
 SS_1vs2_clean <- SS_1vs2 %>% filter(Wstat > 0)
-threshold_SS_1vs2 <- quantile(SS_1vs2_clean$Wstat, 0.95, na.rm = TRUE)
+threshold_SS_1vs2 <- quantile(SS_1vs2_clean$Wstat, 0.99, na.rm = TRUE)
 
 
 plot_title <- "SS I vs. SS II"
