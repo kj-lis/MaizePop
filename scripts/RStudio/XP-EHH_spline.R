@@ -123,7 +123,7 @@ analyze_xpehh <- function(file_path, dataset_name, dataset_index, total_datasets
   
   output_file <- file.path(
     out_dir,
-    paste0("XP_EHH_magnitude_", dataset_name, "_smoothed.csv")
+    paste0("XP_EHH_", dataset_name, "_smoothed.csv")
   )
   
   write.csv(
