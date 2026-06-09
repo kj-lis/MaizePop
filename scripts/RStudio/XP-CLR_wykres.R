@@ -5,7 +5,7 @@ library(data.table)
 library(ggplot2)
 library(scales)
 
-path <- "C:/Users/kjlis/Desktop/Pv_Tr"
+path <- "C:/Users/kjlis/Desktop/Projekt ZEMR/Wyniki/06_XP_CLR/raw_data/Pv_Tr"
 
 xpclr_list <- lapply(1:10, function(i){
   
@@ -45,7 +45,7 @@ window_df <- window_df[
 
 upper_thr <- quantile(
   window_df$xpclr,
-  0.99,
+  0.95,
   na.rm=TRUE
 )
 
@@ -157,7 +157,7 @@ library(data.table)
 library(ggplot2)
 library(scales)
 
-path <- "C:/Users/kjlis/Desktop/Tr_Idt_1"
+path <- "C:/Users/kjlis/Desktop/Projekt ZEMR/Wyniki/06_XP_CLR/raw_data/Tr_Idt_1"
 
 xpclr_list <- lapply(1:10, function(i){
   
@@ -197,7 +197,7 @@ window_df <- window_df[
 
 upper_thr <- quantile(
   window_df$xpclr,
-  0.99,
+  0.95,
   na.rm=TRUE
 )
 
@@ -309,7 +309,7 @@ library(data.table)
 library(ggplot2)
 library(scales)
 
-path <- "C:/Users/kjlis/Desktop/Tr_SS_1"
+path <- "C:/Users/kjlis/Desktop/Projekt ZEMR/Wyniki/06_XP_CLR/raw_data/Tr_SS_1"
 
 xpclr_list <- lapply(1:10, function(i){
   
@@ -349,7 +349,7 @@ window_df <- window_df[
 
 upper_thr <- quantile(
   window_df$xpclr,
-  0.99,
+  0.95,
   na.rm=TRUE
 )
 
@@ -461,7 +461,7 @@ library(data.table)
 library(ggplot2)
 library(scales)
 
-path <- "C:/Users/kjlis/Desktop/Idt_1vs2"
+path <- "C:/Users/kjlis/Desktop/Projekt ZEMR/Wyniki/06_XP_CLR/raw_data/Idt_1vs2"
 
 xpclr_list <- lapply(1:10, function(i){
   
@@ -501,7 +501,7 @@ window_df <- window_df[
 
 upper_thr <- quantile(
   window_df$xpclr,
-  0.99,
+  0.95,
   na.rm=TRUE
 )
 
@@ -613,7 +613,7 @@ library(data.table)
 library(ggplot2)
 library(scales)
 
-path <- "C:/Users/kjlis/Desktop/SS_1vs2"
+path <- "C:/Users/kjlis/Desktop/Projekt ZEMR/Wyniki/06_XP_CLR/raw_data/SS_1vs2"
 
 xpclr_list <- lapply(1:10, function(i){
   
@@ -653,7 +653,7 @@ window_df <- window_df[
 
 upper_thr <- quantile(
   window_df$xpclr,
-  0.99,
+  0.95,
   na.rm=TRUE
 )
 
