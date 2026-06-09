@@ -1,11 +1,7 @@
 # =========================================================
-# FULL PIPELINE:
-# FST + XP-EHH + XP-CLR
-# Candidate genes under selection
-# =========================================================
-
-# =========================================================
-# 1. LOAD LIBRARIES
+# FULL PIPELINE
+# XP-CLR + FST + XP-EHH
+# TOP 1% WINDOWS -> REGIONS -> GENES
 # =========================================================
 
 library(data.table)
@@ -14,38 +10,40 @@ library(GenomicRanges)
 library(rtracklayer)
 
 # =========================================================
-# 2. DEFINE PATHS
+# PATHS
 # =========================================================
 
-# Main project directory
 project_dir <- "/home/kuba/Desktop/maize_selection"
 
-# Method-specific folders
-fst_dir <- paste0(project_dir, "/FST_data/")
-xpehh_dir <- paste0(project_dir, "/XP_EHH_data/")
-xpclr_dir <- paste0(project_dir, "/XP_CLR_data/")
+fst_dir <- paste0(project_dir, "/FST_data")
+xpehh_dir <- paste0(project_dir, "/XP_EHH_data")
+xpclr_dir <- paste0(project_dir, "/XP_CLR_data")
 
-# Output directory
-output_dir <- paste0(project_dir, "/selection_results/")
+output_dir <- paste0(project_dir, "/selection_results")
 
 dir.create(output_dir, showWarnings = FALSE)
 
-# Genome annotation
 gff_file <- paste0(
   project_dir,
   "/ref_genome/Zm-B73-REFERENCE-NAM-5.0_Zm00001eb.1.gff3"
 )
 
 # =========================================================
-# 3. LOAD GENE ANNOTATION
+# LOAD GENE ANNOTATION
 # =========================================================
 
 gff <- import(gff_file)
 
 genes <- gff[gff$type == "gene"]
 
+cat(
+  "Loaded genes:",
+  length(genes),
+  "\n"
+)
+
 # =========================================================
-# 4. DEFINE COMPARISONS
+# COMPARISONS
 # =========================================================
 
 comparisons <- c(
@@ -57,78 +55,71 @@ comparisons <- c(
 )
 
 # =========================================================
-# 5. FUNCTION FOR ANALYSIS
+# ANALYSIS FUNCTION
 # =========================================================
 
 analyze_selection_scan <- function(
     file_path,
     method_name,
     comparison_name,
-    score_column,
+    score_column = "Wstat",
     use_absolute = FALSE,
-    top_percent = 0.95,
-    extend_bp = 50000
+    top_percent = 0.99,
+    extend_bp = 10000,
+    merge_distance = 10000
 ) {
   
   cat("\n")
-  cat("=============================\n")
+  cat("=====================================\n")
   cat(method_name, "-", comparison_name, "\n")
-  cat("=============================\n")
-  
-  # -------------------------------------------------------
-  # LOAD DATA
-  # -------------------------------------------------------
+  cat("=====================================\n")
   
   df <- fread(file_path)
-  
-  # -------------------------------------------------------
-  # CLEAN DATA
-  # -------------------------------------------------------
   
   df <- df %>%
     filter(!is.na(.data[[score_column]]))
   
-  # Remove chr prefix if present
-  df$chromosome <- gsub(
-    "chr",
-    "",
-    df$chromosome
-  )
-  
-  # -------------------------------------------------------
-  # HANDLE XP-EHH
-  # -------------------------------------------------------
-  
-  if(use_absolute == TRUE) {
+  if(use_absolute){
     
-    df$ABS_SCORE <- abs(df[[score_column]])
-    
-    threshold <- quantile(
-      df$ABS_SCORE,
-      top_percent,
-      na.rm = TRUE
-    )
-    
-    top_df <- df %>%
-      filter(ABS_SCORE >= threshold)
+    df$ScoreUsed <- abs(df[[score_column]])
     
   } else {
     
-    threshold <- quantile(
-      df[[score_column]],
-      top_percent,
-      na.rm = TRUE
-    )
+    df$ScoreUsed <- df[[score_column]]
     
-    top_df <- df %>%
-      filter(.data[[score_column]] >= threshold)
   }
   
-  # -------------------------------------------------------
-  # CONVERT TO GRanges
-  # -------------------------------------------------------
+  # =====================================================
+  # TOP 1%
+  # =====================================================
+  
+  threshold <- quantile(
+    df$ScoreUsed,
+    top_percent,
+    na.rm = TRUE
+  )
+  
+  top_df <- df %>%
+    filter(ScoreUsed >= threshold)
+  
+  cat(
+    "Threshold:",
+    threshold,
+    "\n"
+  )
+  
+  cat(
+    "Top windows:",
+    nrow(top_df),
+    "\n"
+  )
+  
+  # =====================================================
+  # WINDOWS -> GRanges
+  # =====================================================
   
   gr <- GRanges(
+    
     seqnames = top_df$chromosome,
     
     ranges = IRanges(
@@ -136,26 +127,48 @@ analyze_selection_scan <- function(
       end = top_df$WindowStop
     ),
     
-    score = top_df[[score_column]]
+    score = top_df$ScoreUsed
   )
   
-  # -------------------------------------------------------
-  # EXTEND REGIONS
-  # -------------------------------------------------------
+  # =====================================================
+  # MERGE ADJACENT WINDOWS
+  # =====================================================
   
-  gr_extended <- resize(
+  candidate_regions <- reduce(
     gr,
-    width = width(gr) + (extend_bp * 2),
+    min.gapwidth = merge_distance
+  )
+  
+  cat(
+    "Candidate regions:",
+    length(candidate_regions),
+    "\n"
+  )
+  
+  # =====================================================
+  # EXTEND REGIONS ±50 kb
+  # =====================================================
+  
+  candidate_regions <- resize(
+    candidate_regions,
+    width = width(candidate_regions) +
+      (extend_bp * 2),
     fix = "center"
   )
   
-  # -------------------------------------------------------
-  # FIND OVERLAPPING GENES
-  # -------------------------------------------------------
+  # =====================================================
+  # FIND GENES
+  # =====================================================
   
   hits <- findOverlaps(
-    gr_extended,
+    candidate_regions,
     genes
+  )
+  
+  candidate_genes <- unique(
+    mcols(genes)$ID[
+      subjectHits(hits)
+    ]
   )
   
   cat(
@@ -164,19 +177,15 @@ analyze_selection_scan <- function(
     "\n"
   )
   
-  candidate_genes <- unique(
-    mcols(genes)$ID[subjectHits(hits)]
-  )
-  
   cat(
-    "Genes:",
+    "Candidate genes:",
     length(candidate_genes),
     "\n"
   )
   
-  # -------------------------------------------------------
-  # CREATE OUTPUT FOLDER
-  # -------------------------------------------------------
+  # =====================================================
+  # SAVE RESULTS
+  # =====================================================
   
   method_output <- paste0(
     output_dir,
@@ -189,83 +198,69 @@ analyze_selection_scan <- function(
     showWarnings = FALSE
   )
   
-  # -------------------------------------------------------
-  # SAVE TOP WINDOWS
-  # -------------------------------------------------------
-  
-  write.csv(
+  fwrite(
     top_df,
-    
     paste0(
       method_output,
       "/",
       comparison_name,
-      "_top5_windows.csv"
-    ),
-    
-    row.names = FALSE
+      "_top1_windows.csv"
+    )
   )
   
-  # -------------------------------------------------------
-  # SAVE CANDIDATE GENES
-  # -------------------------------------------------------
+  region_df <- data.frame(
+    chromosome = as.character(seqnames(candidate_regions)),
+    start = start(candidate_regions),
+    end = end(candidate_regions)
+  )
   
-  write.csv(
+  fwrite(
+    region_df,
+    paste0(
+      method_output,
+      "/",
+      comparison_name,
+      "_candidate_regions.csv"
+    )
+  )
+  
+  fwrite(
     data.frame(
       Gene = candidate_genes
     ),
-    
     paste0(
       method_output,
       "/",
       comparison_name,
       "_candidate_genes.csv"
-    ),
-    
-    row.names = FALSE
+    )
   )
   
-  # -------------------------------------------------------
-  # PRINT SUMMARY
-  # -------------------------------------------------------
-  
-  cat("Threshold:", threshold, "\n")
-  
-  cat(
-    "Top windows:",
-    nrow(top_df),
-    "\n"
+  return(
+    list(
+      
+      method = method_name,
+      
+      comparison = comparison_name,
+      
+      threshold = threshold,
+      
+      top_windows = top_df,
+      
+      candidate_regions = candidate_regions,
+      
+      genes = candidate_genes
+    )
   )
-  
-  cat(
-    "Candidate genes:",
-    length(candidate_genes),
-    "\n"
-  )
-  
-  # -------------------------------------------------------
-  # RETURN RESULTS
-  # -------------------------------------------------------
-  
-  return(list(
-    
-    method = method_name,
-    
-    comparison = comparison_name,
-    
-    top_windows = top_df,
-    
-    genes = candidate_genes
-  ))
 }
 
 # =========================================================
-# 6. ANALYZE XP-CLR
+# XP-CLR
 # =========================================================
 
 XPCLR_results <- list()
 
-for(comp in comparisons) {
+for(comp in comparisons){
   
   file <- paste0(
     xpclr_dir,
@@ -274,80 +269,76 @@ for(comp in comparisons) {
     "_smoothed.csv"
   )
   
-  XPCLR_results[[comp]] <- analyze_selection_scan(
-    file_path = file,
-    method_name = "XPCLR",
-    comparison_name = comp,
-    score_column = "Wstat",
-    use_absolute = FALSE
-  )
+  XPCLR_results[[comp]] <-
+    analyze_selection_scan(
+      file_path = file,
+      method_name = "XPCLR",
+      comparison_name = comp,
+      score_column = "Wstat",
+      use_absolute = FALSE,
+      top_percent = 0.99
+    )
 }
 
 # =========================================================
-# 7. ANALYZE FST
+# FST
 # =========================================================
 
 FST_results <- list()
 
-for(comp in comparisons) {
+for(comp in comparisons){
   
   file <- paste0(
     fst_dir,
     "/FST_",
-    "/",
     comp,
     "_smoothed.csv"
   )
   
-  FST_results[[comp]] <- analyze_selection_scan(
-    file_path = file,
-    
-    method_name = "FST",
-    
-    comparison_name = comp,
-    
-    score_column = "FST",
-    
-    use_absolute = FALSE
-  )
+  FST_results[[comp]] <-
+    analyze_selection_scan(
+      file_path = file,
+      method_name = "FST",
+      comparison_name = comp,
+      score_column = "Wstat",
+      use_absolute = FALSE,
+      top_percent = 0.99
+    )
 }
 
 # =========================================================
-# 8. ANALYZE XP-EHH
+# XP-EHH
 # =========================================================
 
 XPEHH_results <- list()
 
-for(comp in comparisons) {
+for(comp in comparisons){
   
   file <- paste0(
     xpehh_dir,
     "/XP_EHH_",
-    "/",
     comp,
     "_smoothed.csv"
   )
   
-  XPEHH_results[[comp]] <- analyze_selection_scan(
-    file_path = file,
-    
-    method_name = "XPEHH",
-    
-    comparison_name = comp,
-    
-    score_column = "XPEHH",
-    
-    use_absolute = TRUE
-  )
+  XPEHH_results[[comp]] <-
+    analyze_selection_scan(
+      file_path = file,
+      method_name = "XPEHH",
+      comparison_name = comp,
+      score_column = "Wstat",
+      use_absolute = TRUE,
+      top_percent = 0.99
+    )
 }
 
 # =========================================================
-# 9. COMPARE METHODS
+# METHOD OVERLAP
 # =========================================================
 
 comparison_output <- paste0(
   output_dir,
-  "/Method_overlap/"
+  "/Method_overlap"
 )
 
 dir.create(
@@ -355,26 +346,14 @@ dir.create(
   showWarnings = FALSE
 )
 
-for(comp in comparisons) {
-  
-  cat("\n")
-  cat("===================================\n")
-  cat("OVERLAP:", comp, "\n")
-  cat("===================================\n")
+for(comp in comparisons){
   
   xpclr_genes <- XPCLR_results[[comp]]$genes
-  
   fst_genes <- FST_results[[comp]]$genes
-  
   xpehh_genes <- XPEHH_results[[comp]]$genes
-  
-  # -------------------------------------------------------
-  # SHARED GENES
-  # -------------------------------------------------------
   
   shared_all <- Reduce(
     intersect,
-    
     list(
       xpclr_genes,
       fst_genes,
@@ -382,25 +361,13 @@ for(comp in comparisons) {
     )
   )
   
-  shared_xpclr_fst <- intersect(
-    xpclr_genes,
-    fst_genes
+  all_genes <- unique(
+    c(
+      xpclr_genes,
+      fst_genes,
+      xpehh_genes
+    )
   )
-  
-  shared_xpclr_xpehh <- intersect(
-    xpclr_genes,
-    xpehh_genes
-  )
-  
-  # -------------------------------------------------------
-  # CREATE SUMMARY TABLE
-  # -------------------------------------------------------
-  
-  all_genes <- unique(c(
-    xpclr_genes,
-    fst_genes,
-    xpehh_genes
-  ))
   
   summary_table <- data.frame(
     
@@ -413,86 +380,47 @@ for(comp in comparisons) {
     XPEHH = all_genes %in% xpehh_genes
   )
   
-  summary_table$Detected_by_all <- (
+  summary_table$Detected_by_all <-
     summary_table$XPCLR &
-      summary_table$FST &
-      summary_table$XPEHH
-  )
+    summary_table$FST &
+    summary_table$XPEHH
   
-  summary_table$N_methods <- rowSums(
-    summary_table[,2:4]
-  )
+  summary_table$N_methods <-
+    rowSums(summary_table[,2:4])
   
-  # -------------------------------------------------------
-  # SAVE SUMMARY
-  # -------------------------------------------------------
-  
-  write.csv(
-    
+  fwrite(
     summary_table,
-    
     paste0(
       comparison_output,
       "/",
       comp,
       "_overlap_summary.csv"
-    ),
-    
-    row.names = FALSE
+    )
   )
   
-  # -------------------------------------------------------
-  # SAVE SHARED GENES
-  # -------------------------------------------------------
-  
-  write.csv(
-    
+  fwrite(
     data.frame(
       Gene = shared_all
     ),
-    
     paste0(
       comparison_output,
       "/",
       comp,
-      "_shared_all.csv"
-    ),
-    
-    row.names = FALSE
-  )
-  
-  # -------------------------------------------------------
-  # PRINT SUMMARY
-  # -------------------------------------------------------
-  
-  cat(
-    "XP-CLR genes:",
-    length(xpclr_genes),
-    "\n"
+      "_shared_all_methods.csv"
+    )
   )
   
   cat(
-    "FST genes:",
-    length(fst_genes),
-    "\n"
-  )
-  
-  cat(
-    "XP-EHH genes:",
-    length(xpehh_genes),
-    "\n"
-  )
-  
-  cat(
-    "Shared across ALL methods:",
+    "\n",
+    comp,
+    " shared genes:",
     length(shared_all),
     "\n"
   )
 }
 
 # =========================================================
-# 10. OPTIONAL:
-# SAVE COMPLETE OBJECTS
+# SAVE R OBJECTS
 # =========================================================
 
 save(
@@ -512,5 +440,6 @@ save(
 
 cat("\n")
 cat("=====================================\n")
-cat("SELECTION SCAN ANALYSIS FINISHED\n")
+cat("SELECTION ANALYSIS FINISHED\n")
 cat("=====================================\n")
+
