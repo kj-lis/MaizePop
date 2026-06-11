@@ -13,7 +13,7 @@ library(rtracklayer)
 # PATHS
 # =========================================================
 
-project_dir <- "/home/kuba/Desktop/maize_selection"
+project_dir <- "C:/Users/kjlis/Desktop/maize_selection/"
 
 fst_dir <- paste0(project_dir, "/FST_data")
 xpehh_dir <- paste0(project_dir, "/XP_EHH_data")
