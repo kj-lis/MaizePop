@@ -10,7 +10,7 @@
 #SBATCH --output=/home/jl430796/MaizePop/logs/vcf_plink.%A_%a.out
 #SBATCH --error=/home/jl430796/MaizePop/logs/vcf_plink.%A_%a.err
 
-plink --vcf /home/jl430796/MaizePop/data/raw/imputed/chr_all_imputed.vcf.gz \
+plink --vcf /home/jl430796/MaizePop/data/raw/admix_imputed/chr_all_imputed.vcf.gz \
 --make-bed --biallelic-only strict --double-id \
---out /home/jl430796/MaizePop/data/processed/00_SNPs/chr_all_plink
+--out /home/jl430796/MaizePop/data/processed/01_admix/all_lines/chr_all_plink
 

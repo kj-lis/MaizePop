@@ -18,9 +18,9 @@ module load common/anaconda/3.8
 conda activate geno
 
 # Inputs --------------------------------------------------------------------
-INCLUDE_SAMPLES_FILE=/home/jl430796/MaizePop/metadane/00_subset/lines_all.txt
+INCLUDE_SAMPLES_FILE=/home/jl430796/MaizePop/metadane/00_subset/lines_admix.txt
 VCF_DIR=/home/marcing/DATA/VCF
-OUTPUT_DIR=/home/jl430796/MaizePop/data/raw/vcf_current
+OUTPUT_DIR=/home/jl430796/MaizePop/data/raw/admix_vcf
 
 # Optional reference FASTA for left-alignment/normalization.
 # Set REF_FASTA to the path of your reference (e.g., B73 v5) to enable

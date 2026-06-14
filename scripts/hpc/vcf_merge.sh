@@ -10,15 +10,15 @@
 #SBATCH --output=/home/jl430796/MaizePop/logs/vcf_merge_1.%A_%a.out
 #SBATCH --error=/home/jl430796/MaizePop/logs/vcf_merge_1.%A_%a.err
 
-bcftools concat /home/jl430796/MaizePop/data/raw/imputed/chr1_fixed.vcf.gz \
-/home/jl430796/MaizePop/data/raw/imputed/chr2_fixed.vcf.gz \
-/home/jl430796/MaizePop/data/raw/imputed/chr3_fixed.vcf.gz \
-/home/jl430796/MaizePop/data/raw/imputed/chr4_fixed.vcf.gz \
-/home/jl430796/MaizePop/data/raw/imputed/chr5_fixed.vcf.gz \
-/home/jl430796/MaizePop/data/raw/imputed/chr6_fixed.vcf.gz \
-/home/jl430796/MaizePop/data/raw/imputed/chr7_fixed.vcf.gz \
-/home/jl430796/MaizePop/data/raw/imputed/chr8_fixed.vcf.gz \
-/home/jl430796/MaizePop/data/raw/imputed/chr9_fixed.vcf.gz \
-/home/jl430796/MaizePop/data/raw/imputed/chr10_fixed.vcf.gz \
--O z -o /home/jl430796/MaizePop/data/raw/imputed/chr_all_imputed.vcf.gz
+bcftools concat /home/jl430796/MaizePop/data/raw/admix_imputed/chr1_fixed.vcf.gz \
+/home/jl430796/MaizePop/data/raw/admix_imputed/chr2_fixed.vcf.gz \
+/home/jl430796/MaizePop/data/raw/admix_imputed/chr3_fixed.vcf.gz \
+/home/jl430796/MaizePop/data/raw/admix_imputed/chr4_fixed.vcf.gz \
+/home/jl430796/MaizePop/data/raw/admix_imputed/chr5_fixed.vcf.gz \
+/home/jl430796/MaizePop/data/raw/admix_imputed/chr6_fixed.vcf.gz \
+/home/jl430796/MaizePop/data/raw/admix_imputed/chr7_fixed.vcf.gz \
+/home/jl430796/MaizePop/data/raw/admix_imputed/chr8_fixed.vcf.gz \
+/home/jl430796/MaizePop/data/raw/admix_imputed/chr9_fixed.vcf.gz \
+/home/jl430796/MaizePop/data/raw/admix_imputed/chr10_fixed.vcf.gz \
+-O z -o /home/jl430796/MaizePop/data/raw/admix_imputed/chr_all_imputed.vcf.gz
 
