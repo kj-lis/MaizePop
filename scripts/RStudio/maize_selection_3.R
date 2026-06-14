@@ -3,7 +3,7 @@ library(gprofiler2)
 
 project_dir <- "C:/Users/kjlis/Desktop/maize_selection/"
 
-genes <- fread(paste0(project_dir, "results_1/top1/XP_CLR_top1_genes.csv"))
+genes <- fread(paste0(project_dir, "results_1/top5/XP_CLR_top5_shared_all.csv"))
 
 gene_lists <- split(genes$Gene_ID,genes$Comparison)
 gene_lists <- lapply(gene_lists,unique)
