@@ -1,6 +1,5 @@
 # =========================================================
 # XP-CLR SELECTION PIPELINE
-# TOP 1% and TOP 5%
 # =========================================================
 
 library(data.table)
@@ -14,12 +13,31 @@ fst_dir <- paste0(project_dir, "/FST_data")
 xpehh_dir <- paste0(project_dir, "/XP_EHH_data")
 xpclr_dir <- paste0(project_dir, "/XP_CLR_data")
 
-output_dir <- paste0(project_dir, "/selection_results")
+output_dir <- paste0(project_dir, "/results_1")
 dir.create(output_dir, showWarnings = FALSE)
 
 gff_file <- paste0(
   project_dir,
   "/ref_genome/Zm-B73-REFERENCE-NAM-5.0_Zm00001eb.1.gff3"
+)
+
+annotation_file <- paste0(
+  project_dir,
+  "/annotations/genes_maizegdb.txt"
+)
+
+annotations <- fread(annotation_file)
+
+annotations <- annotations[, c(
+  "v5 Gene Model ID",
+  "Gene Symbol",
+  "Full Name"
+)]
+
+colnames(annotations) <- c(
+  "Gene_ID",
+  "Gene_Symbol",
+  "Gene_Name"
 )
 
 gff <- import(gff_file)
@@ -94,6 +112,8 @@ get_candidate_genes <- function(
   )
 }
 
+summary_stats <- data.frame()
+
 for(th_name in names(thresholds)){
   
   threshold_value <- thresholds[[th_name]]
@@ -104,11 +124,28 @@ for(th_name in names(thresholds)){
     th_name
   )
   
-  dir.create(threshold_dir, showWarnings = FALSE)
+  dir.create(
+    threshold_dir,
+    showWarnings = FALSE
+  )
+  
+  all_xpclr_genes <- data.frame()
+  
+  all_support <- data.frame()
+  
+  all_shared <- data.frame()
+  
+  all_xpclr_fst <- data.frame()
   
   for(comp in comparisons){
     
-    cat("\nProcessing:", comp, "-", th_name, "\n")
+    cat(
+      "\nProcessing:",
+      comp,
+      "-",
+      th_name,
+      "\n"
+    )
     
     xpclr_file <- paste0(
       xpclr_dir,
@@ -149,44 +186,72 @@ for(th_name in names(thresholds)){
       use_absolute = TRUE
     )
     
-    comp_dir <- paste0(
-      threshold_dir,
-      "/",
-      comp
+    genes_df <- data.frame(
+      Comparison = comp,
+      Gene_ID = xpclr_genes
     )
     
-    dir.create(comp_dir, showWarnings = FALSE)
+    genes_df <- merge(
+      genes_df,
+      annotations,
+      by = "Gene_ID",
+      all.x = TRUE
+    )
     
-    fwrite(
-      data.frame(
-        Gene = xpclr_genes
-      ),
-      paste0(
-        comp_dir,
-        "/",
-        comp,
-        "_XPCLR_",
-        th_name,
-        "_genes.csv"
-      )
+    genes_df$Gene_Name[
+      is.na(genes_df$Gene_Name) |
+        genes_df$Gene_Name == ""
+    ] <- genes_df$Gene_Symbol[
+      is.na(genes_df$Gene_Name) |
+        genes_df$Gene_Name == ""
+    ]
+    
+    genes_df <- genes_df[, c(
+      "Comparison",
+      "Gene_ID",
+      "Gene_Symbol",
+      "Gene_Name"
+    )]
+    
+    all_xpclr_genes <- rbind(
+      all_xpclr_genes,
+      genes_df
     )
     
     support_table <- data.frame(
-      Gene = xpclr_genes,
+      Comparison = comp,
+      Gene_ID = xpclr_genes,
       FST = xpclr_genes %in% fst_genes,
-      XPEHH = xpclr_genes %in% xpehh_genes
+      XP_EHH = xpclr_genes %in% xpehh_genes
     )
     
-    fwrite(
+    support_table <- merge(
       support_table,
-      paste0(
-        comp_dir,
-        "/",
-        comp,
-        "_XPCLR_",
-        th_name,
-        "_gene_support.csv"
-      )
+      annotations,
+      by = "Gene_ID",
+      all.x = TRUE
+    )
+    
+    support_table$Gene_Name[
+      is.na(support_table$Gene_Name) |
+        support_table$Gene_Name == ""
+    ] <- support_table$Gene_Symbol[
+      is.na(support_table$Gene_Name) |
+        support_table$Gene_Name == ""
+    ]
+    
+    support_table <- support_table[, c(
+      "Comparison",
+      "Gene_ID",
+      "Gene_Symbol",
+      "Gene_Name",
+      "FST",
+      "XP_EHH"
+    )]
+    
+    all_support <- rbind(
+      all_support,
+      support_table
     )
     
     shared_all <- Reduce(
@@ -198,26 +263,176 @@ for(th_name in names(thresholds)){
       )
     )
     
-    fwrite(
-      data.frame(
-        Gene = shared_all
-      ),
-      paste0(
-        comp_dir,
-        "/",
-        comp,
-        "_XPCLR_",
-        th_name,
-        "_shared_all.csv"
-      )
+    shared_xpclr_fst <- intersect(
+      xpclr_genes,
+      fst_genes
+    )
+    
+    xpclr_fst_df <- data.frame(
+      Comparison = comp,
+      Gene_ID = shared_xpclr_fst
+    )
+    
+    xpclr_fst_df <- merge(
+      xpclr_fst_df,
+      annotations,
+      by = "Gene_ID",
+      all.x = TRUE
+    )
+    
+    xpclr_fst_df$Gene_Name[
+      is.na(xpclr_fst_df$Gene_Name) |
+        xpclr_fst_df$Gene_Name == ""
+    ] <- xpclr_fst_df$Gene_Symbol[
+      is.na(xpclr_fst_df$Gene_Name) |
+        xpclr_fst_df$Gene_Name == ""
+    ]
+    
+    xpclr_fst_df <- xpclr_fst_df[, c(
+      "Comparison",
+      "Gene_ID",
+      "Gene_Symbol",
+      "Gene_Name"
+    )]
+    
+    all_xpclr_fst <- rbind(
+      all_xpclr_fst,
+      xpclr_fst_df
+    )
+    
+    shared_df <- data.frame(
+      Comparison = comp,
+      Gene_ID = shared_all
+    )
+    
+    shared_df <- merge(
+      shared_df,
+      annotations,
+      by = "Gene_ID",
+      all.x = TRUE
+    )
+    
+    shared_df$Gene_Name[
+      is.na(shared_df$Gene_Name) |
+        shared_df$Gene_Name == ""
+    ] <- shared_df$Gene_Symbol[
+      is.na(shared_df$Gene_Name) |
+        shared_df$Gene_Name == ""
+    ]
+    
+    shared_df <- shared_df[, c(
+      "Comparison",
+      "Gene_ID",
+      "Gene_Symbol",
+      "Gene_Name"
+    )]
+    
+    all_shared <- rbind(
+      all_shared,
+      shared_df
     )
     
     cat(
-      "XPCLR genes:", length(xpclr_genes),
-      " Shared all:", length(shared_all), "\n"
+      "XPCLR genes:",
+      length(xpclr_genes),
+      " Shared all:",
+      length(shared_all),
+      "\n"
+    )
+    
+    cat(
+      "XPCLR genes:",
+      length(xpclr_genes),
+      " Shared all:",
+      length(shared_all),
+      "\n"
+    )
+    
+    summary_stats <- rbind(
+      summary_stats,
+      
+      data.frame(
+        Threshold = th_name,
+        Comparison = comp,
+        
+        XPCLR_genes = length(xpclr_genes),
+        
+        FST_genes = length(fst_genes),
+        
+        XP_EHH_genes = length(xpehh_genes),
+        
+        XPCLR_FST_shared = length(shared_xpclr_fst),
+        
+        Shared_all = length(shared_all)
+      )
     )
   }
+  
+  fwrite(
+    all_xpclr_genes,
+    
+    paste0(
+      threshold_dir,
+      "/XP_CLR_",
+      th_name,
+      "_genes.csv"
+    )
+  )
+  
+  fwrite(
+    all_support,
+    
+    paste0(
+      threshold_dir,
+      "/XP_CLR_",
+      th_name,
+      "_gene_support.csv"
+    )
+  )
+  
+  fwrite(
+    all_shared,
+    
+    paste0(
+      threshold_dir,
+      "/XP_CLR_",
+      th_name,
+      "_shared_all.csv"
+    )
+  )
+  
+  fwrite(
+    all_xpclr_fst,
+    
+    paste0(
+      threshold_dir,
+      "/XP_CLR_",
+      th_name,
+      "_shared_FST.csv"
+    )
+  )
+  
+  fwrite(
+    summary_stats,
+    
+    paste0(
+      threshold_dir,
+      "/XP_CLR_",
+      th_name,
+      "_summary_statistics.csv"
+    )
+  )
+  
+  cat(
+    "\nSaved combined files for",
+    th_name,
+    "\n"
+  )
 }
 
-cat("\nFinished.\n")
+cat(
+  "\n=================================\n",
+  " ANALYSIS FINISHED\n",
+  "=================================\n"
+)
 
