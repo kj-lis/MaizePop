@@ -35,7 +35,7 @@ if [[ ! -s "${INCLUDE_SAMPLES_FILE}" ]]; then
   exit 1
 fi
 
-CHR=$(printf "chr%d" "${SLURM_ARRAY_TASK_ID}")
+CHR=$(printf "chr_%d" "${SLURM_ARRAY_TASK_ID}")
 INPUT_VCF="${VCF_DIR}/${CHR}_filtered_raw.vcf.gz"
 OUTPUT_VCF="${OUTPUT_DIR}/${CHR}_maf005_miss025.vcf.gz"
 
