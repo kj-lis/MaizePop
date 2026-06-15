@@ -35,9 +35,9 @@ annotations <- annotations[, c(
 )]
 
 colnames(annotations) <- c(
-  "Gene_ID",
-  "Gene_Symbol",
-  "Gene_Name"
+  "gene_ID",
+  "gene_symbol",
+  "gene_name"
 )
 
 gff <- import(gff_file)
@@ -116,6 +116,8 @@ summary_stats <- data.frame()
 
 for(th_name in names(thresholds)){
   
+  summary_stats <- data.frame()
+  
   threshold_value <- thresholds[[th_name]]
   
   threshold_dir <- paste0(
@@ -187,30 +189,30 @@ for(th_name in names(thresholds)){
     )
     
     genes_df <- data.frame(
-      Comparison = comp,
-      Gene_ID = xpclr_genes
+      comparison = comp,
+      gene_ID = xpclr_genes
     )
     
     genes_df <- merge(
       genes_df,
       annotations,
-      by = "Gene_ID",
+      by = "gene_ID",
       all.x = TRUE
     )
     
-    genes_df$Gene_Name[
-      is.na(genes_df$Gene_Name) |
-        genes_df$Gene_Name == ""
-    ] <- genes_df$Gene_Symbol[
-      is.na(genes_df$Gene_Name) |
-        genes_df$Gene_Name == ""
+    genes_df$gene_name[
+      is.na(genes_df$gene_name) |
+        genes_df$gene_name == ""
+    ] <- genes_df$gene_symbol[
+      is.na(genes_df$gene_name) |
+        genes_df$gene_name == ""
     ]
     
     genes_df <- genes_df[, c(
-      "Comparison",
-      "Gene_ID",
-      "Gene_Symbol",
-      "Gene_Name"
+      "comparison",
+      "gene_ID",
+      "gene_symbol",
+      "gene_name"
     )]
     
     all_xpclr_genes <- rbind(
@@ -219,34 +221,34 @@ for(th_name in names(thresholds)){
     )
     
     support_table <- data.frame(
-      Comparison = comp,
-      Gene_ID = xpclr_genes,
-      FST = xpclr_genes %in% fst_genes,
-      XP_EHH = xpclr_genes %in% xpehh_genes
+      comparison = comp,
+      gene_ID = xpclr_genes,
+      fst = xpclr_genes %in% fst_genes,
+      xp_ehh = xpclr_genes %in% xpehh_genes
     )
     
     support_table <- merge(
       support_table,
       annotations,
-      by = "Gene_ID",
+      by = "gene_ID",
       all.x = TRUE
     )
     
-    support_table$Gene_Name[
-      is.na(support_table$Gene_Name) |
-        support_table$Gene_Name == ""
-    ] <- support_table$Gene_Symbol[
-      is.na(support_table$Gene_Name) |
-        support_table$Gene_Name == ""
+    support_table$gene_name[
+      is.na(support_table$gene_name) |
+        support_table$gene_name == ""
+    ] <- support_table$gene_symbol[
+      is.na(support_table$gene_name) |
+        support_table$gene_name == ""
     ]
     
     support_table <- support_table[, c(
-      "Comparison",
-      "Gene_ID",
-      "Gene_Symbol",
-      "Gene_Name",
-      "FST",
-      "XP_EHH"
+      "comparison",
+      "gene_ID",
+      "gene_symbol",
+      "gene_name",
+      "fst",
+      "xp_ehh"
     )]
     
     all_support <- rbind(
@@ -269,30 +271,30 @@ for(th_name in names(thresholds)){
     )
     
     xpclr_fst_df <- data.frame(
-      Comparison = comp,
-      Gene_ID = shared_xpclr_fst
+      comparison = comp,
+      gene_ID = shared_xpclr_fst
     )
     
     xpclr_fst_df <- merge(
       xpclr_fst_df,
       annotations,
-      by = "Gene_ID",
+      by = "gene_ID",
       all.x = TRUE
     )
     
-    xpclr_fst_df$Gene_Name[
-      is.na(xpclr_fst_df$Gene_Name) |
-        xpclr_fst_df$Gene_Name == ""
-    ] <- xpclr_fst_df$Gene_Symbol[
-      is.na(xpclr_fst_df$Gene_Name) |
-        xpclr_fst_df$Gene_Name == ""
+    xpclr_fst_df$gene_name[
+      is.na(xpclr_fst_df$gene_name) |
+        xpclr_fst_df$gene_name == ""
+    ] <- xpclr_fst_df$gene_symbol[
+      is.na(xpclr_fst_df$gene_name) |
+        xpclr_fst_df$gene_name == ""
     ]
     
     xpclr_fst_df <- xpclr_fst_df[, c(
-      "Comparison",
-      "Gene_ID",
-      "Gene_Symbol",
-      "Gene_Name"
+      "comparison",
+      "gene_ID",
+      "gene_symbol",
+      "gene_name"
     )]
     
     all_xpclr_fst <- rbind(
@@ -301,30 +303,30 @@ for(th_name in names(thresholds)){
     )
     
     shared_df <- data.frame(
-      Comparison = comp,
-      Gene_ID = shared_all
+      comparison = comp,
+      gene_ID = shared_all
     )
     
     shared_df <- merge(
       shared_df,
       annotations,
-      by = "Gene_ID",
+      by = "gene_ID",
       all.x = TRUE
     )
     
-    shared_df$Gene_Name[
-      is.na(shared_df$Gene_Name) |
-        shared_df$Gene_Name == ""
-    ] <- shared_df$Gene_Symbol[
-      is.na(shared_df$Gene_Name) |
-        shared_df$Gene_Name == ""
+    shared_df$gene_name[
+      is.na(shared_df$gene_name) |
+        shared_df$gene_name == ""
+    ] <- shared_df$gene_symbol[
+      is.na(shared_df$gene_name) |
+        shared_df$gene_name == ""
     ]
     
     shared_df <- shared_df[, c(
-      "Comparison",
-      "Gene_ID",
-      "Gene_Symbol",
-      "Gene_Name"
+      "comparison",
+      "gene_ID",
+      "gene_symbol",
+      "gene_name"
     )]
     
     all_shared <- rbind(
@@ -340,20 +342,12 @@ for(th_name in names(thresholds)){
       "\n"
     )
     
-    cat(
-      "XPCLR genes:",
-      length(xpclr_genes),
-      " Shared all:",
-      length(shared_all),
-      "\n"
-    )
-    
     summary_stats <- rbind(
       summary_stats,
       
       data.frame(
-        Threshold = th_name,
-        Comparison = comp,
+        threshold = th_name,
+        comparison = comp,
         
         XPCLR_genes = length(xpclr_genes),
         
@@ -363,7 +357,7 @@ for(th_name in names(thresholds)){
         
         XPCLR_FST_shared = length(shared_xpclr_fst),
         
-        Shared_all = length(shared_all)
+        shared_all = length(shared_all)
       )
     )
   }

@@ -87,6 +87,7 @@ analyze_regions <- function(
   )
   
   region_table <- data.frame(
+    
     chromosome = as.character(
       seqnames(candidate_regions)
     ),
@@ -99,7 +100,7 @@ analyze_regions <- function(
       candidate_regions
     ),
     
-    SNP_count = as.numeric(
+    snp_count = as.numeric(
       region_snp_count
     )
   )
@@ -110,34 +111,37 @@ analyze_regions <- function(
   
   stats <- data.frame(
     
-    N_regions =
+    top_windows =
+      nrow(top_df),
+    
+    n_regions =
       length(candidate_regions),
     
-    Mean_kb =
+    mean_kb =
       round(
-        mean(region_lengths)/1000,
+        mean(region_lengths) / 1000,
         2
       ),
     
-    Median_kb =
+    median_kb =
       round(
-        median(region_lengths)/1000,
+        median(region_lengths) / 1000,
         2
       ),
     
-    Max_kb =
+    max_kb =
       round(
-        max(region_lengths)/1000,
+        max(region_lengths) / 1000,
         2
       ),
     
-    Total_Mb =
+    total_mb =
       round(
-        sum(region_lengths)/1e6,
+        sum(region_lengths) / 1e6,
         3
       ),
     
-    Genome_percent =
+    genome_percent =
       round(
         100 *
           sum(region_lengths) /
@@ -159,6 +163,8 @@ for(th_name in names(thresholds)){
   threshold_value <- thresholds[[th_name]]
   
   results <- data.frame()
+  
+  all_regions <- data.frame()
   
   threshold_dir <- paste0(
     output_dir,
@@ -196,44 +202,41 @@ for(th_name in names(thresholds)){
     
     stats <- res$stats
     
-    stats$Comparison <- comp
+    stats$comparison <- comp
     
-    stats$Threshold <- th_name
+    stats$threshold <- th_name
     
     results <- rbind(
       results,
       stats
     )
     
-    fwrite(
-      res$regions,
-      
-      paste0(
-        threshold_dir,
-        "/",
-        comp,
-        "_",
-        th_name,
-        "_regions.csv"
-      )
+    region_df <- res$regions
+    
+    region_df$comparison <- comp
+    
+    all_regions <- rbind(
+      all_regions,
+      region_df
     )
     
     cat(
       "Regions:",
-      stats$N_regions,
+      stats$n_regions,
       "\n"
     )
   }
   
   results <- results[, c(
-    "Comparison",
-    "Threshold",
-    "N_regions",
-    "Mean_kb",
-    "Median_kb",
-    "Max_kb",
-    "Total_Mb",
-    "Genome_percent"
+    "comparison",
+    "threshold",
+    "top_windows",
+    "n_regions",
+    "mean_kb",
+    "median_kb",
+    "max_kb",
+    "total_mb",
+    "genome_percent"
   )]
   
   fwrite(
@@ -244,6 +247,25 @@ for(th_name in names(thresholds)){
       "/XPCLR_",
       th_name,
       "_region_statistics.csv"
+    )
+  )
+  
+  all_regions <- all_regions[, c(
+    "comparison",
+    "chromosome",
+    "region_start",
+    "region_end",
+    "snp_count"
+  )]
+  
+  fwrite(
+    all_regions,
+    
+    paste0(
+      threshold_dir,
+      "/XPCLR_",
+      th_name,
+      "_regions.csv"
     )
   )
 }
