@@ -223,8 +223,8 @@ for(th_name in names(thresholds)){
     support_table <- data.frame(
       comparison = comp,
       gene_ID = xpclr_genes,
-      fst = xpclr_genes %in% fst_genes,
-      xp_ehh = xpclr_genes %in% xpehh_genes
+      FST = xpclr_genes %in% fst_genes,
+      XP_EHH = xpclr_genes %in% xpehh_genes
     )
     
     support_table <- merge(
@@ -247,8 +247,8 @@ for(th_name in names(thresholds)){
       "gene_ID",
       "gene_symbol",
       "gene_name",
-      "fst",
-      "xp_ehh"
+      "FST",
+      "XP_EHH"
     )]
     
     all_support <- rbind(
