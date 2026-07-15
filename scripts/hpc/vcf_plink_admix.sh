@@ -21,5 +21,5 @@ plink --bfile /home/jl430796/MaizePop/data/processed/01_admix/all_lines/chr_all_
 plink --bfile /home/jl430796/MaizePop/data/processed/01_admix/all_lines/chr_all_plink_1 \
   --extract /home/jl430796/MaizePop/data/processed/01_admix/all_lines/chr_all_plink_2.prune.in \
   --thin-count 50000 --make-bed \
-  --out /home/jl430796/MaizePop/data/processed/01_admix/all_lines//chr_all_plink_admix
+  --out /home/jl430796/MaizePop/data/processed/01_admix/all_lines/chr_all_plink_admix
 
