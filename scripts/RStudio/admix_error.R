@@ -1,6 +1,6 @@
 library(ggplot2)
 
-log_files <- paste0("C:/Users/kjlis/Desktop/admix/log", 2:15, ".txt")
+log_files <- paste0("C:/Users/kjlis/Desktop/admix_all_lines/log", 2:15, ".txt")
 
 get_cv <- function(file) {
   line <- grep("CV error", readLines(file), value = TRUE)
