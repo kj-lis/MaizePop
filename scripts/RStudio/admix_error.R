@@ -1,6 +1,6 @@
 library(ggplot2)
 
-log_files <- paste0("C:/Users/kjlis/Desktop/admix_all_lines/log", 2:15, ".txt")
+log_files <- paste0("C:/Users/kjlis/Desktop/admix_all_lines/log", 2:20, ".txt")
 
 get_cv <- function(file) {
   line <- grep("CV error", readLines(file), value = TRUE)
@@ -8,7 +8,7 @@ get_cv <- function(file) {
 }
 
 cv_values <- sapply(log_files, get_cv)
-K <- 2:15
+K <- 2:20
 cv_df <- data.frame(K = K, CV_error = cv_values)
 
 min_idx <- which.min(cv_df$CV_error)
