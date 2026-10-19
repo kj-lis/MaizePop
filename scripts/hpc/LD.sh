@@ -5,7 +5,7 @@
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=5G
 #SBATCH --time=48:00:00
-#SBATCH --account=g102-2488
+#SBATCH --account=g107-2927
 #SBATCH --partition=okeanos
 #SBATCH --output=/home/jl430796/MaizePop/logs/LD.%A_%a.out
 #SBATCH --error=/home/jl430796/MaizePop/logs/LD.%A_%a.err
