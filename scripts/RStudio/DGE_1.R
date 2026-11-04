@@ -9,6 +9,7 @@ library(edgeR)
 library(limma)
 library(ggplot2)
 library(pheatmap)
+library(rhdf5)
 
 # ============================================================
 # 2. SCIEZKI DO PLIKOW
@@ -30,18 +31,21 @@ dir.create(
 stopifnot(dir.exists(kallisto_dir))
 stopifnot(file.exists(metadata_file))
 
-
 # ============================================================
 # 3. WCZYTANIE METADANYCH
 # ============================================================
 
-metadata <- read.csv(
+metadata <- read.csv2(
   metadata_file,
   stringsAsFactors = FALSE,
   check.names = FALSE
 )
 
-# Sprawdzenie wymaganych kolumn
+colnames(metadata) <- trimws(colnames(metadata))
+
+colnames(metadata)
+head(metadata)
+
 required_cols <- c(
   "sample",
   "condition",
@@ -54,52 +58,22 @@ stopifnot(
 )
 
 metadata$sample <- trimws(metadata$sample)
-metadata$ID <- trimws(metadata$ID)
-metadata$condition <- trimws(metadata$condition)
-metadata$era <- trimws(metadata$era)
+metadata$ID <- factor(trimws(metadata$ID))
 
-stopifnot(
-  !anyNA(metadata[, required_cols]),
-  !anyDuplicated(metadata$sample),
-  all(nzchar(metadata$sample)),
-  all(nzchar(metadata$ID))
-)
-
-# Ustawienie zmiennych
 metadata$condition <- factor(
-  metadata$condition,
+  trimws(metadata$condition),
   levels = c("control", "cold", "chilling")
 )
 
-metadata$ID <- factor(metadata$ID)
-metadata$era <- factor(metadata$era)
+metadata$era <- factor(trimws(metadata$era))
 
-stopifnot(!anyNA(metadata$condition))
-
-# Podglad danych
 head(metadata)
-
-# Liczba probek w warunkach
 table(metadata$condition)
-
-# Liczba probek wedlug era
 table(metadata$era, metadata$condition)
 
-# Sprawdzenie ukladu genotypow
-table(metadata$ID, metadata$condition)
-
-
 # ============================================================
-# 4. AUTOMATYCZNE WYKRYWANIE FOLDEROW KALLISTO
+# 4. PLIKI KALLISTO
 # ============================================================
-
-# Przykladowe foldery:
-# 2FACC_control/
-# 2FACC_cold/
-# 2FACC_chilling/
-# 78004_control/
-# 78004_cold/
-# 78004_chilling/
 
 sample_dirs <- list.dirs(
   kallisto_dir,
@@ -109,95 +83,53 @@ sample_dirs <- list.dirs(
 
 sample_ids <- basename(sample_dirs)
 
-# Kazdy folder zawiera abundance.tsv
-files <- file.path(
-  sample_dirs,
-  "abundance.tsv"
-)
-
+files <- file.path(sample_dirs, "abundance.h5")
 names(files) <- sample_ids
 
-# Kontrola obecnosci plikow
-if (!all(file.exists(files))) {
-  stop(
-    "Brak abundance.tsv w folderach: ",
-    paste(
-      sample_ids[!file.exists(files)],
-      collapse = ", "
-    )
-  )
-}
-
-# Kontrola zgodnosci z metadanymi
-missing_samples <- setdiff(
-  metadata$sample,
-  names(files)
+stopifnot(
+  all(file.exists(files))
 )
 
-extra_samples <- setdiff(
-  names(files),
-  metadata$sample
+cat(
+  "Probki w metadata bez plikow kallisto:\n"
+)
+print(setdiff(metadata$sample, names(files)))
+
+cat(
+  "Pliki kallisto bez probek w metadata:\n"
+)
+print(setdiff(names(files), metadata$sample))
+
+stopifnot(
+  setequal(metadata$sample, names(files))
 )
 
-if (length(missing_samples) > 0) {
-  stop(
-    "Brak wynikow kallisto dla: ",
-    paste(missing_samples, collapse = ", ")
-  )
-}
-
-if (length(extra_samples) > 0) {
-  warning(
-    "Dodatkowe foldery, nieobecne w metadanych: ",
-    paste(extra_samples, collapse = ", ")
-  )
-}
-
-# Uporzadkowanie zgodnie z metadanymi
 files <- files[metadata$sample]
 
 stopifnot(
-  all(file.exists(files)),
   identical(names(files), metadata$sample)
 )
 
 print(files)
 
+cat(
+  "Liczba plikow H5:",
+  length(files), "\n"
+)
 
 # ============================================================
-# 5. AUTOMATYCZNE TWORZENIE TX2GENE
+# 5. TWORZENIE TX2GENE
 # ============================================================
 
-# Przyklad:
-# Zm00001eb033650_T002 -> Zm00001eb033650
-
-example_abundance <- read.delim(
+transcript_ids <- rhdf5::h5read(
   files[1],
-  stringsAsFactors = FALSE
+  "aux/ids"
 )
 
 stopifnot(
-  "target_id" %in% colnames(example_abundance)
+  all(grepl("_T[0-9]+$", transcript_ids))
 )
 
-transcript_ids <- example_abundance$target_id
-
-# Sprawdzenie formatu identyfikatorow
-valid_ids <- grepl(
-  "_T[0-9]+$",
-  transcript_ids
-)
-
-if (!all(valid_ids)) {
-  stop(
-    "Nie wszystkie identyfikatory pasuja do _T001. ",
-    "Sprawdz nazwy transkryptow."
-  )
-}
-
-stopifnot(!anyDuplicated(transcript_ids))
-
-# Usuniecie koncowki transkryptu
 gene_ids <- sub(
   "_T[0-9]+$",
   "",
@@ -206,26 +138,14 @@ gene_ids <- sub(
 
 tx2gene <- data.frame(
   TXNAME = transcript_ids,
-  GENEID = gene_ids
+  GENEID = gene_ids,
+  stringsAsFactors = FALSE
 )
 
-# Kontrola identyfikatorow w pozostalych probkach
-for (f in files[-1]) {
-  ids <- read.delim(
-    f,
-    stringsAsFactors = FALSE
-  )$target_id
-  
-  if (!setequal(ids, transcript_ids)) {
-    stop(
-      "Niezgodne identyfikatory transkryptow: ",
-      f
-    )
-  }
-}
-
-# Podglad
-head(tx2gene)
+stopifnot(
+  !anyDuplicated(tx2gene$TXNAME),
+  !anyNA(tx2gene)
+)
 
 cat(
   "Liczba transkryptow:",
@@ -237,13 +157,32 @@ cat(
   length(unique(tx2gene$GENEID)), "\n"
 )
 
-# Zapis mapowania
-write.csv(
-  tx2gene,
-  file.path(output_dir, "tx2gene_generated.csv"),
-  row.names = FALSE
+head(tx2gene)
+
+for (f in files[-1]) {
+  
+  ids <- rhdf5::h5read(
+    f,
+    "aux/ids"
+  )
+  
+  if (!setequal(ids, transcript_ids)) {
+    stop(
+      "Niezgodne identyfikatory transkryptow w pliku: ",
+      f
+    )
+  }
+}
+
+cat(
+  "Wszystkie probki zawieraja zgodny zestaw transkryptow.\n"
 )
 
+write.csv(
+  tx2gene,
+  file.path(output_dir, "tx2gene.csv"),
+  row.names = FALSE
+)
 
 # ============================================================
 # 6. IMPORT KALLISTO NA POZIOMIE GENOW
@@ -253,7 +192,8 @@ txi <- tximport(
   files = files,
   type = "kallisto",
   tx2gene = tx2gene,
-  countsFromAbundance = "lengthScaledTPM"
+  countsFromAbundance = "lengthScaledTPM",
+  dropInfReps = TRUE
 )
 
 counts <- txi$counts
@@ -274,12 +214,10 @@ cat(
 
 head(counts)
 
-# Zapis macierzy
 write.csv(
   counts,
   file.path(output_dir, "gene_counts.csv")
 )
-
 
 # ============================================================
 # 7. PRZYGOTOWANIE MODELU LIMMA
@@ -293,7 +231,6 @@ design <- model.matrix(
 
 print(colnames(design))
 
-# Sprawdzenie pelnego rzedu
 if (qr(design)$rank < ncol(design)) {
   stop(
     "Model nie ma pelnego rzedu. ",
@@ -301,7 +238,6 @@ if (qr(design)$rank < ncol(design)) {
   )
 }
 
-# Sprawdzenie stopni swobody
 residual_df <- nrow(design) - qr(design)$rank
 
 cat(
@@ -312,7 +248,6 @@ cat(
 if (residual_df <= 0) {
   stop("Brak stopni swobody resztowych.")
 }
-
 
 # ============================================================
 # 8. FILTROWANIE GENOW
@@ -347,7 +282,6 @@ dge <- dge[
   keep.lib.sizes = FALSE
 ]
 
-
 # ============================================================
 # 9. NORMALIZACJA TMM
 # ============================================================
@@ -357,7 +291,6 @@ dge <- calcNormFactors(
   method = "TMM"
 )
 
-# Znormalizowane logCPM
 logCPM <- cpm(
   dge,
   log = TRUE,
@@ -368,7 +301,6 @@ write.csv(
   logCPM,
   file.path(output_dir, "logCPM.csv")
 )
-
 
 # ============================================================
 # 10. VOOM
@@ -386,7 +318,6 @@ v <- voom(
 
 dev.off()
 
-
 # ============================================================
 # 11. LIMMA - DOPASOWANIE MODELU
 # ============================================================
@@ -395,7 +326,6 @@ fit <- lmFit(
   v,
   design
 )
-
 
 # ============================================================
 # 12. KONTRASTY
@@ -422,7 +352,6 @@ fit_contrasts <- eBayes(
   fit_contrasts
 )
 
-
 # ============================================================
 # 13. WYNIKI LIMMA
 # ============================================================
@@ -447,7 +376,6 @@ results_cold_chilling <- topTable(
   number = Inf,
   adjust.method = "BH"
 )
-
 
 # ============================================================
 # 14. IDENTYFIKACJA DEG
@@ -483,15 +411,12 @@ cat(
   nrow(deg_cold_chilling), "\n"
 )
 
-
 # ============================================================
 # 15. COEFFICIENTS I STANDARD ERRORS
 # ============================================================
 
-# Log2 fold changes dla kontrastow
 Bhat <- fit_contrasts$coefficients
 
-# Niemoderowane standard errors
 Shat <- sweep(
   fit_contrasts$stdev.unscaled,
   1,
@@ -503,7 +428,6 @@ stopifnot(
   identical(dim(Bhat), dim(Shat))
 )
 
-# Zapis do dalszej analizy mashr
 write.csv(
   Bhat,
   file.path(output_dir, "coefficients.csv")
@@ -513,7 +437,6 @@ write.csv(
   Shat,
   file.path(output_dir, "standard_errors.csv")
 )
-
 
 # ============================================================
 # 16. ZAPIS WYNIKOW DEG
@@ -548,7 +471,6 @@ write.csv(
   deg_cold_chilling,
   file.path(output_dir, "DEG_cold_chilling.csv")
 )
-
 
 # ============================================================
 # 17. PCA
@@ -602,7 +524,6 @@ ggsave(
   width = 8,
   height = 6
 )
-
 
 # ============================================================
 # 18. VOLCANO PLOTS
@@ -673,7 +594,6 @@ plot_volcano(
   "volcano_cold_chilling.png"
 )
 
-
 # ============================================================
 # 19. HEATMAPA
 # ============================================================
@@ -710,7 +630,6 @@ pheatmap(
   height = 9
 )
 
-
 # ============================================================
 # 20. ZAPIS OBIEKTOW R
 # ============================================================
@@ -729,7 +648,6 @@ saveRDS(
   ),
   file.path(output_dir, "limma_objects.rds")
 )
-
 
 # ============================================================
 # 21. PODSUMOWANIE
