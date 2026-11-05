@@ -1,75 +1,68 @@
-
 # ============================================================
-# ANALIZA MASHR: CONDITION + ERA
+# ANALIZA DGE: MASHR (condition + era)
 # ============================================================
 
 # PAKIETY
 
+library(tximport)
+library(rhdf5)
 library(edgeR)
 library(limma)
 library(mashr)
+library(ggplot2)
+library(pheatmap)
+
 
 # ============================================================
-# 1. SCIEZKI DO PLIKOW
+# 1. SCIEZKI
 # ============================================================
 
 project_dir <- "/home/kuba/Desktop/DGE"
 
-limma_dir <- file.path(
+metadata_file <- file.path(
   project_dir,
-  "results_limma"
+  "DGE_metadane",
+  "DGE_metadane.csv"
 )
 
-output_dir_mashr <- file.path(
+kallisto_dir <- file.path(
+  project_dir,
+  "DGE_kallisto"
+)
+
+output_dir <- file.path(
   project_dir,
   "results_mashr"
 )
 
 dir.create(
-  output_dir_mashr,
+  output_dir,
   recursive = TRUE,
   showWarnings = FALSE
 )
 
-limma_rds <- file.path(
-  limma_dir,
-  "limma_objects.rds"
-)
-
-stopifnot(file.exists(limma_rds))
-
-cat("Folder wynikow mashr:\n")
-print(output_dir_mashr)
-
-# ============================================================
-# 2. WCZYTANIE OBIEKTOW Z LIMMA
-# ============================================================
-
-limma_objects <- readRDS(limma_rds)
-
-metadata <- limma_objects$metadata
-counts <- limma_objects$counts
-
 stopifnot(
-  !is.null(metadata),
-  !is.null(counts)
+  file.exists(metadata_file),
+  dir.exists(kallisto_dir)
 )
 
-cat("\nLiczba genow przed filtrowaniem:\n")
-print(nrow(counts))
+cat("\nFolder wynikowy:\n")
+print(output_dir)
 
-cat("\nLiczba probek:\n")
-print(ncol(counts))
-
-cat("\nPierwsze wiersze metadata:\n")
-print(head(metadata))
-
-cat("\nPierwsze wiersze counts:\n")
-print(head(counts))
 
 # ============================================================
-# 3. PRZYGOTOWANIE METADATA
+# 3. WCZYTANIE METADANYCH
 # ============================================================
+
+metadata <- read.csv2(
+  metadata_file,
+  stringsAsFactors = FALSE,
+  check.names = FALSE
+)
+
+colnames(metadata) <- trimws(
+  colnames(metadata)
+)
 
 required_cols <- c(
   "sample",
@@ -86,63 +79,203 @@ metadata$sample <- trimws(
   as.character(metadata$sample)
 )
 
-metadata$ID <- factor(
-  trimws(as.character(metadata$ID))
+metadata$ID <- trimws(
+  as.character(metadata$ID)
 )
 
-metadata$condition <- factor(
-  trimws(as.character(metadata$condition)),
-  levels = c("control", "cold", "chilling")
+metadata$condition <- trimws(
+  as.character(metadata$condition)
 )
 
 metadata$era <- trimws(
   as.character(metadata$era)
 )
 
+# Puste pola i NA w era pozostaja w analizie
+# jako osobna kategoria techniczna.
+
 metadata$era[
-  is.na(metadata$era) | metadata$era == ""
+  is.na(metadata$era) |
+    metadata$era == ""
 ] <- "Unknown"
 
-metadata$era <- factor(
-  metadata$era,
-  levels = c("I", "II", "Unknown")
-)
+# Kontrola wartosci przed zamiana na factor
 
 stopifnot(
   !anyNA(metadata$sample),
   !anyNA(metadata$ID),
   !anyNA(metadata$condition),
-  !anyNA(metadata$era),
+  !any(metadata$sample == ""),
+  !any(metadata$ID == ""),
   !anyDuplicated(metadata$sample),
-  identical(colnames(counts), metadata$sample)
+  all(metadata$condition %in%
+        c("control", "cold", "chilling")),
+  all(metadata$era %in%
+        c("I", "II", "Unknown"))
 )
 
-cat("\nLiczba wszystkich probek:\n")
+metadata$ID <- factor(metadata$ID)
+
+metadata$condition <- factor(
+  metadata$condition,
+  levels = c(
+    "control",
+    "cold",
+    "chilling"
+  )
+)
+
+metadata$era <- factor(
+  metadata$era,
+  levels = c(
+    "I",
+    "II",
+    "Unknown"
+  )
+)
+
+cat("\nLiczba probek:\n")
 print(nrow(metadata))
 
-cat("\nLiczba probek wedlug condition:\n")
+cat("\nCondition:\n")
 print(table(metadata$condition))
 
-cat("\nLiczba probek wedlug era:\n")
-print(table(metadata$era, useNA = "always"))
+cat("\nEra:\n")
+print(table(metadata$era))
 
-cat("\nTabela era x condition:\n")
-print(table(metadata$era, metadata$condition))
+cat("\nEra x condition:\n")
+print(table(
+  metadata$era,
+  metadata$condition
+))
 
-cat("\nTabela ID x condition:\n")
-print(table(metadata$ID, metadata$condition))
+cat("\nID x condition:\n")
+print(table(
+  metadata$ID,
+  metadata$condition
+))
 
-cat("\nPierwsze wiersze metadata:\n")
-print(head(metadata))
-
-stopifnot(
-  nrow(metadata) == ncol(counts)
+write.csv(
+  metadata,
+  file.path(
+    output_dir,
+    "metadata_used.csv"
+  ),
+  row.names = FALSE
 )
 
-cat("\nMetadata przygotowane poprawnie.\n")
 
 # ============================================================
-# 4. MODEL CONDITION + ERA
+# 4. PLIKI KALLISTO
+# ============================================================
+
+files <- file.path(
+  kallisto_dir,
+  metadata$sample,
+  "abundance.h5"
+)
+
+names(files) <- metadata$sample
+
+missing_files <- files[
+  !file.exists(files)
+]
+
+if (length(missing_files) > 0) {
+  stop(
+    "Brakuje plikow abundance.h5:\n",
+    paste(
+      missing_files,
+      collapse = "\n"
+    )
+  )
+}
+
+cat("\nLiczba plikow kallisto:\n")
+print(length(files))
+
+
+# ============================================================
+# 5. TRANSCRIPT-TO-GENE
+# ============================================================
+
+transcript_ids <- rhdf5::h5read(
+  files[1],
+  "aux/ids"
+)
+
+transcript_ids <- as.character(
+  transcript_ids
+)
+
+gene_ids <- sub(
+  "_T[0-9]+$",
+  "",
+  transcript_ids
+)
+
+tx2gene <- data.frame(
+  TXNAME = transcript_ids,
+  GENEID = gene_ids,
+  stringsAsFactors = FALSE
+)
+
+stopifnot(
+  !anyNA(tx2gene$TXNAME),
+  !anyNA(tx2gene$GENEID),
+  !anyDuplicated(tx2gene$TXNAME)
+)
+
+write.csv(
+  tx2gene,
+  file.path(
+    output_dir,
+    "tx2gene.csv"
+  ),
+  row.names = FALSE
+)
+
+
+# ============================================================
+# 6. IMPORT KALLISTO PRZEZ TXIMPORT
+# ============================================================
+
+cat("\nImport kallisto...\n")
+
+txi <- tximport(
+  files = files,
+  type = "kallisto",
+  tx2gene = tx2gene,
+  countsFromAbundance = "lengthScaledTPM",
+  dropInfReps = TRUE
+)
+
+counts <- txi$counts
+
+stopifnot(
+  identical(
+    colnames(counts),
+    metadata$sample
+  ),
+  !anyNA(counts),
+  all(is.finite(counts)),
+  all(counts >= 0)
+)
+
+cat("\nWymiary macierzy counts:\n")
+print(dim(counts))
+
+write.csv(
+  counts,
+  file.path(
+    output_dir,
+    "counts_all_genes.csv"
+  )
+)
+
+
+# ============================================================
+# 7. MACIERZ MODELU
 # ============================================================
 
 design_mash <- model.matrix(
@@ -150,34 +283,30 @@ design_mash <- model.matrix(
   data = metadata
 )
 
-cat("\nKolumny modelu:\n")
+rownames(design_mash) <- metadata$sample
+
+cat("\nWspolczynniki modelu:\n")
 print(colnames(design_mash))
 
-cat("\nPierwsze wiersze modelu:\n")
-print(head(design_mash))
+cat("\nRzad macierzy modelu:\n")
+print(qr(design_mash)$rank)
 
-if (qr(design_mash)$rank < ncol(design_mash)) {
-  stop("Model condition + era nie ma pelnego rzedu.")
-}
-
-residual_df <- nrow(design_mash) - qr(design_mash)$rank
-
-cat(
-  "\nResidual degrees of freedom:",
-  residual_df, "\n"
+stopifnot(
+  qr(design_mash)$rank ==
+    ncol(design_mash)
 )
-
-if (residual_df <= 0) {
-  stop("Brak stopni swobody resztowych.")
-}
 
 write.csv(
   design_mash,
-  file.path(output_dir_mashr, "design_condition_era.csv")
+  file.path(
+    output_dir,
+    "design_matrix.csv"
+  )
 )
 
+
 # ============================================================
-# 5. FILTROWANIE GENOW
+# 8. FILTROWANIE GENOW
 # ============================================================
 
 dge_mash <- DGEList(
@@ -189,19 +318,40 @@ keep_mash <- filterByExpr(
   design = design_mash
 )
 
-cat(
-  "\nGeny przed filtrowaniem:",
-  nrow(dge_mash), "\n"
-)
+cat("\nGeny przed filtrowaniem:\n")
+print(nrow(dge_mash))
 
-cat(
-  "Geny po filtrowaniu:",
-  sum(keep_mash), "\n"
-)
+cat("\nGeny po filtrowaniu:\n")
+print(sum(keep_mash))
+
+cat("\nGeny odfiltrowane:\n")
+print(sum(!keep_mash))
+
+cat("\nProcent zachowanych genow:\n")
+print(round(
+  100 * mean(keep_mash),
+  2
+))
 
 if (sum(keep_mash) < 2) {
-  stop("Zbyt malo genow po filtrowaniu.")
+  stop(
+    "Zbyt malo genow po filtrowaniu."
+  )
 }
+
+filtering_results <- data.frame(
+  gene = rownames(dge_mash),
+  retained = as.logical(keep_mash)
+)
+
+write.csv(
+  filtering_results,
+  file.path(
+    output_dir,
+    "gene_filtering_results.csv"
+  ),
+  row.names = FALSE
+)
 
 dge_mash <- dge_mash[
   keep_mash,
@@ -209,8 +359,9 @@ dge_mash <- dge_mash[
   keep.lib.sizes = FALSE
 ]
 
+
 # ============================================================
-# 6. NORMALIZACJA TMM
+# 9. NORMALIZACJA TMM
 # ============================================================
 
 dge_mash <- calcNormFactors(
@@ -218,37 +369,51 @@ dge_mash <- calcNormFactors(
   method = "TMM"
 )
 
-logCPM_mash <- cpm(
-  dge_mash,
-  log = TRUE,
-  prior.count = 2
+normalization_info <- data.frame(
+  sample = colnames(dge_mash),
+  lib.size = dge_mash$samples$lib.size,
+  norm.factors = dge_mash$samples$norm.factors,
+  effective.lib.size =
+    dge_mash$samples$lib.size *
+    dge_mash$samples$norm.factors
 )
 
 write.csv(
-  logCPM_mash,
-  file.path(output_dir_mashr, "logCPM_mashr.csv")
+  normalization_info,
+  file.path(
+    output_dir,
+    "normalization_factors.csv"
+  ),
+  row.names = FALSE
 )
 
+write.csv(
+  dge_mash$counts,
+  file.path(
+    output_dir,
+    "counts_filtered.csv"
+  )
+)
+
+
 # ============================================================
-# 7. VOOM - WSTEPNE WAGI
+# 10. WSTEPNE VOOM
 # ============================================================
 
-# Pierwsze voom potrzebne do oszacowania
-# korelacji pomiarow tego samego ID.
+cat("\nWstepne voom...\n")
 
 v_initial <- voom(
   dge_mash,
-  design_mash,
+  design = design_mash,
   plot = FALSE
 )
 
+
 # ============================================================
-# 8. KORELACJA POWTARZANYCH POMIAROW
+# 11. DUPLICATECORRELATION
 # ============================================================
 
-# ID jest blokiem powtarzanych pomiarow.
-# Nie dodajemy ID jako efektu stalego,
-# poniewaz era jest przypisana do ID.
+cat("\nEstymacja korelacji wewnatrz ID...\n")
 
 corfit <- duplicateCorrelation(
   v_initial,
@@ -258,30 +423,46 @@ corfit <- duplicateCorrelation(
 
 rho <- corfit$consensus.correlation
 
-cat("\nKorelacja pomiarow w ramach ID:\n")
-print(rho)
-
-if (!is.finite(rho)) {
-  stop("Nie udalo sie oszacowac korelacji ID.")
+if (
+  length(rho) != 1 ||
+  !is.finite(rho)
+) {
+  stop(
+    "Nie udalo sie oszacowac korelacji ID."
+  )
 }
 
+cat("\nConsensus correlation:\n")
+print(rho)
+
 write.csv(
-  data.frame(consensus_correlation = rho),
-  file.path(output_dir_mashr, "duplicate_correlation.csv"),
+  data.frame(
+    consensus_correlation = rho
+  ),
+  file.path(
+    output_dir,
+    "duplicateCorrelation.csv"
+  ),
   row.names = FALSE
 )
 
+
 # ============================================================
-# 9. VOOM Z UWZGLEDNIENIEM KORELACJI
+# 12. VOOM Z KORELACJA
 # ============================================================
 
 pdf(
-  file.path(output_dir_mashr, "voom_plot_mashr.pdf")
+  file.path(
+    output_dir,
+    "voom_mean_variance.pdf"
+  ),
+  width = 8,
+  height = 6
 )
 
 v_mash <- voom(
   dge_mash,
-  design_mash,
+  design = design_mash,
   block = metadata$ID,
   correlation = rho,
   plot = TRUE
@@ -289,13 +470,22 @@ v_mash <- voom(
 
 dev.off()
 
+write.csv(
+  v_mash$E,
+  file.path(
+    output_dir,
+    "voom_logCPM.csv"
+  )
+)
+
+
 # ============================================================
-# 10. DOPASOWANIE MODELU LIMMA
+# 13. DOPASOWANIE MODELU LIMMA
 # ============================================================
 
 fit_mash <- lmFit(
   v_mash,
-  design_mash,
+  design = design_mash,
   block = metadata$ID,
   correlation = rho
 )
@@ -304,50 +494,11 @@ fit_mash_ebayes <- eBayes(
   fit_mash
 )
 
-cat("\nWspolczynniki modelu:\n")
-print(colnames(fit_mash$coefficients))
+cat("\nModel limma dopasowany.\n")
+
 
 # ============================================================
-# 11. WYCIAGNIECIE COEFFICIENTS I SE
-# ============================================================
-
-# Wszystkie wspolczynniki modelu:
-# intercept, condition i era.
-
-Bhat_all <- fit_mash$coefficients
-
-# Niemoderowane SE z modelu limma.
-# To one beda wejsciem do mashr.
-
-Shat_all <- sweep(
-  fit_mash$stdev.unscaled,
-  1,
-  fit_mash$sigma,
-  FUN = "*"
-)
-
-stopifnot(
-  identical(dim(Bhat_all), dim(Shat_all))
-)
-
-cat("\nPierwsze coefficients:\n")
-print(head(Bhat_all))
-
-cat("\nPierwsze standard errors:\n")
-print(head(Shat_all))
-
-write.csv(
-  Bhat_all,
-  file.path(output_dir_mashr, "coefficients_all.csv")
-)
-
-write.csv(
-  Shat_all,
-  file.path(output_dir_mashr, "standard_errors_all.csv")
-)
-
-# ============================================================
-# 12. WYBOR EFEKTOW CONDITION DO MASHR
+# 14. WYNIKI LIMMA
 # ============================================================
 
 condition_coefs <- c(
@@ -356,7 +507,22 @@ condition_coefs <- c(
 )
 
 stopifnot(
-  all(condition_coefs %in% colnames(Bhat_all))
+  all(
+    condition_coefs %in%
+      colnames(fit_mash$coefficients)
+  )
+)
+
+# Efekty i ich bledy standardowe
+# do dalszej analizy mashr.
+
+Bhat_all <- fit_mash$coefficients
+
+Shat_all <- sweep(
+  fit_mash$stdev.unscaled,
+  1,
+  fit_mash$sigma,
+  "*"
 )
 
 Bhat <- Bhat_all[
@@ -373,80 +539,169 @@ Shat <- Shat_all[
 
 stopifnot(
   identical(dim(Bhat), dim(Shat)),
-  identical(rownames(Bhat), rownames(Shat)),
   all(is.finite(Bhat)),
   all(is.finite(Shat)),
   all(Shat > 0)
 )
 
-cat("\nWymiary Bhat:\n")
-print(dim(Bhat))
-
-cat("\nWymiary Shat:\n")
-print(dim(Shat))
-
-cat("\nPierwsze Bhat:\n")
-print(head(Bhat))
-
-cat("\nPierwsze Shat:\n")
-print(head(Shat))
-
 write.csv(
   Bhat,
-  file.path(output_dir_mashr, "Bhat_condition.csv")
+  file.path(
+    output_dir,
+    "mashr_input_Bhat.csv"
+  )
 )
 
 write.csv(
   Shat,
-  file.path(output_dir_mashr, "Shat_condition.csv")
-)
-
-# ============================================================
-# 13. WYNIKI LIMMA DLA MODELU CONDITION + ERA
-# ============================================================
-
-results_cold_mash <- topTable(
-  fit_mash_ebayes,
-  coef = "conditioncold",
-  number = Inf,
-  adjust.method = "BH"
-)
-
-results_chilling_mash <- topTable(
-  fit_mash_ebayes,
-  coef = "conditionchilling",
-  number = Inf,
-  adjust.method = "BH"
+  file.path(
+    output_dir,
+    "mashr_input_Shat.csv"
+  )
 )
 
 write.csv(
-  results_cold_mash,
-  file.path(output_dir_mashr, "limma_cold_vs_control.csv")
+  Bhat_all,
+  file.path(
+    output_dir,
+    "limma_all_coefficients.csv"
+  )
 )
 
 write.csv(
-  results_chilling_mash,
-  file.path(output_dir_mashr, "limma_chilling_vs_control.csv")
+  Shat_all,
+  file.path(
+    output_dir,
+    "limma_all_SE.csv"
+  )
 )
 
-cat("\nDEG limma cold vs control:\n")
-print(sum(results_cold_mash$adj.P.Val < 0.05, na.rm = TRUE))
-
-cat("\nDEG limma chilling vs control:\n")
-print(sum(results_chilling_mash$adj.P.Val < 0.05, na.rm = TRUE))
 
 # ============================================================
-# 14. PRZYBLIZONA KORELACJA BLEDOW
+# 15. KONTRASTY I DEG Z LIMMA
 # ============================================================
 
-# Dwa efekty condition korzystaja ze wspolnej
-# grupy referencyjnej: control.
+contrast_matrix <- makeContrasts(
+  cold_vs_control = conditioncold,
+  chilling_vs_control = conditionchilling,
+  cold_vs_chilling =
+    conditioncold - conditionchilling,
+  levels = design_mash
+)
+
+fit_contrasts <- contrasts.fit(
+  fit_mash,
+  contrast_matrix
+)
+
+fit_contrasts <- eBayes(
+  fit_contrasts
+)
+
+deg_summary <- data.frame(
+  contrast = colnames(contrast_matrix),
+  DEG_FDR_0_05 = NA_integer_,
+  Up = NA_integer_,
+  Down = NA_integer_
+)
+
+for (i in seq_len(ncol(contrast_matrix))) {
+  
+  contrast_name <- colnames(
+    contrast_matrix
+  )[i]
+  
+  tt <- topTable(
+    fit_contrasts,
+    coef = contrast_name,
+    number = Inf,
+    adjust.method = "BH",
+    sort.by = "P"
+  )
+  
+  tt$gene <- rownames(tt)
+  
+  tt <- tt[
+    ,
+    c(
+      "gene",
+      setdiff(
+        colnames(tt),
+        "gene"
+      )
+    )
+  ]
+  
+  write.csv(
+    tt,
+    file.path(
+      output_dir,
+      paste0(
+        "limma_",
+        contrast_name,
+        "_all_genes.csv"
+      )
+    ),
+    row.names = FALSE
+  )
+  
+  sig <- !is.na(tt$adj.P.Val) &
+    tt$adj.P.Val < 0.05
+  
+  deg_summary$DEG_FDR_0_05[i] <- sum(sig)
+  
+  deg_summary$Up[i] <- sum(
+    sig & tt$logFC > 0
+  )
+  
+  deg_summary$Down[i] <- sum(
+    sig & tt$logFC < 0
+  )
+  
+  write.csv(
+    tt[sig, , drop = FALSE],
+    file.path(
+      output_dir,
+      paste0(
+        "limma_",
+        contrast_name,
+        "_DEG_FDR005.csv"
+      )
+    ),
+    row.names = FALSE
+  )
+}
+
+write.csv(
+  deg_summary,
+  file.path(
+    output_dir,
+    "limma_DEG_summary.csv"
+  ),
+  row.names = FALSE
+)
+
+print(deg_summary)
+
+
+# ============================================================
+# 16. KORELACJA BLEDOW ESTYMACJI - V
+# ============================================================
+
+# Dwa kontrasty:
+# cold vs control
+# chilling vs control
 #
-# Przyblizamy korelacje bledow na podstawie
-# macierzy modelu i korelacji wewnatrz ID.
+# Korzystaja ze wspolnej grupy control.
+# Bledy oszacowan nie sa wiec niezalezne.
 #
-# Jest to wspolna macierz V.
-# Nie uwzglednia roznic wag voom miedzy genami.
+# Przyblizamy ich korelacje za pomoca
+# GLS z korelacja wewnatrz genotypu.
+#
+# UWAGA:
+# To przyblizenie pomija genowo-specyficzne
+# wagi voom, dlatego nie jest dokladna
+# macierza kowariancji kazdego genu.
 
 n_samples <- nrow(metadata)
 
@@ -459,16 +714,24 @@ same_ID <- outer(
 )
 
 R[same_ID] <- rho
+
 diag(R) <- 1
 
-# Macierz kowariancji wspolczynnikow GLS
+# Kontrola dodatniej okreslonosci
+# macierzy korelacji probek.
+
+chol(R)
+
 R_inv_X <- solve(
   R,
   design_mash
 )
 
 cov_beta <- solve(
-  crossprod(design_mash, R_inv_X)
+  crossprod(
+    design_mash,
+    R_inv_X
+  )
 )
 
 cov_condition <- cov_beta[
@@ -477,23 +740,30 @@ cov_condition <- cov_beta[
   drop = FALSE
 ]
 
-V <- cov2cor(cov_condition)
-
-cat("\nMacierz korelacji bledow V:\n")
-print(V)
+V <- cov2cor(
+  cov_condition
+)
 
 stopifnot(
-  all(is.finite(V)),
-  all(eigen(V, symmetric = TRUE)$values > 0)
+  all(is.finite(V))
 )
+
+chol(V)
+
+cat("\nMacierz V:\n")
+print(V)
 
 write.csv(
   V,
-  file.path(output_dir_mashr, "error_correlation_V.csv")
+  file.path(
+    output_dir,
+    "mashr_error_correlation_V.csv"
+  )
 )
 
+
 # ============================================================
-# 15. PRZYGOTOWANIE DANYCH MASHR
+# 17. PRZYGOTOWANIE DANYCH MASHR
 # ============================================================
 
 mash_data <- mash_set_data(
@@ -502,22 +772,26 @@ mash_data <- mash_set_data(
   V = V
 )
 
-cat("\nDane do mashr przygotowane.\n")
+cat("\nDane mashr przygotowane.\n")
+
 
 # ============================================================
-# 16. MACIERZE KOWARIANCJI EFEKTOW
+# 18. MACIERZE KOWARIANCJI
 # ============================================================
 
 U_canonical <- cov_canonical(
   mash_data
 )
 
-cat("\nLiczba macierzy kowariancji:\n")
+cat("\nLiczba macierzy canonical:\n")
 print(length(U_canonical))
 
+
 # ============================================================
-# 17. DOPASOWANIE MASHR
+# 19. DOPASOWANIE MASHR
 # ============================================================
+
+cat("\nUruchamianie mashr...\n")
 
 mash_fit <- mash(
   mash_data,
@@ -526,8 +800,9 @@ mash_fit <- mash(
 
 cat("\nAnaliza mashr zakonczona.\n")
 
+
 # ============================================================
-# 18. POSTERIOR MEAN, SD I LFSR
+# 20. WYNIKI POSTERIOR
 # ============================================================
 
 posterior_mean <- get_pm(
@@ -542,232 +817,486 @@ lfsr <- get_lfsr(
   mash_fit
 )
 
-cat("\nPosterior mean:\n")
-print(head(posterior_mean))
-
-cat("\nPosterior SD:\n")
-print(head(posterior_sd))
-
-cat("\nLFSR:\n")
-print(head(lfsr))
-
 write.csv(
   posterior_mean,
-  file.path(output_dir_mashr, "posterior_mean.csv")
+  file.path(
+    output_dir,
+    "mashr_posterior_mean.csv"
+  )
 )
 
 write.csv(
   posterior_sd,
-  file.path(output_dir_mashr, "posterior_sd.csv")
+  file.path(
+    output_dir,
+    "mashr_posterior_sd.csv"
+  )
 )
 
 write.csv(
   lfsr,
-  file.path(output_dir_mashr, "lfsr.csv")
+  file.path(
+    output_dir,
+    "mashr_lfsr.csv"
+  )
 )
 
+
 # ============================================================
-# 19. ZESTAWIENIE WYNIKOW DLA GENOW
+# 21. TABELA ZBIORCZA MASHR
 # ============================================================
+
+genes <- rownames(Bhat)
 
 mash_results <- data.frame(
-  gene = rownames(Bhat),
+  gene = genes,
   
-  Bhat_cold = Bhat[, "conditioncold"],
-  SE_cold = Shat[, "conditioncold"],
-  posterior_cold = posterior_mean[, "conditioncold"],
-  posterior_SD_cold = posterior_sd[, "conditioncold"],
-  lfsr_cold = lfsr[, "conditioncold"],
+  cold_Bhat =
+    Bhat[, "conditioncold"],
   
-  Bhat_chilling = Bhat[, "conditionchilling"],
-  SE_chilling = Shat[, "conditionchilling"],
-  posterior_chilling = posterior_mean[, "conditionchilling"],
-  posterior_SD_chilling = posterior_sd[, "conditionchilling"],
-  lfsr_chilling = lfsr[, "conditionchilling"],
+  cold_SE =
+    Shat[, "conditioncold"],
   
-  row.names = NULL
+  cold_posterior_mean =
+    posterior_mean[, "conditioncold"],
+  
+  cold_posterior_sd =
+    posterior_sd[, "conditioncold"],
+  
+  cold_lfsr =
+    lfsr[, "conditioncold"],
+  
+  chilling_Bhat =
+    Bhat[, "conditionchilling"],
+  
+  chilling_SE =
+    Shat[, "conditionchilling"],
+  
+  chilling_posterior_mean =
+    posterior_mean[, "conditionchilling"],
+  
+  chilling_posterior_sd =
+    posterior_sd[, "conditionchilling"],
+  
+  chilling_lfsr =
+    lfsr[, "conditionchilling"],
+  
+  stringsAsFactors = FALSE
 )
 
-# ============================================================
-# 20. IDENTYFIKACJA GENOW Z EFEKTAMI
-# ============================================================
+mash_results$significant_cold <-
+  mash_results$cold_lfsr < 0.05
 
-lfsr_threshold <- 0.05
+mash_results$significant_chilling <-
+  mash_results$chilling_lfsr < 0.05
 
-mash_results$significant_cold <- (
-  mash_results$lfsr_cold < lfsr_threshold
-)
-
-mash_results$significant_chilling <- (
-  mash_results$lfsr_chilling < lfsr_threshold
-)
-
-# Kierunek efektu
-mash_results$direction_cold <- ifelse(
-  mash_results$posterior_cold > 0,
-  "up",
-  "down"
-)
-
-mash_results$direction_chilling <- ifelse(
-  mash_results$posterior_chilling > 0,
-  "up",
-  "down"
-)
-
-# Klasyfikacja genow
-mash_results$response <- "none"
-
-mash_results$response[
+mash_results$significant_both <-
   mash_results$significant_cold &
-    !mash_results$significant_chilling
-] <- "cold_only"
+  mash_results$significant_chilling
 
-mash_results$response[
-  !mash_results$significant_cold &
-    mash_results$significant_chilling
-] <- "chilling_only"
-
-mash_results$response[
-  mash_results$significant_cold &
-    mash_results$significant_chilling
-] <- "both"
-
-cat("\nLiczba genow wedlug odpowiedzi:\n")
-print(table(mash_results$response))
-
-cat("\nPierwsze wyniki:\n")
-print(head(mash_results))
+mash_results$significant_any <-
+  mash_results$significant_cold |
+  mash_results$significant_chilling
 
 write.csv(
   mash_results,
-  file.path(output_dir_mashr, "mashr_gene_results.csv"),
+  file.path(
+    output_dir,
+    "mashr_all_genes.csv"
+  ),
   row.names = FALSE
 )
+
 
 # ============================================================
-# 21. ZAPIS GENOW Z WIARYGODNYMI EFEKTAMI
+# 22. GENY ISTOTNE W MASHR
 # ============================================================
 
-significant_genes <- subset(
-  mash_results,
-  significant_cold | significant_chilling
-)
-
-cold_genes <- subset(
-  mash_results,
-  significant_cold
-)
-
-chilling_genes <- subset(
-  mash_results,
-  significant_chilling
-)
-
-both_genes <- subset(
-  mash_results,
-  significant_cold & significant_chilling
-)
-
 write.csv(
-  significant_genes,
-  file.path(output_dir_mashr, "mashr_significant_genes.csv"),
+  mash_results[
+    mash_results$significant_any,
+    ,
+    drop = FALSE
+  ],
+  file.path(
+    output_dir,
+    "mashr_significant_genes.csv"
+  ),
   row.names = FALSE
 )
 
 write.csv(
-  cold_genes,
-  file.path(output_dir_mashr, "mashr_cold_genes.csv"),
+  mash_results[
+    mash_results$significant_cold,
+    ,
+    drop = FALSE
+  ],
+  file.path(
+    output_dir,
+    "mashr_cold_genes.csv"
+  ),
   row.names = FALSE
 )
 
 write.csv(
-  chilling_genes,
-  file.path(output_dir_mashr, "mashr_chilling_genes.csv"),
+  mash_results[
+    mash_results$significant_chilling,
+    ,
+    drop = FALSE
+  ],
+  file.path(
+    output_dir,
+    "mashr_chilling_genes.csv"
+  ),
   row.names = FALSE
 )
 
 write.csv(
-  both_genes,
-  file.path(output_dir_mashr, "mashr_both_genes.csv"),
+  mash_results[
+    mash_results$significant_both,
+    ,
+    drop = FALSE
+  ],
+  file.path(
+    output_dir,
+    "mashr_both_genes.csv"
+  ),
   row.names = FALSE
 )
+
 
 # ============================================================
-# 22. PODSUMOWANIE
+# 23. PODSUMOWANIE MASHR
 # ============================================================
 
-summary_mashr <- data.frame(
-  category = c(
+mash_summary <- data.frame(
+  comparison = c(
     "cold",
     "chilling",
     "both",
-    "cold_only",
-    "chilling_only"
+    "any"
   ),
-  
-  n_genes = c(
-    nrow(cold_genes),
-    nrow(chilling_genes),
-    nrow(both_genes),
-    sum(mash_results$response == "cold_only"),
-    sum(mash_results$response == "chilling_only")
+  genes_lfsr_005 = c(
+    sum(mash_results$significant_cold),
+    sum(mash_results$significant_chilling),
+    sum(mash_results$significant_both),
+    sum(mash_results$significant_any)
   )
 )
 
 cat("\nPodsumowanie mashr:\n")
-print(summary_mashr)
+print(mash_summary)
 
 write.csv(
-  summary_mashr,
-  file.path(output_dir_mashr, "mashr_summary.csv"),
+  mash_summary,
+  file.path(
+    output_dir,
+    "mashr_summary.csv"
+  ),
   row.names = FALSE
 )
 
+
 # ============================================================
-# 23. ZAPIS OBIEKTOW R
+# 24. PCA
+# ============================================================
+
+cat("\nTworzenie PCA...\n")
+
+pca <- prcomp(
+  t(v_mash$E),
+  center = TRUE,
+  scale. = FALSE
+)
+
+variance_explained <- 100 *
+  pca$sdev^2 /
+  sum(pca$sdev^2)
+
+pca_df <- data.frame(
+  sample = metadata$sample,
+  condition = metadata$condition,
+  era = metadata$era,
+  ID = metadata$ID,
+  PC1 = pca$x[, 1],
+  PC2 = pca$x[, 2]
+)
+
+write.csv(
+  pca_df,
+  file.path(
+    output_dir,
+    "PCA_coordinates.csv"
+  ),
+  row.names = FALSE
+)
+
+p_pca <- ggplot(
+  pca_df,
+  aes(
+    x = PC1,
+    y = PC2,
+    color = condition,
+    shape = era
+  )
+) +
+  geom_point(
+    size = 2,
+    alpha = 0.7
+  ) +
+  labs(
+    title = "PCA - limma-voom + mashr",
+    x = paste0(
+      "PC1 (",
+      round(variance_explained[1], 1),
+      "%)"
+    ),
+    y = paste0(
+      "PC2 (",
+      round(variance_explained[2], 1),
+      "%)"
+    )
+  ) +
+  theme_bw()
+
+ggsave(
+  file.path(
+    output_dir,
+    "PCA_condition_era.png"
+  ),
+  plot = p_pca,
+  width = 9,
+  height = 7,
+  dpi = 300
+)
+
+
+# ============================================================
+# 25. VOLCANO PLOTS LIMMA
+# ============================================================
+
+for (
+  contrast_name in
+  colnames(contrast_matrix)
+) {
+  
+  tt <- topTable(
+    fit_contrasts,
+    coef = contrast_name,
+    number = Inf,
+    sort.by = "none"
+  )
+  
+  tt$gene <- rownames(tt)
+  
+  tt$significant <- (
+    !is.na(tt$adj.P.Val) &
+      tt$adj.P.Val < 0.05
+  )
+  
+  tt$negLog10P <- -log10(
+    pmax(
+      tt$P.Value,
+      .Machine$double.xmin
+    )
+  )
+  
+  p_volcano <- ggplot(
+    tt,
+    aes(
+      x = logFC,
+      y = negLog10P,
+      color = significant
+    )
+  ) +
+    geom_point(
+      alpha = 0.5,
+      size = 1
+    ) +
+    scale_color_manual(
+      values = c(
+        "FALSE" = "grey70",
+        "TRUE" = "firebrick"
+      )
+    ) +
+    labs(
+      title = paste(
+        "Limma:",
+        contrast_name
+      ),
+      x = "log2 fold change",
+      y = "-log10(p-value)"
+    ) +
+    theme_bw()
+  
+  ggsave(
+    file.path(
+      output_dir,
+      paste0(
+        "volcano_",
+        contrast_name,
+        ".png"
+      )
+    ),
+    plot = p_volcano,
+    width = 8,
+    height = 6,
+    dpi = 300
+  )
+}
+
+
+# ============================================================
+# 26. HEATMAP TOP GENOW
+# ============================================================
+
+top_genes <- mash_results[
+  mash_results$significant_any,
+  ,
+  drop = FALSE
+]
+
+if (nrow(top_genes) >= 2) {
+  
+  top_genes$min_lfsr <- pmin(
+    top_genes$cold_lfsr,
+    top_genes$chilling_lfsr
+  )
+  
+  top_genes <- top_genes[
+    order(top_genes$min_lfsr),
+    ,
+    drop = FALSE
+  ]
+  
+  selected_genes <- head(
+    top_genes$gene,
+    50
+  )
+  
+  heatmap_matrix <- v_mash$E[
+    selected_genes,
+    ,
+    drop = FALSE
+  ]
+  
+  annotation_col <- data.frame(
+    condition = metadata$condition,
+    era = metadata$era
+  )
+  
+  rownames(annotation_col) <-
+    metadata$sample
+  
+  png(
+    file.path(
+      output_dir,
+      "heatmap_top50_mashr.png"
+    ),
+    width = 1600,
+    height = 1200,
+    res = 150
+  )
+  
+  pheatmap(
+    heatmap_matrix,
+    scale = "row",
+    annotation_col = annotation_col,
+    show_colnames = FALSE,
+    main = "Top genes - mashr"
+  )
+  
+  dev.off()
+  
+} else {
+  
+  cat(
+    "\nZa malo istotnych genow",
+    "do utworzenia heatmapy.\n"
+  )
+  
+}
+
+
+# ============================================================
+# 27. ZAPIS OBIEKTOW RDS
 # ============================================================
 
 saveRDS(
   list(
     metadata = metadata,
+    tx2gene = tx2gene,
     counts = counts,
     design = design_mash,
     dge = dge_mash,
     voom = v_mash,
-    correlation = rho,
+    duplicateCorrelation = corfit,
+    rho = rho,
     fit = fit_mash,
     fit_ebayes = fit_mash_ebayes,
-    Bhat_all = Bhat_all,
-    Shat_all = Shat_all,
+    fit_contrasts = fit_contrasts,
     Bhat = Bhat,
     Shat = Shat,
-    V = V,
-    mash_fit = mash_fit,
+    V = V
+  ),
+  file.path(
+    output_dir,
+    "limma_mashr_objects.rds"
+  )
+)
+
+saveRDS(
+  list(
+    data = mash_data,
+    U_canonical = U_canonical,
+    fit = mash_fit,
     posterior_mean = posterior_mean,
     posterior_sd = posterior_sd,
     lfsr = lfsr,
     results = mash_results
   ),
-  file.path(output_dir_mashr, "mashr_objects.rds")
+  file.path(
+    output_dir,
+    "mashr_objects.rds"
+  )
 )
 
+
 # ============================================================
-# 24. KONIEC ANALIZY
+# 28. INFORMACJE O SESJI
+# ============================================================
+
+capture.output(
+  sessionInfo(),
+  file = file.path(
+    output_dir,
+    "sessionInfo.txt"
+  )
+)
+
+
+# ============================================================
+# 29. KONIEC ANALIZY
 # ============================================================
 
 cat("\n========================================\n")
-cat("ANALIZA MASHR ZAKONCZONA\n")
+cat("ANALIZA ZAKONCZONA\n")
 cat("========================================\n")
 
+cat("\nLiczba probek:\n")
+print(nrow(metadata))
+
+cat("\nLiczba genow po filtrowaniu:\n")
+print(nrow(dge_mash))
+
+cat("\nKorelacja ID:\n")
+print(rho)
+
+cat("\nDEG limma:\n")
+print(deg_summary)
+
+cat("\nWyniki mashr:\n")
+print(mash_summary)
+
 cat("\nWyniki zapisano w:\n")
-print(output_dir_mashr)
-
-cat("\nLiczba genow z efektem cold:",
-    nrow(cold_genes), "\n")
-
-cat("Liczba genow z efektem chilling:",
-    nrow(chilling_genes), "\n")
-
-cat("Liczba genow z efektem w obu warunkach:",
-    nrow(both_genes), "\n")
+print(output_dir)
