@@ -95,8 +95,17 @@ metadata$condition <- factor(
   levels = c("control", "cold", "chilling")
 )
 
+metadata$era <- trimws(
+  as.character(metadata$era)
+)
+
+metadata$era[
+  is.na(metadata$era) | metadata$era == ""
+] <- "Unknown"
+
 metadata$era <- factor(
-  trimws(as.character(metadata$era))
+  metadata$era,
+  levels = c("I", "II", "Unknown")
 )
 
 stopifnot(
@@ -108,11 +117,14 @@ stopifnot(
   identical(colnames(counts), metadata$sample)
 )
 
+cat("\nLiczba wszystkich probek:\n")
+print(nrow(metadata))
+
 cat("\nLiczba probek wedlug condition:\n")
 print(table(metadata$condition))
 
 cat("\nLiczba probek wedlug era:\n")
-print(table(metadata$era))
+print(table(metadata$era, useNA = "always"))
 
 cat("\nTabela era x condition:\n")
 print(table(metadata$era, metadata$condition))
@@ -120,18 +132,18 @@ print(table(metadata$era, metadata$condition))
 cat("\nTabela ID x condition:\n")
 print(table(metadata$ID, metadata$condition))
 
+cat("\nPierwsze wiersze metadata:\n")
+print(head(metadata))
+
+stopifnot(
+  nrow(metadata) == ncol(counts)
+)
+
+cat("\nMetadata przygotowane poprawnie.\n")
+
 # ============================================================
 # 4. MODEL CONDITION + ERA
 # ============================================================
-
-# Control jest poziomem referencyjnym.
-# Pierwszy poziom era jest referencyjny.
-#
-# Model:
-# expression ~ condition + era
-#
-# Powtarzane pomiary ID uwzglednimy jako blok
-# przy dopasowywaniu modelu.
 
 design_mash <- model.matrix(
   ~ condition + era,
