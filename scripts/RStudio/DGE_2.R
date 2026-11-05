@@ -12,7 +12,6 @@ library(mashr)
 library(ggplot2)
 library(pheatmap)
 
-
 # ============================================================
 # 1. SCIEZKI
 # ============================================================
@@ -51,7 +50,7 @@ print(output_dir)
 
 
 # ============================================================
-# 3. WCZYTANIE METADANYCH
+# 2. WCZYTANIE METADANYCH
 # ============================================================
 
 metadata <- read.csv2(
@@ -91,15 +90,10 @@ metadata$era <- trimws(
   as.character(metadata$era)
 )
 
-# Puste pola i NA w era pozostaja w analizie
-# jako osobna kategoria techniczna.
-
 metadata$era[
   is.na(metadata$era) |
     metadata$era == ""
 ] <- "Unknown"
-
-# Kontrola wartosci przed zamiana na factor
 
 stopifnot(
   !anyNA(metadata$sample),
@@ -164,9 +158,8 @@ write.csv(
   row.names = FALSE
 )
 
-
 # ============================================================
-# 4. PLIKI KALLISTO
+# 3. PLIKI KALLISTO
 # ============================================================
 
 files <- file.path(
@@ -194,9 +187,8 @@ if (length(missing_files) > 0) {
 cat("\nLiczba plikow kallisto:\n")
 print(length(files))
 
-
 # ============================================================
-# 5. TRANSCRIPT-TO-GENE
+# 4. TRANSCRIPT-TO-GENE
 # ============================================================
 
 transcript_ids <- rhdf5::h5read(
@@ -235,9 +227,8 @@ write.csv(
   row.names = FALSE
 )
 
-
 # ============================================================
-# 6. IMPORT KALLISTO PRZEZ TXIMPORT
+# 5. IMPORT KALLISTO PRZEZ TXIMPORT
 # ============================================================
 
 cat("\nImport kallisto...\n")
@@ -273,9 +264,8 @@ write.csv(
   )
 )
 
-
 # ============================================================
-# 7. MACIERZ MODELU
+# 6. MACIERZ MODELU
 # ============================================================
 
 design_mash <- model.matrix(
@@ -304,9 +294,8 @@ write.csv(
   )
 )
 
-
 # ============================================================
-# 8. FILTROWANIE GENOW
+# 7. FILTROWANIE GENOW
 # ============================================================
 
 dge_mash <- DGEList(
@@ -359,9 +348,8 @@ dge_mash <- dge_mash[
   keep.lib.sizes = FALSE
 ]
 
-
 # ============================================================
-# 9. NORMALIZACJA TMM
+# 8. NORMALIZACJA TMM
 # ============================================================
 
 dge_mash <- calcNormFactors(
@@ -395,9 +383,8 @@ write.csv(
   )
 )
 
-
 # ============================================================
-# 10. WSTEPNE VOOM
+# 9. WSTEPNE VOOM
 # ============================================================
 
 cat("\nWstepne voom...\n")
@@ -408,9 +395,8 @@ v_initial <- voom(
   plot = FALSE
 )
 
-
 # ============================================================
-# 11. DUPLICATECORRELATION
+# 10. DUPLICATE CORRELATION
 # ============================================================
 
 cat("\nEstymacja korelacji wewnatrz ID...\n")
@@ -446,9 +432,8 @@ write.csv(
   row.names = FALSE
 )
 
-
 # ============================================================
-# 12. VOOM Z KORELACJA
+# 11. VOOM Z KORELACJA
 # ============================================================
 
 pdf(
@@ -478,9 +463,8 @@ write.csv(
   )
 )
 
-
 # ============================================================
-# 13. DOPASOWANIE MODELU LIMMA
+# 12. DOPASOWANIE MODELU LIMMA
 # ============================================================
 
 fit_mash <- lmFit(
@@ -496,9 +480,8 @@ fit_mash_ebayes <- eBayes(
 
 cat("\nModel limma dopasowany.\n")
 
-
 # ============================================================
-# 14. WYNIKI LIMMA
+# 13. WYNIKI LIMMA
 # ============================================================
 
 condition_coefs <- c(
@@ -512,9 +495,6 @@ stopifnot(
       colnames(fit_mash$coefficients)
   )
 )
-
-# Efekty i ich bledy standardowe
-# do dalszej analizy mashr.
 
 Bhat_all <- fit_mash$coefficients
 
@@ -576,9 +556,8 @@ write.csv(
   )
 )
 
-
 # ============================================================
-# 15. KONTRASTY I DEG Z LIMMA
+# 14. KONTRASTY I DEG Z LIMMA
 # ============================================================
 
 contrast_matrix <- makeContrasts(
@@ -683,25 +662,9 @@ write.csv(
 
 print(deg_summary)
 
-
 # ============================================================
-# 16. KORELACJA BLEDOW ESTYMACJI - V
+# 15. KORELACJA BLEDOW ESTYMACJI - V
 # ============================================================
-
-# Dwa kontrasty:
-# cold vs control
-# chilling vs control
-#
-# Korzystaja ze wspolnej grupy control.
-# Bledy oszacowan nie sa wiec niezalezne.
-#
-# Przyblizamy ich korelacje za pomoca
-# GLS z korelacja wewnatrz genotypu.
-#
-# UWAGA:
-# To przyblizenie pomija genowo-specyficzne
-# wagi voom, dlatego nie jest dokladna
-# macierza kowariancji kazdego genu.
 
 n_samples <- nrow(metadata)
 
@@ -716,9 +679,6 @@ same_ID <- outer(
 R[same_ID] <- rho
 
 diag(R) <- 1
-
-# Kontrola dodatniej okreslonosci
-# macierzy korelacji probek.
 
 chol(R)
 
@@ -761,9 +721,8 @@ write.csv(
   )
 )
 
-
 # ============================================================
-# 17. PRZYGOTOWANIE DANYCH MASHR
+# 16. PRZYGOTOWANIE DANYCH MASHR
 # ============================================================
 
 mash_data <- mash_set_data(
@@ -774,9 +733,8 @@ mash_data <- mash_set_data(
 
 cat("\nDane mashr przygotowane.\n")
 
-
 # ============================================================
-# 18. MACIERZE KOWARIANCJI
+# 17. MACIERZE KOWARIANCJI
 # ============================================================
 
 U_canonical <- cov_canonical(
@@ -786,9 +744,8 @@ U_canonical <- cov_canonical(
 cat("\nLiczba macierzy canonical:\n")
 print(length(U_canonical))
 
-
 # ============================================================
-# 19. DOPASOWANIE MASHR
+# 18. DOPASOWANIE MASHR
 # ============================================================
 
 cat("\nUruchamianie mashr...\n")
@@ -800,9 +757,8 @@ mash_fit <- mash(
 
 cat("\nAnaliza mashr zakonczona.\n")
 
-
 # ============================================================
-# 20. WYNIKI POSTERIOR
+# 19. WYNIKI POSTERIOR
 # ============================================================
 
 posterior_mean <- get_pm(
@@ -841,9 +797,8 @@ write.csv(
   )
 )
 
-
 # ============================================================
-# 21. TABELA ZBIORCZA MASHR
+# 20. TABELA ZBIORCZA MASHR
 # ============================================================
 
 genes <- rownames(Bhat)
@@ -907,9 +862,8 @@ write.csv(
   row.names = FALSE
 )
 
-
 # ============================================================
-# 22. GENY ISTOTNE W MASHR
+# 21. GENY ISTOTNE W MASHR
 # ============================================================
 
 write.csv(
@@ -964,9 +918,8 @@ write.csv(
   row.names = FALSE
 )
 
-
 # ============================================================
-# 23. PODSUMOWANIE MASHR
+# 22. PODSUMOWANIE MASHR
 # ============================================================
 
 mash_summary <- data.frame(
@@ -996,9 +949,8 @@ write.csv(
   row.names = FALSE
 )
 
-
 # ============================================================
-# 24. PCA
+# 23. PCA
 # ============================================================
 
 cat("\nTworzenie PCA...\n")
@@ -1070,9 +1022,8 @@ ggsave(
   dpi = 300
 )
 
-
 # ============================================================
-# 25. VOLCANO PLOTS LIMMA
+# 24. VOLCANO PLOTS LIMMA
 # ============================================================
 
 for (
@@ -1145,9 +1096,8 @@ for (
   )
 }
 
-
 # ============================================================
-# 26. HEATMAP TOP GENOW
+# 25. HEATMAP TOP GENOW
 # ============================================================
 
 top_genes <- mash_results[
@@ -1217,9 +1167,8 @@ if (nrow(top_genes) >= 2) {
   
 }
 
-
 # ============================================================
-# 27. ZAPIS OBIEKTOW RDS
+# 26. ZAPIS OBIEKTOW RDS
 # ============================================================
 
 saveRDS(
@@ -1263,7 +1212,7 @@ saveRDS(
 
 
 # ============================================================
-# 28. INFORMACJE O SESJI
+# 27. INFORMACJE O SESJI
 # ============================================================
 
 capture.output(
@@ -1274,9 +1223,8 @@ capture.output(
   )
 )
 
-
 # ============================================================
-# 29. KONIEC ANALIZY
+# 28. KONIEC ANALIZY
 # ============================================================
 
 cat("\n========================================\n")
